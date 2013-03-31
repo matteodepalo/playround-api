@@ -1,0 +1,28 @@
+{
+  "name": "baseline",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The base role for Playround-api",
+  "default_attributes": {
+    "user": {
+      "name": "deployer",
+      "password": "$1$MigjC5ZL$IK759OJZzuHZR0jpV9I/r/"
+    },
+    "deploy_to": "/var/www/playround",
+    "sockets_folder": "/var/www/playround/tmp/sockets",
+    "release_path": "/var/www/playround/current",
+    "ruby-version": "2.0.0-rc2"
+  },
+  "run_list": [
+    "recipe[vim]",
+    "recipe[mosh]",
+    "recipe[redis::source]",
+    "recipe[memcached]",
+    "recipe[ruby_build]",
+    "recipe[rbenv::system]",
+    "recipe[runit]",
+    "recipe[nginx]",
+    "recipe[main::setup]",
+    "recipe[main]"
+  ]
+}
