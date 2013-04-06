@@ -1,23 +1,9 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0.beta1'
-
 gem 'pg'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.0.1'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
+gem 'jbuilder'
 gem 'unicorn'
-
-# Deploy with Capistrano
-
-# To use debugger
-# gem 'debugger'
 
 group :development do
   gem 'capistrano'
