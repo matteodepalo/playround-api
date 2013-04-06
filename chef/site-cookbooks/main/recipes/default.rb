@@ -15,6 +15,7 @@ end
 end
 
 runit_service "runsvdir-#{node[:user][:name]}" do
+  run_template_name 'runsvdir-deployer'
   default_logger true
 end
 
