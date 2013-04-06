@@ -19,10 +19,9 @@
     "recipe[redis::source]",
     "recipe[memcached]",
     "recipe[ruby_build]",
-    "recipe[rbenv::system]",
+    "recipe[rbenv]",
     "recipe[runit]",
     "recipe[nginx]",
-    "recipe[main::setup]",
     "recipe[main]"
   ]
 }

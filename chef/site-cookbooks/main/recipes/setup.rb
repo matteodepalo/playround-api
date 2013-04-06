@@ -1,3 +1,6 @@
+include_recipe 'rbenv::system'
+include_recipe 'rbenv::vagrant' if node[:environment] == 'development'
+
 rbenv_ruby node['ruby-version']
 rbenv_global node['ruby-version']
 

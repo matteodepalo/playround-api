@@ -1,3 +1,5 @@
+include_recipe 'main::setup'
+
 template '/etc/nginx/sites-enabled/default' do
   source 'nginx.erb'
   owner 'root'
