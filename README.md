@@ -19,3 +19,5 @@ go back in the host machine and bootstrap Chef with
 ```
 knife solo bootstrap root@192.168.33.10 development.json
 ```
+
+the api should be running on localhost:8080
