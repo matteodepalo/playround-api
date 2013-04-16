@@ -43,6 +43,8 @@ before_fork do |server, worker|
   #
   # Using this method we get 0 downtime deploys.
 
+  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+
   if rails_env == 'production'
     old_pid = "#{deploy_to}/shared/pids/unicorn.pid.oldbin"
   else
@@ -56,4 +58,8 @@ before_fork do |server, worker|
       # someone else did our job for us
     end
   end
+end
+
+after_fork do |server, worker|
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)  
 end
