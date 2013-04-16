@@ -1,28 +1,21 @@
-== README
+# How to bootstrap the Vagrant machine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```
+vagrant up
 
-Things you may want to cover:
+vagrant ssh
+```
 
-* Ruby version
+change the root user password to "vagrant"
 
-* System dependencies
+```
+sudo su
 
-* Configuration
+passwd
+```
 
-* Database creation
+go back in the host machine and bootstrap Chef with
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+```
+knife solo bootstrap root@192.168.33.10 development.json
+```
