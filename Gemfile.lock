@@ -53,6 +53,11 @@ GEM
       yajl-ruby (~> 1.1)
     diff-lcs (1.2.3)
     erubis (2.7.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     highline (1.6.16)
     hike (1.2.1)
     i18n (0.6.4)
@@ -169,6 +174,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   capistrano
+  factory_girl_rails
   knife-solo
   pg
   rails (= 4.0.0.beta1)

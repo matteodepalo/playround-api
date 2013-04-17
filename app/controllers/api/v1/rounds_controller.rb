@@ -10,11 +10,11 @@ class Api::V1::RoundsController < ApplicationController
   end
 
   def create
-    respond_with Round.create(params[:entry])
+    respond_with :api, :v1, Round.create(params[:round])
   end
 
   def update
-    respond_with Round.update(params[:id], params[:entry])
+    respond_with Round.update(params[:id], params[:round])
   end
 
   def destroy
