@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20130417161720) do
 
   create_table "rounds", force: true do |t|
-    t.string   "status"
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

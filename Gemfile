@@ -5,6 +5,7 @@ gem 'rails', '4.0.0.beta1'
 gem 'rails-api'
 gem 'pg'
 gem 'active_model_serializers'
+gem 'state_machine'
 
 group :development do
   gem 'capistrano'
