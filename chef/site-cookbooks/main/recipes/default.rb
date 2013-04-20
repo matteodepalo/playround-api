@@ -40,11 +40,10 @@ if node[:environment] == 'development'
 
     code <<-EOT2
       bundle install
-      bundle exec rake db:migrate
     EOT2
   end
 
   runit_service 'playround' do
     action :restart
-  end  
+  end
 end
