@@ -10,14 +10,24 @@ class Api::V1::RoundsController < ApplicationController
   end
 
   def create
-    respond_with :api, :v1, Round.create(params[:round])
+    respond_with(:api, :v1, Round.create(round_params))
   end
 
   def update
-    respond_with Round.update(params[:id], params[:round])
+    @round = Round.find(params[:id])
+
+    respond_with @round.update(round_params)
   end
 
   def destroy
-    respond_with Round.destroy(params[:id])
+    @round = Round.find(params[:id])
+
+    respond_with @round.destroy
+  end
+
+  private
+
+  def round_params
+    params.permit(:round)
   end
 end
