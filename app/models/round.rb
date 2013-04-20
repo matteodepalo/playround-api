@@ -1,4 +1,6 @@
 class Round < ActiveRecord::Base
+  belongs_to :game
+
   state_machine initial: :waiting_for_players do
     event :start do
       transition from: :waiting_for_players, to: :ongoing
