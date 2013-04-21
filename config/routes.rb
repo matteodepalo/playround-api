@@ -6,7 +6,7 @@ PlayroundApi::Application.routes.draw do
       resources :arenas, except: [:new, :edit]
     end
 
-    get 'v:api/*path', to: redirect("/api/v1/%{path}"), via: :all
-    get '*path', to: redirect("/api/v1/%{path}"), via: :all
+    match 'v:api/*path', to: redirect("/api/v1/%{path}"), via: :all
+    match '*path', to: redirect("/api/v1/%{path}"), via: :all
   end
 end
