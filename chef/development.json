@@ -7,10 +7,10 @@
   "deploy_to": "/vagrant",
   "release_path": "/vagrant",
   "sockets_folder": "/home/vagrant/sockets",
-  "postgresql": {
-    "password": {
-      "postgres": "psql"
-    }
-  },
-  "run_list": ["recipe[postgresql::server]", "role[baseline]"]
+  "run_list": [
+    "recipe[postgresql::server]",
+    "recipe[postgresql::contrib]",
+    "recipe[postgresql::server_dev]",
+    "role[baseline]"
+  ]
 }

@@ -14,11 +14,6 @@ SITE
       ohai (>= 1.1.4)
       yum (>= 0.0.0)
     ohai (1.1.8)
-    openssl (1.0.2)
-    postgresql (2.4.0)
-      apt (>= 0.0.0)
-      build-essential (>= 0.0.0)
-      openssl (>= 0.0.0)
     redisio (1.4.1)
       ulimit (>= 0.1.2)
     runit (1.1.2)
@@ -41,6 +36,14 @@ GIT
   sha: c940b5e9cd40eaba10d6285de6648f4d25fe959d
   specs:
     ruby_build (0.7.2)
+
+GIT
+  remote: git://github.com/phlipper/chef-postgresql.git
+  ref: master
+  sha: ff499fcff50c1113f74cc32352ebfbede93a06cc
+  specs:
+    postgresql (0.10.1)
+      apt (>= 0.0.0)
 
 DEPENDENCIES
   memcached (>= 0)
