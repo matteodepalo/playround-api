@@ -35,7 +35,6 @@ end
 
 if node[:environment] == 'development'
   rbenv_script 'install' do
-    rbenv_version node['ruby-version']
     cwd node[:release_path]
 
     code <<-EOT2

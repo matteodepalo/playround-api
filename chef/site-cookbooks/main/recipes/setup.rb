@@ -1,7 +1,7 @@
 include_recipe 'rbenv::system'
 
 rbenv_ruby node['ruby-version']
-rbenv_global 'system'
+rbenv_global node['ruby-version']
 
 rbenv_gem 'bundler'
 
