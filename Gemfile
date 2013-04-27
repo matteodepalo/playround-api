@@ -6,6 +6,7 @@ gem 'rails-api'
 gem 'pg'
 gem 'state_machine'
 gem 'oj'
+gem 'active_model_serializers'
 gem 'annotate', git: 'git://github.com/ctran/annotate_models.git'
 
 group :development do
