@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20130427111717) do
     t.datetime "updated_at"
   end
 
-  add_index "games", ["name"], name: "index_games_on_name"
+  add_index "games", ["name"], name: "index_games_on_name", using: :btree
 
   create_table "rounds", force: true do |t|
     t.string   "state"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20130427111717) do
     t.datetime "updated_at"
   end
 
-  add_index "rounds", ["game_id"], name: "index_rounds_on_game_id"
+  add_index "rounds", ["game_id"], name: "index_rounds_on_game_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

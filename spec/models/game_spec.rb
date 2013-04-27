@@ -7,6 +7,10 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_games_on_name  (name)
+#
 
 require 'spec_helper'
 

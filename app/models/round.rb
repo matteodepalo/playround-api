@@ -9,12 +9,16 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_rounds_on_game_id  (game_id)
+#
 
 class Round < ActiveRecord::Base
   belongs_to :game
   belongs_to :arena
 
-  validate :state, :presence => true
+  validates :state, presence: true
 
   state_machine initial: :waiting_for_players do
     event :start do

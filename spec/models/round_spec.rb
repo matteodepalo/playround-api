@@ -9,6 +9,10 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_rounds_on_game_id  (game_id)
+#
 
 require 'spec_helper'
 
