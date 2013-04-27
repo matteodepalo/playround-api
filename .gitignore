@@ -21,3 +21,6 @@ tmp
 cookbooks
 /.rvmrc
 *.box
+/vendor/bundle
+/vendor/cache
+/bin
