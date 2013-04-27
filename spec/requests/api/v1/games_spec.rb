@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Games Requests' do
   describe 'GET /games/1' do
-    it 'returns the requested' do
+    it 'returns the requested game' do
       game = create :game
       get api_v1_game_path(game)
       response.status.should eq(200)

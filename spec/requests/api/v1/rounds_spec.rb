@@ -4,7 +4,7 @@ describe 'Rounds Requests' do
   valid_attributes = {}
 
   describe 'GET /rounds/1' do
-    it 'returns the requested' do
+    it 'returns the requested round' do
       round = create :round
       get api_v1_round_path(round)
       response.status.should eq(200)

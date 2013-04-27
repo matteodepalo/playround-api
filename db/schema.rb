@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130420141658) do
+ActiveRecord::Schema.define(version: 20130427111717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,5 +41,12 @@ ActiveRecord::Schema.define(version: 20130420141658) do
   end
 
   add_index "rounds", ["game_id"], name: "index_rounds_on_game_id"
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

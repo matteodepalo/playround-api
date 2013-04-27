@@ -2,8 +2,9 @@ PlayroundApi::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :rounds, except: [:new, :edit]
-      resources :games, except: [:new, :edit]
-      resources :arenas, except: [:new, :edit]
+      resources :games, only: [:index, :show]
+      resources :arenas, only: [:index, :show]
+      resources :users, only: [:show]
     end
 
     match 'v:api/*path', to: redirect("/api/v1/%{path}"), via: :all

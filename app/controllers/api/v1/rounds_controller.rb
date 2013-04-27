@@ -1,6 +1,4 @@
 class Api::V1::RoundsController < ApplicationController
-  respond_to :json
-
   def index
     respond_with Round.all
   end

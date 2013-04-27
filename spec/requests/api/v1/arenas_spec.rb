@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Arenas Requests' do
   describe 'GET /arenas/1' do
-    it 'returns the requested' do
+    it 'returns the requested arena' do
       arena = create :arena
       get api_v1_arena_path(arena)
       response.status.should eq(200)
