@@ -11,7 +11,7 @@
     "deploy_to": "/var/www/playround",
     "sockets_folder": "/var/www/playround/tmp/sockets",
     "release_path": "/var/www/playround/current",
-    "ruby-version": "2.0.0-rc2",
+    "ruby-version": "2.0.0-p0",
     "redisio":{
       "version": "2.6.12"
     }
