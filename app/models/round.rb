@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: rounds
+#
+#  id         :integer          not null, primary key
+#  state      :string(255)
+#  game_id    :integer
+#  arena_id   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Round < ActiveRecord::Base
   belongs_to :game
   belongs_to :arena

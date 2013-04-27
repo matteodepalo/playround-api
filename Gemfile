@@ -6,6 +6,7 @@ gem 'rails-api'
 gem 'pg'
 gem 'state_machine'
 gem 'oj'
+gem 'annotate'
 
 group :development do
   gem 'capistrano'
