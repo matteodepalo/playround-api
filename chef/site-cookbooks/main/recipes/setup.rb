@@ -32,11 +32,4 @@ if node[:environment] == 'development'
     privileges :superuser => true, :createdb => true, :login => true
     password 'psql'
   end
-
-  pg_database 'playround' do
-    owner 'playround'
-    encoding 'utf8'
-    template 'template0'
-    locale 'en_US.UTF8'
-  end
 end
