@@ -6,7 +6,7 @@ gem 'rails-api'
 gem 'pg'
 gem 'state_machine'
 gem 'oj'
-gem 'annotate'
+gem 'annotate', git: 'git://github.com/ctran/annotate_models.git'
 
 group :development do
   gem 'capistrano'
