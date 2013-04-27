@@ -1,8 +1,7 @@
 include_recipe 'rbenv::system'
-include_recipe 'rbenv::vagrant' if node[:environment] == 'development'
 
 rbenv_ruby node['ruby-version']
-rbenv_global node['ruby-version']
+rbenv_global 'system'
 
 rbenv_gem 'bundler'
 
@@ -32,10 +31,6 @@ if node[:environment] == 'development'
   pg_user 'playround' do
     privileges :superuser => true, :createdb => true, :login => true
     password 'psql'
-  end
-
-  pg_database_extensions 'template1' do
-    extensions ['hstore']
   end
 
   pg_database 'playround' do
