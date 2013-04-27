@@ -16,6 +16,5 @@
 
 FactoryGirl.define do
   factory :round do
-    after(:build) { |round| round.send(:initialize_state_machines, dynamic: :force) }
   end
 end
