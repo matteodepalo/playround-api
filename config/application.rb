@@ -26,5 +26,7 @@ module PlayroundApi
 
     # Disable the asset pipeline.
     config.assets.enabled = false
+
+    config.active_record.schema_format = :sql
   end
 end

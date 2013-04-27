@@ -1,7 +1,6 @@
 class CreateGames < ActiveRecord::Migration
   def change
-    create_table :games, id: false do |t|
-      t.primary_key :id, :uuid
+    create_table :games, id: :uuid do |t|
       t.string :name
 
       t.timestamps
