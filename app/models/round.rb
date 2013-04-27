@@ -14,6 +14,8 @@ class Round < ActiveRecord::Base
   belongs_to :game
   belongs_to :arena
 
+  validate :state, :presence => true
+
   state_machine initial: :waiting_for_players do
     event :start do
       transition from: :waiting_for_players, to: :ongoing
