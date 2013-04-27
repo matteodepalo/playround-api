@@ -2,7 +2,7 @@
 #
 # Table name: arenas
 #
-#  id         :integer          not null, primary key
+#  id         :uuid             not null, primary key
 #  name       :string(255)
 #  latitude   :float
 #  longitude  :float

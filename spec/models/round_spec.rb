@@ -2,7 +2,7 @@
 #
 # Table name: rounds
 #
-#  id         :integer          not null, primary key
+#  id         :uuid             not null, primary key
 #  state      :string(255)
 #  game_id    :integer
 #  arena_id   :integer

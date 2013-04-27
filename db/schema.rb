@@ -15,8 +15,10 @@ ActiveRecord::Schema.define(version: 20130427111717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "arenas", force: true do |t|
+  create_table "arenas", id: false, force: true do |t|
+    t.uuid     "id",         null: false
     t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
@@ -24,7 +26,8 @@ ActiveRecord::Schema.define(version: 20130427111717) do
     t.datetime "updated_at"
   end
 
-  create_table "games", force: true do |t|
+  create_table "games", id: false, force: true do |t|
+    t.uuid     "id",         null: false
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -32,7 +35,8 @@ ActiveRecord::Schema.define(version: 20130427111717) do
 
   add_index "games", ["name"], name: "index_games_on_name", using: :btree
 
-  create_table "rounds", force: true do |t|
+  create_table "rounds", id: false, force: true do |t|
+    t.uuid     "id",         null: false
     t.string   "state"
     t.integer  "game_id"
     t.integer  "arena_id"
@@ -42,7 +46,8 @@ ActiveRecord::Schema.define(version: 20130427111717) do
 
   add_index "rounds", ["game_id"], name: "index_rounds_on_game_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", id: false, force: true do |t|
+    t.uuid     "id",         null: false
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"

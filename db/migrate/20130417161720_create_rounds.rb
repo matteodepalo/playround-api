@@ -1,6 +1,7 @@
 class CreateRounds < ActiveRecord::Migration
   def change
-    create_table :rounds do |t|
+    create_table :rounds, id: false do |t|
+      t.primary_key :id, :uuid
       t.string :state
       t.references :game
       t.references :arena
