@@ -4,8 +4,8 @@
 #
 #  id         :uuid             not null, primary key
 #  state      :string(255)
-#  game_id    :integer
-#  arena_id   :integer
+#  game_id    :uuid
+#  arena_id   :uuid
 #  created_at :datetime
 #  updated_at :datetime
 #

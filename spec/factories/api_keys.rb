@@ -4,7 +4,7 @@
 #
 #  id           :uuid             not null, primary key
 #  access_token :string(255)
-#  user_id      :integer
+#  user_id      :uuid
 #  created_at   :datetime
 #  updated_at   :datetime
 #
