@@ -28,5 +28,5 @@ PlayroundApi::Application.routes.draw do
   match 'v:api/*path', to: redirect("/v1/%{path}"), via: :all
   match '*path', to: redirect("/v1/%{path}"), via: :all
 
-  root to: -> { [404, {}, ['']] }
+  root to: -> (app) { [404, {}, ['']] }
 end
