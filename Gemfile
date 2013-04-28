@@ -12,7 +12,7 @@ gem 'annotate', git: 'git://github.com/ctran/annotate_models.git'
 group :development do
   gem 'capistrano'
   gem 'knife-solo'
-  gem 'debugger', git: 'git://github.com/cldwalker/debugger.git'
+  gem 'debugger', git: 'git://github.com/cldwalker/debugger.git', require: false
 end
 
 group :test, :development do
