@@ -4,6 +4,7 @@ rbenv_ruby node['ruby-version']
 rbenv_global node['ruby-version']
 
 rbenv_gem 'bundler'
+rbenv_gem 'spring'
 
 group 'admin' do
   gid 420
