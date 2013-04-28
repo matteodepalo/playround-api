@@ -22,7 +22,9 @@ PlayroundApi::Application.routes.draw do
     resources :rounds, except: [:new, :edit]
     resources :games, only: [:index, :show]
     resources :arenas, only: [:index, :show]
-    resources :users, only: [:show]
+    resources :users, only: [:show] do
+      collection { get :me }
+    end
   end
 
   match 'v:api/*path', to: redirect("/v1/%{path}"), via: :all

@@ -43,6 +43,19 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: api_keys; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE api_keys (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    access_token character varying(255),
+    user_id uuid,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
 -- Name: arenas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -75,8 +88,8 @@ CREATE TABLE games (
 CREATE TABLE rounds (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     state character varying(255),
-    game_id integer,
-    arena_id integer,
+    game_id uuid,
+    arena_id uuid,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -102,6 +115,14 @@ CREATE TABLE users (
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
+
+
+--
+-- Name: api_keys_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY api_keys
+    ADD CONSTRAINT api_keys_pkey PRIMARY KEY (id);
 
 
 --
@@ -134,6 +155,13 @@ ALTER TABLE ONLY rounds
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_api_keys_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_api_keys_on_access_token ON api_keys USING btree (access_token);
 
 
 --
@@ -170,3 +198,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130420140202');
 INSERT INTO schema_migrations (version) VALUES ('20130420141658');
 
 INSERT INTO schema_migrations (version) VALUES ('20130427111717');
+
+INSERT INTO schema_migrations (version) VALUES ('20130428151349');

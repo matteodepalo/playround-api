@@ -2,8 +2,8 @@ class CreateRounds < ActiveRecord::Migration
   def change
     create_table :rounds, id: :uuid do |t|
       t.string :state
-      t.references :game
-      t.references :arena
+      t.uuid :game_id
+      t.uuid :arena_id
 
       t.timestamps
     end

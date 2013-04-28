@@ -10,4 +10,9 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :api_keys
+
+  def self.authenticate(token, options)
+    self.joins(:api_keys).where(api_keys: { access_token: token }).first
+  end
 end
