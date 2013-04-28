@@ -8,6 +8,7 @@ gem 'state_machine'
 gem 'oj'
 gem 'active_model_serializers'
 gem 'annotate', git: 'git://github.com/ctran/annotate_models.git'
+gem 'koala'
 
 group :development do
   gem 'capistrano'
