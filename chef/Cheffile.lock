@@ -24,6 +24,13 @@ SITE
     yum (2.2.0)
 
 GIT
+  remote: git://github.com/customink-webops/magic_shell.git
+  ref: master
+  sha: 51260e584b93614ba6decc227ec054ae3811d4a0
+  specs:
+    magic_shell (0.2.0)
+
+GIT
   remote: git://github.com/fnichol/chef-rbenv.git
   ref: master
   sha: 3b1c59abc1134a50b0b8844954eca9a566aaffb8
@@ -46,6 +53,7 @@ GIT
       apt (>= 0.0.0)
 
 DEPENDENCIES
+  magic_shell (>= 0)
   memcached (>= 0)
   mosh (>= 0)
   nginx (>= 0)

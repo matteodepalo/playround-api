@@ -4,7 +4,6 @@ rbenv_ruby node['ruby-version']
 rbenv_global node['ruby-version']
 
 rbenv_gem 'bundler'
-rbenv_gem 'spring'
 
 group 'admin' do
   gid 420
@@ -43,5 +42,11 @@ if node[:environment] == 'development'
 
   pg_database_extensions 'template2' do
     extensions ['"uuid-ossp"']
+  end
+
+  rbenv_gem 'spring'
+
+  magic_shell_environment 'SPRING_TMP_PATH' do
+    value '/tmp/spring'
   end
 end
