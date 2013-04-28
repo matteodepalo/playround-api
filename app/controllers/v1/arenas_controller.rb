@@ -1,4 +1,4 @@
-class Api::V1::ArenasController < ApplicationController
+class V1::ArenasController < ApplicationController
   def index
     respond_with Arena.all
   end

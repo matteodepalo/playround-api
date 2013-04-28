@@ -1,4 +1,4 @@
-class Api::V1::RoundsController < ApplicationController
+class V1::RoundsController < ApplicationController
   def index
     respond_with Round.all
   end
@@ -8,7 +8,7 @@ class Api::V1::RoundsController < ApplicationController
   end
 
   def create
-    respond_with(:api, :v1, Round.create(round_params))
+    respond_with(:v1, Round.create(round_params))
   end
 
   def update

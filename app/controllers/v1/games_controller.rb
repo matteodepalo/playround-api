@@ -1,4 +1,4 @@
-class Api::V1::GamesController < ApplicationController
+class V1::GamesController < ApplicationController
   def index
     respond_with Game.all
   end

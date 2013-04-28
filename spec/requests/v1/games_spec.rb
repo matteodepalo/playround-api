@@ -4,7 +4,7 @@ describe 'Games Requests' do
   describe 'GET /games/1' do
     it 'returns the requested game' do
       game = create :game
-      get api_v1_game_path(game)
+      get v1_game_path(game)
 
       response.status.should eq(200)
       response.body.should include(game.id.to_s)
@@ -15,7 +15,7 @@ describe 'Games Requests' do
   describe 'GET /games' do
     it 'returns the list of games' do
       game = create :game
-      get api_v1_games_path
+      get v1_games_path
 
       response.status.should eq(200)
     end
