@@ -17,6 +17,8 @@
 #      root GET    /                        #<Proc:0x007f9852b942d0@/vagrant/config/routes.rb:31 (lambda)>
 #
 
+not_found = -> (params) { raise ActionController::RoutingError.new("No route matches [#{params['REQUEST_METHOD']}] \"#{params['REQUEST_PATH']}\"") }
+
 PlayroundApi::Application.routes.draw do
   namespace :v1 do
     resources :rounds, except: [:new, :edit]
@@ -28,10 +30,12 @@ PlayroundApi::Application.routes.draw do
     end
 
     resources :tokens, only: [:create]
+
+    match '*a', to: not_found, via: :all
   end
 
-  match 'v:api/*path', to: redirect("/v1/%{path}"), via: :all
-  match '*path', to: redirect("/v1/%{path}"), via: :all
+  match 'v:api/*path', to: redirect { |params| "/v1/#{params[:path]}" }, via: :all
+  match '*path', to: redirect { |params| "/v1/#{params[:path]}" }, via: :all
 
-  root to: -> (app) { [404, {}, ['']] }
+  root to: not_found
 end
