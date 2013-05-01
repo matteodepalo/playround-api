@@ -4,6 +4,7 @@ class CreateRounds < ActiveRecord::Migration
       t.string :state
       t.uuid :game_id
       t.uuid :arena_id
+      t.uuid :user_id
 
       t.timestamps
     end

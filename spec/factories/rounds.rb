@@ -6,6 +6,7 @@
 #  state      :string(255)
 #  game_id    :uuid
 #  arena_id   :uuid
+#  user_id    :uuid
 #  created_at :datetime
 #  updated_at :datetime
 #

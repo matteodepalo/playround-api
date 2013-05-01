@@ -82,6 +82,39 @@ CREATE TABLE games (
 
 
 --
+-- Name: participants; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE participants (
+    id integer NOT NULL,
+    team integer,
+    round_id uuid,
+    user_id uuid,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: participants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE participants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: participants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE participants_id_seq OWNED BY participants.id;
+
+
+--
 -- Name: rounds; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -90,6 +123,7 @@ CREATE TABLE rounds (
     state character varying(255),
     game_id uuid,
     arena_id uuid,
+    user_id uuid,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -120,6 +154,13 @@ CREATE TABLE users (
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY participants ALTER COLUMN id SET DEFAULT nextval('participants_id_seq'::regclass);
+
+
+--
 -- Name: api_keys_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -141,6 +182,14 @@ ALTER TABLE ONLY arenas
 
 ALTER TABLE ONLY games
     ADD CONSTRAINT games_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: participants_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY participants
+    ADD CONSTRAINT participants_pkey PRIMARY KEY (id);
 
 
 --
@@ -174,6 +223,20 @@ CREATE INDEX index_games_on_name ON games USING btree (name);
 
 
 --
+-- Name: index_participants_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_participants_on_round_id ON participants USING btree (round_id);
+
+
+--
+-- Name: index_participants_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_participants_on_user_id ON participants USING btree (user_id);
+
+
+--
 -- Name: index_rounds_on_game_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -202,3 +265,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130420141658');
 INSERT INTO schema_migrations (version) VALUES ('20130427111717');
 
 INSERT INTO schema_migrations (version) VALUES ('20130428151349');
+
+INSERT INTO schema_migrations (version) VALUES ('20130501164051');

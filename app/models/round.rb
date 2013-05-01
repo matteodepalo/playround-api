@@ -6,6 +6,7 @@
 #  state      :string(255)
 #  game_id    :uuid
 #  arena_id   :uuid
+#  user_id    :uuid
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -15,8 +16,11 @@
 #
 
 class Round < ActiveRecord::Base
+  belongs_to :host, class_name: 'User', foreign_key: 'user_id'
   belongs_to :game
   belongs_to :arena
+  has_many :participants
+  has_many :users, through: :participants
 
   validates :state, presence: true
 
