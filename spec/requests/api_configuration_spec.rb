@@ -12,4 +12,10 @@ describe 'Api Configuration' do
 
     response.should redirect_to('/v1/rounds')
   end
+
+  it 'redirects to /v1/not/found even if the url doesn\'t match a route' do
+    get '/not/found'
+
+    response.should redirect_to('/v1/not/found')
+  end
 end
