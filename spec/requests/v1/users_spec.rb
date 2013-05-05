@@ -21,12 +21,7 @@ describe 'Users Requests' do
 
     it 'returns the current user' do
       user = create :user
-      api_key = create :api_key, user: user
-
-      get(
-        me_v1_users_path, nil,
-        :authorization => ActionController::HttpAuthentication::Token.encode_credentials(api_key.access_token)
-      )
+      get_with_auth me_v1_users_path, user: user
 
       response.status.should eq(200)
       response.body.should include(user.id)

@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :participants
   has_many :rounds, through: :participants
 
-  def self.authenticate(token, options)
+  def self.authenticate(token)
     self.joins(:api_keys).where(api_keys: { access_token: token }).first
   end
 

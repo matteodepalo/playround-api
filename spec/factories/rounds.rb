@@ -17,5 +17,6 @@
 
 FactoryGirl.define do
   factory :round do
+    association :host, factory: :user
   end
 end

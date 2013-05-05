@@ -22,6 +22,8 @@ class Round < ActiveRecord::Base
   has_many :participants
   has_many :users, through: :participants
 
+  alias_method :user, :host
+
   validates :state, presence: true
 
   state_machine initial: :waiting_for_players do

@@ -6,6 +6,6 @@ class V1::UsersController < ApplicationController
   end
 
   def me
-    respond_with @current_user
+    respond_with current_user
   end
 end
