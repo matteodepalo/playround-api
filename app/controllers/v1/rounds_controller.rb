@@ -15,9 +15,8 @@ class V1::RoundsController < ApplicationController
 
   def update
     @round = Round.find(params[:id])
-    @round.update(round_params)
 
-    respond_with @round
+    respond_with @round.update(round_params)
   end
 
   def destroy

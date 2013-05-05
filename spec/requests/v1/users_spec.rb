@@ -13,18 +13,22 @@ describe 'Users Requests' do
   end
 
   describe 'GET /users/me' do
-    it 'responds with unauthorized if the access token is not present or invalid' do
-      get me_v1_users_path
+    describe 'with authentication' do
+      it 'returns the current user' do
+        user = create :user
+        get_with_auth me_v1_users_path, user: user
 
-      response.status.should eq(401)
+        response.status.should eq(200)
+        response.body.should include(user.id)
+      end
     end
 
-    it 'returns the current user' do
-      user = create :user
-      get_with_auth me_v1_users_path, user: user
+    describe 'without authentication' do
+      it 'returns unauthorized' do
+        get me_v1_users_path
 
-      response.status.should eq(200)
-      response.body.should include(user.id)
+        response.status.should eq(401)
+      end
     end
   end
 end
