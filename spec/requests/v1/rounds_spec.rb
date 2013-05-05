@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Rounds Requests' do
   valid_attributes = {}
-  let(:user) { create :user }
+  let(:user) { build :user }
 
   describe 'GET /rounds/1' do
     describe 'with authentication' do
@@ -50,12 +50,14 @@ describe 'Rounds Requests' do
   describe 'POST /rounds' do
     describe 'with authentication' do
       it 'succeeds with valid params' do
+        user.save
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
         response.status.should eq(201)
       end
 
       it 'fails and returns error unprocessable entity with invalid params' do
+        user.save
         post_with_auth v1_rounds_path, { round: {} }, user: user
 
         response.status.should eq(422)
