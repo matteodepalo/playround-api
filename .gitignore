@@ -25,3 +25,4 @@ cookbooks
 /vendor/bundle
 /vendor/cache
 /bin
+/.chef/
