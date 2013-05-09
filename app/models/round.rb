@@ -16,13 +16,11 @@
 #
 
 class Round < ActiveRecord::Base
-  belongs_to :host, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :user
   belongs_to :game
   belongs_to :arena
   has_many :participants
   has_many :users, through: :participants
-
-  alias_method :user, :host
 
   validates :state, presence: true
 
