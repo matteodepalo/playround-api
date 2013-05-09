@@ -26,3 +26,4 @@ cookbooks
 /vendor/cache
 /bin
 /.chef/
+/chef/.chef/

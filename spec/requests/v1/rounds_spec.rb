@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe 'Rounds Requests' do
   valid_attributes = {}
-  let(:user) { build :user }
+  let(:user) { create :user }
 
   describe 'GET /rounds/1' do
-    describe 'with authentication' do
+    describe 'with authentication and authorization' do
       it 'returns the requested round' do
         round = create :round
         get_with_auth v1_round_path(round), user: round.user
@@ -17,11 +17,20 @@ describe 'Rounds Requests' do
     end
 
     describe 'without authentication' do
-      it 'returns unauthorized' do
+      it 'responds with unauthorized' do
         round = create :round
         get v1_round_path(round)
 
         response.status.should eq(401)
+      end
+    end
+
+    describe 'without authorization' do
+      it 'responds with forbidden' do
+        round = create :round
+        get_with_auth v1_round_path(round), user: user
+
+        response.status.should eq(403)
       end
     end
   end
@@ -38,7 +47,7 @@ describe 'Rounds Requests' do
     end
 
     describe 'without authentication' do
-      it 'returns unauthorized' do
+      it 'responds with unauthorized' do
         round = create :round
         get v1_rounds_path
 
@@ -50,14 +59,12 @@ describe 'Rounds Requests' do
   describe 'POST /rounds' do
     describe 'with authentication' do
       it 'succeeds with valid params' do
-        user.save
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
         response.status.should eq(201)
       end
 
-      it 'fails and returns error unprocessable entity with invalid params' do
-        user.save
+      it 'fails and responds with unprocessable entity with invalid params' do
         post_with_auth v1_rounds_path, { round: {} }, user: user
 
         response.status.should eq(422)
@@ -66,7 +73,7 @@ describe 'Rounds Requests' do
     end
 
     describe 'without authentication' do
-      it 'returns unauthorized' do
+      it 'responds with unauthorized' do
         post v1_rounds_path, { round: valid_attributes }
 
         response.status.should eq(401)
@@ -75,7 +82,7 @@ describe 'Rounds Requests' do
   end
 
   describe 'PATCH /rounds/1' do
-    describe 'with authentication' do
+    describe 'with authentication and authorization' do
       it 'succeeds with valid params' do
         round = create :round
         patch_with_auth v1_round_path(id: round.to_param), { round: valid_attributes }, user: round.user
@@ -83,7 +90,7 @@ describe 'Rounds Requests' do
         response.status.should eq(204)
       end
 
-      it 'fails and returns error unprocessable entity with invalid params' do
+      it 'fails and responds with unprocessable entity with invalid params' do
         round = create :round
         patch_with_auth v1_round_path(id: round.to_param), { round: {} }, user: round.user
 
@@ -93,15 +100,26 @@ describe 'Rounds Requests' do
     end
 
     describe 'without authentication' do
-      it 'returns unauthorized' do
+      it 'responds with unauthorized' do
         round = create :round
         patch v1_round_path(id: round.to_param), { round: valid_attributes }
+
+        response.status.should eq(401)
+      end
+    end
+
+    describe 'without authorization' do
+      it 'responds with forbidden' do
+        round = create :round
+        patch_with_auth v1_round_path(id: round.to_param), { round: valid_attributes }, user: user
+
+        response.status.should eq(403)
       end
     end
   end
 
   describe 'DELETE /rounds/1' do
-    describe 'with authentication' do
+    describe 'with authentication and authorization' do
       it 'succeeds with valid params' do
         round = create :round
         delete_with_auth v1_round_path(round), user: round.user
@@ -111,11 +129,20 @@ describe 'Rounds Requests' do
     end
 
     describe 'without authentication' do
-      it 'returns unauthorized' do
+      it 'responds with unauthorized' do
         round = create :round
         delete v1_round_path(round)
 
         response.status.should eq(401)
+      end
+    end
+
+    describe 'without authorization' do
+      it 'responds with forbidden' do
+        round = create :round
+        delete_with_auth v1_round_path(round), user: user
+
+        response.status.should eq(403)
       end
     end
   end

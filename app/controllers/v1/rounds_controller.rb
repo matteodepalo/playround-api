@@ -6,7 +6,10 @@ class V1::RoundsController < ApplicationController
   end
 
   def show
-    respond_with Round.find(params[:id])
+    @round = Round.find(params[:id])
+    authorize! :read, @round
+
+    respond_with @round
   end
 
   def create
@@ -15,12 +18,14 @@ class V1::RoundsController < ApplicationController
 
   def update
     @round = Round.find(params[:id])
+    authorize! :update, @round
 
     respond_with @round.update(round_params)
   end
 
   def destroy
     @round = Round.find(params[:id])
+    authorize! :destroy, @round
 
     respond_with @round.destroy
   end

@@ -2,9 +2,14 @@ class ApplicationController < ActionController::API
   include ActionController::MimeResponds
   include ActionController::ImplicitRender
   include ActionController::HttpAuthentication::Token::ControllerMethods
+  include CanCan::ControllerAdditions
 
   respond_to :json
   before_filter :set_format
+
+  rescue_from CanCan::AccessDenied do |exception|
+    head :forbidden
+  end
 
   protected
 

@@ -49,6 +49,7 @@ GEM
     arel (4.0.0)
     atomic (1.1.8)
     builder (3.1.4)
+    cancan (1.6.10)
     capistrano (2.15.3)
       highline
       net-scp (>= 1.0.0)
@@ -201,6 +202,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   annotate!
+  cancan
   capistrano
   debugger!
   factory_girl_rails

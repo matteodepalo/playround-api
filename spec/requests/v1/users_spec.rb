@@ -24,7 +24,7 @@ describe 'Users Requests' do
     end
 
     describe 'without authentication' do
-      it 'returns unauthorized' do
+      it 'responds with unauthorized' do
         get me_v1_users_path
 
         response.status.should eq(401)
