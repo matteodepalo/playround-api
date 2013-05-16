@@ -10,7 +10,7 @@ end
 
 service 'nginx'
 
-if node[:environment] == 'development'
+if node[:environment] != 'development'
   ["sv", "service"].each do |dir|
     directory "/home/#{node[:user][:name]}/#{dir}" do
       owner node[:user][:name]
