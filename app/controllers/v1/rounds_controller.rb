@@ -7,7 +7,6 @@ class V1::RoundsController < ApplicationController
 
   def show
     @round = Round.find(params[:id])
-    authorize! :read, @round
 
     respond_with @round
   end

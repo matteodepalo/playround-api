@@ -5,7 +5,7 @@ describe 'Rounds Requests' do
   let(:user) { create :user }
 
   describe 'GET /rounds/1' do
-    describe 'with authentication and authorization' do
+    describe 'with authentication' do
       it 'returns the requested round' do
         round = create :round
         get_with_auth v1_round_path(round), user: round.user
@@ -22,15 +22,6 @@ describe 'Rounds Requests' do
         get v1_round_path(round)
 
         response.status.should eq(401)
-      end
-    end
-
-    describe 'without authorization' do
-      it 'responds with forbidden' do
-        round = create :round
-        get_with_auth v1_round_path(round), user: user
-
-        response.status.should eq(403)
       end
     end
   end
