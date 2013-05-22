@@ -4,12 +4,13 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string(255)
+#  type       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
 # Indexes
 #
-#  index_games_on_name  (name)
+#  index_games_on_name  (name) UNIQUE
 #
 
 require 'spec_helper'

@@ -6,8 +6,6 @@ when 'development'
   release_path = deploy_to
 
   listen "/home/vagrant/sockets/playround.sock"
-  stderr_path "#{deploy_to}/log/unicorn.log"
-  stdout_path "#{deploy_to}/log/unicorn.log"
 when 'production'
   worker_processes 6
   deploy_to = '/var/www/playround'
@@ -61,5 +59,5 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
-  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)  
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
 end

@@ -3,12 +3,12 @@ require 'spec_helper'
 describe 'Arenas Requests' do
   describe 'GET /arenas/1' do
     it 'returns the requested arena' do
-      arena = create :arena
+      arena = create :arena, name: 'Meme Coworking'
       get v1_arena_path(arena)
 
       response.status.should eq(200)
       response.body.should include(arena.id.to_s)
-      response.body.should include(arena.name)
+      response.body.should include('Meme Coworking')
     end
   end
 

@@ -13,7 +13,7 @@ describe 'Rounds Requests' do
 
         response.status.should eq(200)
         response.body.should include(round.id.to_s)
-        response.body.should include(round.state)
+        response.body.should include('waiting_for_players')
         response.body.should include('Dota 2')
       end
     end
