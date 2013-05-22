@@ -41,4 +41,17 @@ describe Round do
     round.finish
     round.should_not be_over
   end
+
+  it 'is not valid without a game' do
+    round = build :round
+    round.game = nil
+    round.should_not be_valid
+  end
+
+  it 'assigns the correct game with game_name' do
+    game = Game.build_and_create(name: :table_football)
+    round = build :round
+    round.game_name = :table_football
+    round.game_name.should eq('Table Football')
+  end
 end

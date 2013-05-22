@@ -23,6 +23,7 @@ class Round < ActiveRecord::Base
   has_many :users, through: :participants
 
   validates :state, presence: true
+  validates :game_id, presence: true
 
   state_machine initial: :waiting_for_players do
     event :start do
@@ -32,5 +33,13 @@ class Round < ActiveRecord::Base
     event :finish do
       transition from: :ongoing, to: :over
     end
+  end
+
+  def game_name=(name)
+    self.game = Game.where(name: name.to_s).first
+  end
+
+  def game_name
+    game.display_name
   end
 end

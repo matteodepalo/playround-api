@@ -76,6 +76,7 @@ CREATE TABLE arenas (
 CREATE TABLE games (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     name character varying(255),
+    type character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -219,7 +220,7 @@ CREATE UNIQUE INDEX index_api_keys_on_access_token ON api_keys USING btree (acce
 -- Name: index_games_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_games_on_name ON games USING btree (name);
+CREATE UNIQUE INDEX index_games_on_name ON games USING btree (name);
 
 
 --
