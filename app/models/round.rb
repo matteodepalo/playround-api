@@ -47,6 +47,6 @@ class Round < ActiveRecord::Base
   private
 
   def game_cannot_be_changed_after_creation
-    errors.add(:game, 'cannot be changed when updating') if persisted? && game_id_changed?
+    errors.add(:game, 'cannot be changed after creation') if persisted? && game_id_changed?
   end
 end
