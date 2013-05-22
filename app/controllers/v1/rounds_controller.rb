@@ -12,7 +12,9 @@ class V1::RoundsController < ApplicationController
   end
 
   def create
-    respond_with [:v1, Round.create(round_params)]
+    @round = Round.create(round_params)
+
+    respond_with [:v1, @round]
   end
 
   def update
@@ -32,6 +34,6 @@ class V1::RoundsController < ApplicationController
   private
 
   def round_params
-    params.permit(:round)
+    params.require(:round).permit(:game_name)
   end
 end

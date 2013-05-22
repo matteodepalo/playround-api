@@ -18,5 +18,6 @@
 FactoryGirl.define do
   factory :round do
     user
+    after(:build) { |r| r.game = Game.where(name: :dota2).first || Game.build_and_create(name: :dota2) }
   end
 end

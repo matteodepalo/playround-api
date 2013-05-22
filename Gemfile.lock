@@ -71,6 +71,7 @@ GEM
       rest-client (>= 1.0.4, < 1.7.0)
       yajl-ruby (~> 1.1)
     columnize (0.3.6)
+    database_cleaner (1.0.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.4)
@@ -204,6 +205,7 @@ DEPENDENCIES
   annotate!
   cancan
   capistrano
+  database_cleaner
   debugger!
   factory_girl_rails
   knife-solo

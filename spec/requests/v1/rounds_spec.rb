@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Rounds Requests' do
-  valid_attributes = {}
+  valid_attributes = { game_name: 'dota2' }
   let(:user) { create :user }
 
   describe 'GET /rounds/1' do
