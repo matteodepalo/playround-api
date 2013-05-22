@@ -12,16 +12,24 @@ class V1::RoundsController < ApplicationController
   end
 
   def create
-    @round = Round.create(round_params)
+    @round = Round.new(round_params)
 
-    respond_with [:v1, @round]
+    if @round.save
+      render json: @round, status: :created
+    else
+      render json: { errors: @round.errors }, status: :unprocessable_entity
+    end
   end
 
   def update
     @round = Round.find(params[:id])
     authorize! :update, @round
 
-    respond_with @round.update(round_params)
+    if @round.update(round_params)
+      render json: @round, status: :ok
+    else
+      render json: { errors: @round.errors }, status: :unprocessable_entity
+    end
   end
 
   def destroy
