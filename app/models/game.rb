@@ -13,5 +13,34 @@
 #
 
 class Game < ActiveRecord::Base
+  VALID_GAME_NAMES = [:dota2, :table_football, :go]
+  class InvalidGameNameError < StandardError; end
+
   has_many :rounds
+
+  validates :name, inclusion: { in: VALID_GAME_NAMES }, uniqueness: true, presence: true
+
+  class << self
+    def build(options)
+      if VALID_GAME_NAMES.map(&:to_s).include?(options[:name].to_s)
+        "Games::#{options[:name].to_s.camelize}".constantize.new(options)
+      else
+        raise InvalidGameNameError
+      end
+    end
+
+    def build_and_create(options)
+      game = build(options)
+      game.save
+      game
+    end
+  end
+
+  def name
+    super.to_sym
+  end
+
+  def name=(name)
+    super(name.to_s)
+  end
 end

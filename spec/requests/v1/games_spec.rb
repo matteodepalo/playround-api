@@ -8,7 +8,7 @@ describe 'Games Requests' do
 
       response.status.should eq(200)
       response.body.should include(game.id.to_s)
-      response.body.should include(game.name)
+      response.body.should include(game.name.to_s)
     end
   end
 

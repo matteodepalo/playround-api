@@ -16,6 +16,6 @@
 
 FactoryGirl.define do
   factory :game do
-    name 'Dota'
+    name :dota2
   end
 end
