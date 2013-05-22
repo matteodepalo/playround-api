@@ -54,4 +54,12 @@ describe Round do
     round.game_name = :table_football
     round.game_name.should eq('Table Football')
   end
+
+  it 'is not possible to change game to a round after it is created' do
+    game = Game.build_and_create(name: :table_football)
+    round = create :round
+    round.game_name = :table_football
+    round.should be_invalid
+    round.errors.full_messages.should include('Game cannot be changed when updating')
+  end
 end

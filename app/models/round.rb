@@ -24,6 +24,7 @@ class Round < ActiveRecord::Base
 
   validates :state, presence: true
   validates :game_id, presence: true
+  validate :game_cannot_be_changed_after_creation
 
   state_machine initial: :waiting_for_players do
     event :start do
@@ -41,5 +42,11 @@ class Round < ActiveRecord::Base
 
   def game_name
     game.display_name
+  end
+
+  private
+
+  def game_cannot_be_changed_after_creation
+    errors.add(:game, 'cannot be changed when updating') if persisted? && game_id_changed?
   end
 end
