@@ -26,7 +26,7 @@ class V1::RoundsController < ApplicationController
     authorize! :update, @round
 
     if @round.update(round_params)
-      render json: @round, status: :ok
+      render json: @round
     else
       render json: { errors: @round.errors }, status: :unprocessable_entity
     end
