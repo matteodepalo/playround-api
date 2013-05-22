@@ -32,7 +32,7 @@ describe Game do
 
   it 'raises exception when a wrong name is used' do
     expect {
-      game = Game.build
+      game = Game.build(name: :lol)
     }.to raise_exception
   end
 
