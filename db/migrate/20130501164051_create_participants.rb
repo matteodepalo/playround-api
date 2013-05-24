@@ -1,9 +1,10 @@
 class CreateParticipants < ActiveRecord::Migration
   def change
-    create_table :participants do |t|
+    create_table :participants, id: :uuid do |t|
       t.integer :team
       t.uuid :round_id
       t.uuid :user_id
+      t.string :user_type
 
       t.timestamps
     end

@@ -62,4 +62,14 @@ describe Round do
     round.should be_invalid
     round.errors.full_messages.should include('Game cannot be changed after creation')
   end
+
+  it 'can assign participants' do
+    user = create :user
+    unregistered_user = create :unregistered_user
+
+    round = build :round
+    round.participant_list = [{ id: user.id }, { facebook_id: unregistered_user.facebook_id }]
+
+    round.participant_list.to_a.should eq([user, unregistered_user])
+  end
 end

@@ -12,7 +12,7 @@ class V1::RoundsController < ApplicationController
   end
 
   def create
-    @round = Round.new(round_params)
+    @round = current_user.hosted_rounds.build(round_params)
 
     if @round.save
       render json: @round, status: :created
@@ -42,6 +42,6 @@ class V1::RoundsController < ApplicationController
   private
 
   def round_params
-    params.require(:round).permit(:game_name)
+    params.require(:round).permit(:game_name, participant_list: [[ :id, :facebook_id, :foursquare_id ]])
   end
 end

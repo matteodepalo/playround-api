@@ -19,11 +19,13 @@ class Round < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
   belongs_to :arena
-  has_many :participants
-  has_many :users, through: :participants
+  has_many :participants, as: :user
+  has_many :users, through: :participants, source: :user, source_type: 'User'
+  has_many :unregistered_users, through: :participants, source: :user, source_type: 'UnregisteredUser'
 
   validates :state, presence: true
   validates :game_id, presence: true
+  validates :user_id, presence: true
   validate :game_cannot_be_changed_after_creation
 
   state_machine initial: :waiting_for_players do
@@ -42,6 +44,26 @@ class Round < ActiveRecord::Base
 
   def game_name
     game.display_name
+  end
+
+  def participant_list=(participant_hashes)
+    users = []
+    unregistered_users = []
+
+    participant_hashes.each do |participant|
+      if participant[:id]
+        users << User.where(id: participant[:id]).first
+      else
+        unregistered_users << UnregisteredUser.where(participant).first_or_create
+      end
+    end
+
+    self.users = users
+    self.unregistered_users = unregistered_users
+  end
+
+  def participant_list
+    users + unregistered_users
   end
 
   private
