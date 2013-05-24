@@ -9,7 +9,7 @@ describe 'Games Requests' do
       response.status.should eq(200)
       response.body.should include(game.id.to_s)
       response.body.should include('Dota 2')
-      response.body.should include('/assets/dota2.jpg')
+      response.body.should match(/http:\/\/.*\/assets\/dota2.jpg/)
     end
   end
 

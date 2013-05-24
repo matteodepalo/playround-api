@@ -60,6 +60,6 @@ describe Round do
     round = create :round
     round.game_name = :table_football
     round.should be_invalid
-    round.errors.full_messages.should include('Game cannot be changed when updating')
+    round.errors.full_messages.should include('Game cannot be changed after creation')
   end
 end
