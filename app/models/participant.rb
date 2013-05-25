@@ -2,10 +2,11 @@
 #
 # Table name: participants
 #
-#  id         :integer          not null, primary key
+#  id         :uuid             not null, primary key
 #  team       :integer
 #  round_id   :uuid
 #  user_id    :uuid
+#  user_type  :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
