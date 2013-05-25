@@ -20,6 +20,7 @@ describe 'Users Requests' do
 
         response.status.should eq(200)
         response.body.should include(user.id)
+        response.body.should include(user.email)
       end
     end
 

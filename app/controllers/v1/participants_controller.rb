@@ -3,7 +3,6 @@ class V1::ParticipantsController < ApplicationController
 
   def create
     @round = Round.find(params[:round_id])
-
     @round.users << current_user
 
     render json: @round, status: :created
@@ -11,7 +10,6 @@ class V1::ParticipantsController < ApplicationController
 
   def destroy
     @round = Round.find(params[:round_id])
-
     @round.users.destroy(current_user)
 
     render json: @round

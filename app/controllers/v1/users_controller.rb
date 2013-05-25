@@ -6,6 +6,6 @@ class V1::UsersController < ApplicationController
   end
 
   def me
-    respond_with current_user
+    render json: current_user, serializer: CompleteUserSerializer
   end
 end
