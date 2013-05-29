@@ -91,7 +91,7 @@ CREATE TABLE participants (
     team integer,
     round_id uuid,
     user_id uuid,
-    joined boolean,
+    joined boolean DEFAULT false,
     user_type character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
