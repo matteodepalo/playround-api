@@ -16,7 +16,7 @@
 #
 
 class UnregisteredUser < ActiveRecord::Base
-  has_many :participations, class_name: 'Participant', as: :user
+  has_many :participations, as: :user
   has_many :rounds, through: :participations
 
   validate :social_id_must_be_present

@@ -1,6 +1,6 @@
-class CreateParticipants < ActiveRecord::Migration
+class CreateParticipations < ActiveRecord::Migration
   def change
-    create_table :participants, id: :uuid do |t|
+    create_table :participations, id: :uuid do |t|
       t.integer :team
       t.uuid :round_id
       t.uuid :user_id
@@ -10,7 +10,7 @@ class CreateParticipants < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :participants, :round_id
-    add_index :participants, :user_id
+    add_index :participations, :round_id
+    add_index :participations, :user_id
   end
 end

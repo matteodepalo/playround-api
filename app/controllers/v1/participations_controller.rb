@@ -1,4 +1,4 @@
-class V1::ParticipantsController < ApplicationController
+class V1::ParticipationsController < ApplicationController
   before_filter :authenticate
 
   def create

@@ -83,10 +83,10 @@ CREATE TABLE games (
 
 
 --
--- Name: participants; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: participations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE participants (
+CREATE TABLE participations (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     team integer,
     round_id uuid,
@@ -176,11 +176,11 @@ ALTER TABLE ONLY games
 
 
 --
--- Name: participants_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY participants
-    ADD CONSTRAINT participants_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY participations
+    ADD CONSTRAINT participations_pkey PRIMARY KEY (id);
 
 
 --
@@ -222,17 +222,17 @@ CREATE UNIQUE INDEX index_games_on_name ON games USING btree (name);
 
 
 --
--- Name: index_participants_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_participations_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_participants_on_round_id ON participants USING btree (round_id);
+CREATE INDEX index_participations_on_round_id ON participations USING btree (round_id);
 
 
 --
--- Name: index_participants_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_participations_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_participants_on_user_id ON participants USING btree (user_id);
+CREATE INDEX index_participations_on_user_id ON participations USING btree (user_id);
 
 
 --
