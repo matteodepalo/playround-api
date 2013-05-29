@@ -16,10 +16,10 @@
 #
 
 class UnregisteredUser < ActiveRecord::Base
-  validate :social_id_must_be_present
-
   has_many :participations, class_name: 'Participant', as: :user
   has_many :rounds, through: :participations
+
+  validate :social_id_must_be_present
 
   def social_id_must_be_present
     unless (facebook_id.present? && !foursquare_id.present?) || (!facebook_id.present? && foursquare_id.present?)

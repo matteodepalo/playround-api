@@ -4,6 +4,7 @@ class CreateParticipants < ActiveRecord::Migration
       t.integer :team
       t.uuid :round_id
       t.uuid :user_id
+      t.boolean :joined
       t.string :user_type
 
       t.timestamps

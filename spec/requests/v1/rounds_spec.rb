@@ -61,7 +61,7 @@ describe 'Rounds Requests' do
         response.body.should include('Dota 2')
       end
 
-      it 'adds unregistered participants to the round' do
+      it 'adds participants to the round' do
         game = Game.build_and_create(name: valid_attributes[:game_name])
         participant = create :user
         valid_attributes.merge!(participant_list: [{ id: participant.id }, { facebook_id: '123' }])

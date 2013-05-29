@@ -12,12 +12,12 @@
 #
 
 class User < ActiveRecord::Base
-  validates :name, presence: true
-
   has_many :api_keys
   has_many :hosted_rounds, class_name: 'Round'
   has_many :participations, class_name: 'Participant', as: :user
   has_many :rounds, through: :participations
+
+  validates :name, presence: true
 
   def self.authenticate(token)
     self.joins(:api_keys).where(api_keys: { access_token: token }).first

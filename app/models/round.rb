@@ -19,7 +19,7 @@ class Round < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
   belongs_to :arena
-  has_many :participants, as: :user
+  has_many :participants
   has_many :users, through: :participants, source: :user, source_type: 'User'
   has_many :unregistered_users, through: :participants, source: :user, source_type: 'UnregisteredUser'
 
@@ -47,19 +47,13 @@ class Round < ActiveRecord::Base
   end
 
   def participant_list=(participant_hashes)
-    users = []
-    unregistered_users = []
-
     participant_hashes.each do |participant|
       if participant[:id]
-        users << User.where(id: participant[:id]).first
+        self.participants << Participant.new(user: User.where(id: participant[:id]).first, round: self)
       else
-        unregistered_users << UnregisteredUser.where(participant).first_or_create
+        self.participants << Participant.new(user: UnregisteredUser.where(participant).first_or_create, round: self)
       end
     end
-
-    self.users = users
-    self.unregistered_users = unregistered_users
   end
 
   def participant_list

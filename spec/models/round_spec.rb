@@ -69,6 +69,7 @@ describe Round do
 
     round = build :round
     round.participant_list = [{ id: user.id }, { facebook_id: unregistered_user.facebook_id }]
+    round.save
 
     round.participant_list.to_a.should eq([user, unregistered_user])
   end
