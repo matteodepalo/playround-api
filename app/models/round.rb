@@ -56,10 +56,6 @@ class Round < ActiveRecord::Base
     end
   end
 
-  def participant_list
-    users + unregistered_users
-  end
-
   private
 
   def game_cannot_be_changed_after_creation

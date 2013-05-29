@@ -71,6 +71,6 @@ describe Round do
     round.participant_list = [{ id: user.id }, { facebook_id: unregistered_user.facebook_id }]
     round.save
 
-    round.participant_list.to_a.should eq([user, unregistered_user])
+    round.participations.map(&:user).should eq([user, unregistered_user])
   end
 end
