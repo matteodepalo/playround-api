@@ -10,18 +10,18 @@ describe 'Participations Spec' do
         post_with_auth v1_round_participations_path(round), {}, user: user
 
         response.status.should eq(201)
-        participant_list = JSON.parse(response.body)['round']['participations']
-        participant_list.to_s.should include(user.id.to_s)
-        participant_list.first['joined'].should eq(true)
+        participations = JSON.parse(response.body)['round']['participations']
+        participations.to_s.should include(user.id.to_s)
+        participations.first['joined'].should eq(true)
       end
 
       it 'updates the current user preexisting participation setting joined to true' do
         round.users << user
         post_with_auth v1_round_participations_path(round), {}, user: user
 
-        participant_list = JSON.parse(response.body)['round']['participations']
-        participant_list.to_s.should include(user.id.to_s)
-        participant_list.first['joined'].should eq(true)
+        participations = JSON.parse(response.body)['round']['participations']
+        participations.to_s.should include(user.id.to_s)
+        participations.first['joined'].should eq(true)
       end
     end
 

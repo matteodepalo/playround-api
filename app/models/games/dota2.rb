@@ -22,5 +22,9 @@ module Games
     def image_file
       'dota2.jpg'
     end
+
+    def number_of_teams
+      2
+    end
   end
 end

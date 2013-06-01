@@ -22,5 +22,9 @@ module Games
     def image_file
       'table_football.jpg'
     end
+
+    def number_of_teams
+      2
+    end
   end
 end
