@@ -35,9 +35,7 @@ PlayroundApi::Application.routes.draw do
     resources :games, only: [:index, :show]
     resources :arenas, only: [:index, :show]
 
-    resources :users, only: [:show] do
-      collection { get :me }
-    end
+    resources :users, only: [:show]
 
     resources :tokens, only: [:create]
 

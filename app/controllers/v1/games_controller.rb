@@ -4,6 +4,6 @@ class V1::GamesController < ApplicationController
   end
 
   def show
-    respond_with Game.find(params[:id])
+    render json: Game.find(params[:id])
   end
 end

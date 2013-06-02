@@ -1,11 +1,11 @@
 class V1::UsersController < ApplicationController
-  before_filter :authenticate, only: [:me]
+  before_filter :authenticate, if: -> { params[:id] == 'me' }
 
   def show
-    respond_with User.find(params[:id])
-  end
-
-  def me
-    render json: current_user, serializer: CompleteUserSerializer
+    if params[:id] == 'me'
+      render json: current_user, serializer: CompleteUserSerializer
+    else
+      render json: User.find(params[:id])
+    end
   end
 end

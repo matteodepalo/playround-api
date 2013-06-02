@@ -11,7 +11,7 @@ describe 'Participations Spec' do
 
         response.status.should eq(201)
         participations = JSON.parse(response.body)['round']['participations']
-        participations.to_s.should include(user.id.to_s)
+        participations.first['user']['id'].should eq(user.id.to_s)
         participations.first['joined'].should eq(true)
       end
 

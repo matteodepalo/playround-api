@@ -15,5 +15,7 @@
 FactoryGirl.define do
   factory :arena do
     name 'Meme Coworking'
+    latitude 45.54231
+    longitude 12.23170
   end
 end

@@ -8,13 +8,14 @@ describe 'Rounds Requests' do
   describe 'GET /rounds/1' do
     describe 'with authentication' do
       it 'returns the requested round' do
-        round = create :round
-        get_with_auth v1_round_path(round), user: round.user
+        round_factory = create :round
+        get_with_auth v1_round_path(round_factory), user: round_factory.user
 
         response.status.should eq(200)
-        response.body.should include(round.id.to_s)
-        response.body.should include('waiting_for_players')
-        response.body.should include('Dota 2')
+        round = JSON.parse(response.body)['round']
+        round['id'].should eq(round_factory.id.to_s)
+        round['state'].should eq('waiting_for_players')
+        round['game']['display_name'].should include('Dota 2')
       end
     end
 
@@ -35,7 +36,7 @@ describe 'Rounds Requests' do
         get_with_auth v1_rounds_path, user: round.user
 
         response.status.should eq(200)
-        response.body.should include(round.id.to_s)
+        JSON.parse(response.body)['rounds'].count.should eq(1)
       end
     end
 
@@ -56,9 +57,10 @@ describe 'Rounds Requests' do
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
         response.status.should eq(201)
-        response.body.should include('id')
-        response.body.should include('waiting_for_players')
-        response.body.should include('Dota 2')
+        round = JSON.parse(response.body)['round']
+        round['id'].should be_present
+        round['state'].should eq('waiting_for_players')
+        round['game']['display_name'].should eq('Dota 2')
       end
 
       it 'adds participants to the round' do
@@ -67,8 +69,12 @@ describe 'Rounds Requests' do
         valid_attributes.merge!(participant_list: [{ id: participant.id }, { facebook_id: '123' }])
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
-        response.body.should include(participant.id)
-        response.body.should include('123')
+        participations = JSON.parse(response.body)['round']['participations']
+        participations.count.should eq(2)
+        registered_user_participation = participations.first
+        unregitered_user_participation = participations.last
+        registered_user_participation['user']['id'].should eq(participant.id)
+        unregitered_user_participation['user']['facebook_id'].should eq('123')
       end
 
       it 'fails and responds with unprocessable entity with invalid params' do
