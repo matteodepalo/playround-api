@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/me?access_token=CAACEdEose0cBABx7PukzIAENOlbNhRcDVY75kgEKjMl3KZAE137e9NGx8rbwqd9ZCrTn5OS2xHoOu1TLFAgBeMzftR1smMra45QlcjGgCS98xzPOZCZCxsD6UrxtMyDBXZAgvenn4hCWwEMvFhZC0xZBZCZBZB1d23ONDGqQhdzEhxpwZDZD
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.7
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Content-Type:
+      - application/json; charset=UTF-8
+      Etag:
+      - '"aabb77112908db0bbf33f2a78cc4c81bef9ac6f5"'
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      Last-Modified:
+      - '2013-06-02T16:09:36+0000'
+      Pragma:
+      - no-cache
+      X-Fb-Rev:
+      - '834072'
+      X-Fb-Debug:
+      - xc77mOaWVIKm3s9KpC9wNFySgU8WXty9J1JoZD2UFW0=
+      Date:
+      - Mon, 03 Jun 2013 22:33:29 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '911'
+    body:
+      encoding: UTF-8
+      string: '{"id":"100002734755203","name":"Matteo Depalo","first_name":"Matteo","last_name":"Depalo","link":"http:\/\/www.facebook.com\/matteodepalo","username":"matteodepalo","work":[{"employer":{"id":"101581493262761","name":"Responsa"},"location":{"id":"110592745629708","name":"Treviso,
+        Italy"},"position":{"id":"149398655076441","name":"Co-Founder & CTO"},"start_date":"2012-03-14"},{"employer":{"id":"84021019572","name":"H-FARM
+        Ventures"},"location":{"id":"108340469186797","name":"Roncade"},"position":{"id":"144690032216205","name":"Junior
+        Developer"},"start_date":"2011-11-20","end_date":"2012-03-14","projects":[{"id":"107825102582986","name":"Responsa"}]},{"employer":{"id":"111791038836989","name":"IFAE"},"location":{"id":"106287062743373","name":"Barcelona,
+        Spain"},"position":{"id":"108280022527340","name":"Physicist"},"start_date":"2010-06-01","end_date":"2010-08-01"}],"sports":[{"id":"109925095700173","name":"Track
+        and field athletics"},{"id":"109446562415595","name":"Volleyball"}],"favorite_teams":[{"id":"160647443979176","name":"Natus
+        Vincere"}],"favorite_athletes":[{"id":"21744379694","name":"Tony Hawk"},{"id":"136022989819147","name":"MiSeRy-"},{"id":"239740989440503","name":"WehSing
+        ''''SingSing'''' Yuen"}],"education":[{"school":{"id":"111967602163282","name":"Liceo
+        Classico Enea Silvio Piccolomini"},"year":{"id":"137616982934053","name":"2006"},"type":"High
+        School"},{"school":{"id":"112431102103139","name":"University of Siena"},"year":{"id":"142963519060927","name":"2010"},"concentration":[{"id":"109279729089828","name":"Physics"}],"type":"College"}],"gender":"male","email":"matteodepalo\u0040gmail.com","timezone":-4,"locale":"en_US","languages":[{"id":"113153272032690","name":"Italian"},{"id":"106059522759137","name":"English"}],"verified":true,"updated_time":"2013-06-02T16:09:36+0000"}'
+    http_version: 
+  recorded_at: Mon, 03 Jun 2013 22:33:28 GMT
+recorded_with: VCR 2.5.0

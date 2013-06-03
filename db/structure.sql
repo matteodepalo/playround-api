@@ -128,9 +128,9 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE unregistered_users (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    name character varying(255),
     facebook_id character varying(255),
     foursquare_id character varying(255),
-    name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -145,9 +145,10 @@ CREATE TABLE users (
     name character varying(255),
     email character varying(255),
     image character varying(255),
+    facebook_id character varying(255),
+    foursquare_id character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    facebook_id bigint
+    updated_at timestamp without time zone
 );
 
 
@@ -254,6 +255,20 @@ CREATE INDEX index_unregistered_users_on_facebook_id ON unregistered_users USING
 --
 
 CREATE INDEX index_unregistered_users_on_foursquare_id ON unregistered_users USING btree (foursquare_id);
+
+
+--
+-- Name: index_users_on_facebook_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_facebook_id ON users USING btree (facebook_id);
+
+
+--
+-- Name: index_users_on_foursquare_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_foursquare_id ON users USING btree (foursquare_id);
 
 
 --

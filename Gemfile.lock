@@ -71,6 +71,7 @@ GEM
       rest-client (>= 1.0.4, < 1.7.0)
       yajl-ruby (~> 1.1)
     columnize (0.3.6)
+    crack (0.3.2)
     database_cleaner (1.0.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
@@ -195,6 +196,10 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vcr (2.5.0)
+    webmock (1.11.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -217,3 +222,5 @@ DEPENDENCIES
   rspec-rails
   state_machine
   unicorn
+  vcr
+  webmock

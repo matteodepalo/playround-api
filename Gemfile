@@ -23,6 +23,11 @@ group :test, :development do
   gem 'database_cleaner'
 end
 
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+end
+
 group :deploy do
   gem 'unicorn'
 end
