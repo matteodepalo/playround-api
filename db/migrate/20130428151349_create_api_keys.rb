@@ -8,5 +8,6 @@ class CreateApiKeys < ActiveRecord::Migration
     end
 
     add_index :api_keys, :access_token, unique: true
+    add_index :api_keys, :user_id
   end
 end

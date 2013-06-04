@@ -213,6 +213,13 @@ CREATE UNIQUE INDEX index_api_keys_on_access_token ON api_keys USING btree (acce
 
 
 --
+-- Name: index_api_keys_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_api_keys_on_user_id ON api_keys USING btree (user_id);
+
+
+--
 -- Name: index_games_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -234,10 +241,24 @@ CREATE INDEX index_participations_on_user_id ON participations USING btree (user
 
 
 --
+-- Name: index_rounds_on_arena_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_rounds_on_arena_id ON rounds USING btree (arena_id);
+
+
+--
 -- Name: index_rounds_on_game_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_rounds_on_game_id ON rounds USING btree (game_id);
+
+
+--
+-- Name: index_rounds_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_rounds_on_user_id ON rounds USING btree (user_id);
 
 
 --

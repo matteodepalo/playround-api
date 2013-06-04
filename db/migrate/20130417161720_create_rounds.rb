@@ -10,5 +10,7 @@ class CreateRounds < ActiveRecord::Migration
     end
 
     add_index :rounds, :game_id
+    add_index :rounds, :arena_id
+    add_index :rounds, :user_id
   end
 end
