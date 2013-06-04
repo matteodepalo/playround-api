@@ -11,7 +11,8 @@ describe 'Tokens Requests' do
       user = parsed_response['token']['user']
       user['name'].should eq('Matteo Depalo')
       user['email'].should eq('matteodepalo@gmail.com')
-      user['image'].should match(/http:\/\/graph.facebook.com\/.+\/picture\?type=square/)
+      user['image'].should eq("http://graph.facebook.com/#{user['facebook_id']}/picture?type=square")
+      user['facebook_id'].should_not be_nil
     end
   end
 end
