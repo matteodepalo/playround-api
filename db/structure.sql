@@ -153,6 +153,17 @@ CREATE TABLE users (
 
 
 --
+-- Name: users_buddies; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users_buddies (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    user_id uuid,
+    buddy_id uuid
+);
+
+
+--
 -- Name: api_keys_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -198,6 +209,14 @@ ALTER TABLE ONLY rounds
 
 ALTER TABLE ONLY unregistered_users
     ADD CONSTRAINT unregistered_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_buddies_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY users_buddies
+    ADD CONSTRAINT users_buddies_pkey PRIMARY KEY (id);
 
 
 --
@@ -258,6 +277,20 @@ CREATE INDEX index_unregistered_users_on_foursquare_id ON unregistered_users USI
 
 
 --
+-- Name: index_users_buddies_on_buddy_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_buddies_on_buddy_id ON users_buddies USING btree (buddy_id);
+
+
+--
+-- Name: index_users_buddies_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_buddies_on_user_id ON users_buddies USING btree (user_id);
+
+
+--
 -- Name: index_users_on_facebook_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -297,3 +330,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130428151349');
 INSERT INTO schema_migrations (version) VALUES ('20130501164051');
 
 INSERT INTO schema_migrations (version) VALUES ('20130524075147');
+
+INSERT INTO schema_migrations (version) VALUES ('20130604005725');

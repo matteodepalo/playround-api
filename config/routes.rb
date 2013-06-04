@@ -1,4 +1,4 @@
-# == Route Map (Updated 2013-05-29 14:33)
+# == Route Map (Updated 2013-06-04 01:04)
 #
 #                  Prefix Verb   URI Pattern                                   Controller#Action
 # v1_round_participations DELETE /v1/rounds/:round_id/participations(.:format) v1/participations#destroy
@@ -13,13 +13,13 @@
 #                 v1_game GET    /v1/games/:id(.:format)                       v1/games#show
 #               v1_arenas GET    /v1/arenas(.:format)                          v1/arenas#index
 #                v1_arena GET    /v1/arenas/:id(.:format)                      v1/arenas#show
-#             me_v1_users GET    /v1/users/me(.:format)                        v1/users#me
+#         v1_user_buddies GET    /v1/users/:user_id/buddies(.:format)          v1/buddies#index
 #                 v1_user GET    /v1/users/:id(.:format)                       v1/users#show
 #               v1_tokens POST   /v1/tokens(.:format)                          v1/tokens#create
-#                      v1        /v1/*a(.:format)                              #<Proc:0x007ffdeec297e8@/vagrant/config/routes.rb:25 (lambda)>
+#                      v1        /v1/*a(.:format)                              #<Proc:0x007f7f355dc198@/vagrant/config/routes.rb:25 (lambda)>
 #                                /v:api/*path(.:format)                        redirect(301)
 #                                /*path(.:format)                              redirect(301)
-#                    root GET    /                                             #<Proc:0x007ffdeec297e8@/vagrant/config/routes.rb:25 (lambda)>
+#                    root GET    /                                             #<Proc:0x007f7f355dc198@/vagrant/config/routes.rb:25 (lambda)>
 #
 
 not_found = -> (params) { raise ActionController::RoutingError.new("No route matches [#{params['REQUEST_METHOD']}] \"#{params['REQUEST_PATH']}\"") }
@@ -35,7 +35,9 @@ PlayroundApi::Application.routes.draw do
     resources :games, only: [:index, :show]
     resources :arenas, only: [:index, :show]
 
-    resources :users, only: [:show]
+    resources :users, only: [:show] do
+      resources :buddies, only: :index
+    end
 
     resources :tokens, only: [:create]
 
