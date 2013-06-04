@@ -66,9 +66,8 @@ describe Round do
   it 'can assign participants' do
     user = create :user
     unregistered_user = create :user, email: '', facebook_id: '123123123'
-
     round = build :round
-    round.participant_list = [{ id: user.id }, { facebook_id: '123123123' }]
+    round.participant_list = [{ id: user.id }, { facebook_id: unregistered_user.facebook_id }]
     round.save
 
     round.participations.map(&:user).should eq([user, unregistered_user])
