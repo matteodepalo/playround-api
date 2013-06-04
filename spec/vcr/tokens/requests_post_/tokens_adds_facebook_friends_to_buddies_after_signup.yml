@@ -35,9 +35,9 @@ http_interactions:
       X-Fb-Rev:
       - '834072'
       X-Fb-Debug:
-      - nTFwEb68Bm076qDa9QPH2ewtcLbj+XziaVrkfd2vSdw=
+      - Ij2srWeOQ2fw+OMkvE11Awbv5IX07jX5BsWgOVMCVd8=
       Date:
-      - Tue, 04 Jun 2013 01:49:14 GMT
+      - Tue, 04 Jun 2013 01:49:21 GMT
       Connection:
       - keep-alive
       Content-Length:
@@ -55,7 +55,7 @@ http_interactions:
         Classico Enea Silvio Piccolomini"},"year":{"id":"137616982934053","name":"2006"},"type":"High
         School"},{"school":{"id":"112431102103139","name":"University of Siena"},"year":{"id":"142963519060927","name":"2010"},"concentration":[{"id":"109279729089828","name":"Physics"}],"type":"College"}],"gender":"male","email":"matteodepalo\u0040gmail.com","timezone":-4,"locale":"en_US","languages":[{"id":"113153272032690","name":"Italian"},{"id":"106059522759137","name":"English"}],"verified":true,"updated_time":"2013-06-02T16:09:36+0000"}'
     http_version: 
-  recorded_at: Tue, 04 Jun 2013 01:49:14 GMT
+  recorded_at: Tue, 04 Jun 2013 01:49:21 GMT
 - request:
     method: get
     uri: https://graph.facebook.com/me/friends?access_token=CAACEdEose0cBAHslAjv0ct7rRwj4UsZC947J9ONf0o4zZARr3jN7ea1IQ8J5OsLI2l6cfVtnxS3gX2WjK2V5b2khyuwqnsWE11FGQNdDJ9cQI3gKWHxZADZB2ekZCrTVilWgYXR3aBQY5lUfgvqXRDxdnc8LHrr14Qsg9F0pUhgZDZD
@@ -89,9 +89,9 @@ http_interactions:
       X-Fb-Rev:
       - '834072'
       X-Fb-Debug:
-      - /DAMoTSHwy6UDGNV/g0+tGcJuT0J1MUjTowObCnGCY0=
+      - HAv4Y8PGRN8UzEccCUzzfcAdxQ6ErpucY1vWszKaVKE=
       Date:
-      - Tue, 04 Jun 2013 01:49:17 GMT
+      - Tue, 04 Jun 2013 01:49:21 GMT
       Connection:
       - keep-alive
       Content-Length:
@@ -139,5 +139,5 @@ http_interactions:
         Stivan","id":"100002429486683"},{"name":"Takahiro Nishimura","id":"100002695288282"},{"name":"Eugenio
         Depalo","id":"100002950674984"}],"paging":{"next":"https:\/\/graph.facebook.com\/100002734755203\/friends?access_token=CAACEdEose0cBAHslAjv0ct7rRwj4UsZC947J9ONf0o4zZARr3jN7ea1IQ8J5OsLI2l6cfVtnxS3gX2WjK2V5b2khyuwqnsWE11FGQNdDJ9cQI3gKWHxZADZB2ekZCrTVilWgYXR3aBQY5lUfgvqXRDxdnc8LHrr14Qsg9F0pUhgZDZD&limit=5000&offset=5000&__after_id=100002950674984"}}'
     http_version: 
-  recorded_at: Tue, 04 Jun 2013 01:49:17 GMT
+  recorded_at: Tue, 04 Jun 2013 01:49:21 GMT
 recorded_with: VCR 2.5.0

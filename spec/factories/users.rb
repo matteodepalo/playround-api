@@ -22,8 +22,12 @@
 FactoryGirl.define do
   factory :user do
     name 'Test User'
+
     sequence :email do |n|
       "test#{n}@user.com"
     end
+
+    facebook_id '123'
+    foursquare_id '456'
   end
 end
