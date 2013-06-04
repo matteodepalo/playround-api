@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can :manage, Round, :user_id => user.id
+    can :manage, Round, user_id: user.id
+    can :manage, User, id: user.id
   end
 end

@@ -14,11 +14,11 @@ class ApplicationController < ActionController::API
   protected
 
   def authenticate
-    if user = authenticate_with_http_token { |token, options| User.authenticate(token) }
-      @current_user = user
-    else
-      request_http_token_authentication
-    end
+    request_http_token_authentication and return unless authenticate!
+  end
+
+  def authenticate!
+    @current_user = authenticate_with_http_token { |token, options| User.authenticate(token) }
   end
 
   attr_reader :current_user

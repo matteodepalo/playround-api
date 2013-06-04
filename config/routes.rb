@@ -1,4 +1,4 @@
-# == Route Map (Updated 2013-06-04 01:04)
+# == Route Map (Updated 2013-06-04 15:37)
 #
 #                  Prefix Verb   URI Pattern                                   Controller#Action
 # v1_round_participations DELETE /v1/rounds/:round_id/participations(.:format) v1/participations#destroy
@@ -14,12 +14,13 @@
 #               v1_arenas GET    /v1/arenas(.:format)                          v1/arenas#index
 #                v1_arena GET    /v1/arenas/:id(.:format)                      v1/arenas#show
 #         v1_user_buddies GET    /v1/users/:user_id/buddies(.:format)          v1/buddies#index
+#                         POST   /v1/users/:user_id/buddies(.:format)          v1/buddies#create
 #                 v1_user GET    /v1/users/:id(.:format)                       v1/users#show
 #               v1_tokens POST   /v1/tokens(.:format)                          v1/tokens#create
-#                      v1        /v1/*a(.:format)                              #<Proc:0x007f7f355dc198@/vagrant/config/routes.rb:25 (lambda)>
+#                      v1        /v1/*a(.:format)                              #<Proc:0x007f0f71c15f98@/vagrant/config/routes.rb:26 (lambda)>
 #                                /v:api/*path(.:format)                        redirect(301)
 #                                /*path(.:format)                              redirect(301)
-#                    root GET    /                                             #<Proc:0x007f7f355dc198@/vagrant/config/routes.rb:25 (lambda)>
+#                    root GET    /                                             #<Proc:0x007f0f71c15f98@/vagrant/config/routes.rb:26 (lambda)>
 #
 
 not_found = -> (params) { raise ActionController::RoutingError.new("No route matches [#{params['REQUEST_METHOD']}] \"#{params['REQUEST_PATH']}\"") }
@@ -27,7 +28,7 @@ not_found = -> (params) { raise ActionController::RoutingError.new("No route mat
 PlayroundApi::Application.routes.draw do
   namespace :v1 do
     resources :rounds, except: [:new, :edit] do
-      resources :participations, only: [:create] do
+      resources :participations, only: :create do
         collection { delete :destroy }
       end
     end
@@ -35,11 +36,11 @@ PlayroundApi::Application.routes.draw do
     resources :games, only: [:index, :show]
     resources :arenas, only: [:index, :show]
 
-    resources :users, only: [:show] do
-      resources :buddies, only: :index
+    resources :users, only: :show do
+      resources :buddies, only: [:index, :create]
     end
 
-    resources :tokens, only: [:create]
+    resources :tokens, only: :create
 
     match '*a', to: not_found, via: :all
   end

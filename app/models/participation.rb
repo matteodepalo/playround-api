@@ -37,10 +37,16 @@ class Participation < ActiveRecord::Base
   private
 
   def round_and_user_must_be_unique
+    add_error = -> {
+      errors.add(:base, 'user_id and round_id must be unique')
+    }
+
+    user_round_participations = round.participations.where(user_id: user_id)
+
     if persisted?
-      errors.add(:base, 'user_id and round_id must be unique') unless round.participations.where(user_id: user_id).count == 1
+      add_error.call unless user_round_participations.count == 1
     else
-      errors.add(:base, 'user_id and round_id must be unique') unless round.participations.where(user_id: user_id).first.nil?
+      add_error.call unless user_round_participations.first.nil?
     end
   end
 end

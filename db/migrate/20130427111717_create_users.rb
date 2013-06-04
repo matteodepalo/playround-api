@@ -3,10 +3,8 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users, id: :uuid do |t|
       t.string :name
       t.string :email
-      t.string :image
       t.string :facebook_id
       t.string :foursquare_id
-
 
       t.timestamps
     end

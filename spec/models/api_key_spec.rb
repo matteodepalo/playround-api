@@ -11,6 +11,7 @@
 # Indexes
 #
 #  index_api_keys_on_access_token  (access_token) UNIQUE
+#  index_api_keys_on_user_id       (user_id)
 #
 
 require 'spec_helper'

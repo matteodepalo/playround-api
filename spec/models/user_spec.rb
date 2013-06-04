@@ -5,7 +5,6 @@
 #  id            :uuid             not null, primary key
 #  name          :string(255)
 #  email         :string(255)
-#  image         :string(255)
 #  facebook_id   :string(255)
 #  foursquare_id :string(255)
 #  created_at    :datetime

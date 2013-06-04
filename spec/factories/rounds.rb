@@ -12,7 +12,9 @@
 #
 # Indexes
 #
-#  index_rounds_on_game_id  (game_id)
+#  index_rounds_on_arena_id  (arena_id)
+#  index_rounds_on_game_id   (game_id)
+#  index_rounds_on_user_id   (user_id)
 #
 
 FactoryGirl.define do

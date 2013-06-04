@@ -70,6 +70,17 @@ CREATE TABLE arenas (
 
 
 --
+-- Name: buddies_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE buddies_users (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    user_id uuid,
+    buddy_id uuid
+);
+
+
+--
 -- Name: games; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -130,22 +141,10 @@ CREATE TABLE users (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     name character varying(255),
     email character varying(255),
-    image character varying(255),
     facebook_id character varying(255),
     foursquare_id character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
-);
-
-
---
--- Name: users_buddies; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE users_buddies (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    user_id uuid,
-    buddy_id uuid
 );
 
 
@@ -163,6 +162,14 @@ ALTER TABLE ONLY api_keys
 
 ALTER TABLE ONLY arenas
     ADD CONSTRAINT arenas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: buddies_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY buddies_users
+    ADD CONSTRAINT buddies_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -190,14 +197,6 @@ ALTER TABLE ONLY rounds
 
 
 --
--- Name: users_buddies_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY users_buddies
-    ADD CONSTRAINT users_buddies_pkey PRIMARY KEY (id);
-
-
---
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -217,6 +216,20 @@ CREATE UNIQUE INDEX index_api_keys_on_access_token ON api_keys USING btree (acce
 --
 
 CREATE INDEX index_api_keys_on_user_id ON api_keys USING btree (user_id);
+
+
+--
+-- Name: index_buddies_users_on_buddy_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_buddies_users_on_buddy_id ON buddies_users USING btree (buddy_id);
+
+
+--
+-- Name: index_buddies_users_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_buddies_users_on_user_id ON buddies_users USING btree (user_id);
 
 
 --
@@ -259,20 +272,6 @@ CREATE INDEX index_rounds_on_game_id ON rounds USING btree (game_id);
 --
 
 CREATE INDEX index_rounds_on_user_id ON rounds USING btree (user_id);
-
-
---
--- Name: index_users_buddies_on_buddy_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_users_buddies_on_buddy_id ON users_buddies USING btree (buddy_id);
-
-
---
--- Name: index_users_buddies_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_users_buddies_on_user_id ON users_buddies USING btree (user_id);
 
 
 --
