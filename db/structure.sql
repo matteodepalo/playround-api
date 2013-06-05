@@ -70,13 +70,15 @@ CREATE TABLE arenas (
 
 
 --
--- Name: buddies_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: buddyships; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE buddies_users (
+CREATE TABLE buddyships (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     user_id uuid,
-    buddy_id uuid
+    buddy_id uuid,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -165,11 +167,11 @@ ALTER TABLE ONLY arenas
 
 
 --
--- Name: buddies_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: buddyships_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY buddies_users
-    ADD CONSTRAINT buddies_users_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY buddyships
+    ADD CONSTRAINT buddyships_pkey PRIMARY KEY (id);
 
 
 --
@@ -219,17 +221,17 @@ CREATE INDEX index_api_keys_on_user_id ON api_keys USING btree (user_id);
 
 
 --
--- Name: index_buddies_users_on_buddy_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_buddyships_on_buddy_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_buddies_users_on_buddy_id ON buddies_users USING btree (buddy_id);
+CREATE INDEX index_buddyships_on_buddy_id ON buddyships USING btree (buddy_id);
 
 
 --
--- Name: index_buddies_users_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_buddyships_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_buddies_users_on_user_id ON buddies_users USING btree (user_id);
+CREATE INDEX index_buddyships_on_user_id ON buddyships USING btree (user_id);
 
 
 --
@@ -313,4 +315,4 @@ INSERT INTO schema_migrations (version) VALUES ('20130428151349');
 
 INSERT INTO schema_migrations (version) VALUES ('20130501164051');
 
-INSERT INTO schema_migrations (version) VALUES ('20130604005725');
+INSERT INTO schema_migrations (version) VALUES ('20130605164302');

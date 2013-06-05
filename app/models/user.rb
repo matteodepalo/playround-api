@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   has_many :hosted_rounds, class_name: 'Round'
   has_many :participations
   has_many :rounds, through: :participations
-  has_and_belongs_to_many :buddies, class_name: 'User', join_table: 'buddies_users', association_foreign_key: 'buddy_id'
+  has_many :buddyships
+  has_many :buddies, class_name: 'User', through: :buddyships
 
   validates :name, presence: true
 
