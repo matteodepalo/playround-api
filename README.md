@@ -17,7 +17,7 @@ passwd
 go back in the host machine and bootstrap Chef with
 
 ```
-knife solo bootstrap root@192.168.33.10 development.json
+cd chef && knife solo bootstrap root@192.168.33.10 development.json
 ```
 
 and then, to run the server, just type
