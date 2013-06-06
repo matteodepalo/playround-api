@@ -23,19 +23,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 06 Jun 2013 19:55:05 GMT
+      - Thu, 06 Jun 2013 20:46:15 GMT
       Server:
       - nginx/1.2.1
       Strict-Transport-Security:
       - max-age=864000
       Tracer-Time:
-      - '112'
+      - '132'
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4995'
+      - '4992'
       Content-Length:
-      - '6172'
+      - '6161'
       Connection:
       - keep-alive
     body:
@@ -227,9 +227,9 @@ http_interactions:
         VzIuanBnIiwidGlwcyI6eyJjb3VudCI6MH0sImhvbWVDaXR5IjoiU2FjcmFt
         ZW50bywgQ0EiLCJiaW8iOiIiLCJjb250YWN0Ijp7fX0sInZpc2liaWxpdHki
         OiJwdWJsaWMifV19XSwic3VtbWFyeSI6Ijc1MiBwaG90b3MifSwiaGVyZU5v
-        dyI6eyJjb3VudCI6Miwic3VtbWFyeSI6IjIgcGVvcGxlIGhlcmUiLCJncm91
+        dyI6eyJjb3VudCI6MSwic3VtbWFyeSI6IjEgcGVyc29uIGhlcmUiLCJncm91
         cHMiOlt7InR5cGUiOiJvdGhlcnMiLCJuYW1lIjoiT3RoZXIgcGVvcGxlIGhl
-        cmUiLCJjb3VudCI6MiwiaXRlbXMiOltdfV19LCJjcmVhdGVkQXQiOjEwODQ1
+        cmUiLCJjb3VudCI6MSwiaXRlbXMiOltdfV19LCJjcmVhdGVkQXQiOjEwODQ1
         NzkyMDAsIm1heW9yIjp7ImNvdW50Ijo2LCJ1c2VyIjp7ImlkIjoiNDI0MDUx
         ODciLCJmaXJzdE5hbWUiOiJKYXNvbiIsImxhc3ROYW1lIjoiUC4iLCJnZW5k
         ZXIiOiJtYWxlIiwicGhvdG8iOiJodHRwczpcL1wvaXMxLjRzcWkubmV0XC91
@@ -543,5 +543,5 @@ http_interactions:
         ZFRpbWUiOiI5OjAwIEFNXHUyMDEzNjowMCBQTSJ9XSwic2VnbWVudHMiOltd
         fV19LCJwYWdlVXBkYXRlcyI6eyJjb3VudCI6MCwiaXRlbXMiOltdfX19fQ==
     http_version: 
-  recorded_at: Thu, 06 Jun 2013 19:55:05 GMT
+  recorded_at: Thu, 06 Jun 2013 20:46:15 GMT
 recorded_with: VCR 2.5.0

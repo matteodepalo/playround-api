@@ -19,8 +19,8 @@ class Arena < ActiveRecord::Base
   has_many :rounds
 
   validate :foursquare_id, presence: true, uniqueness: true
-  validate :latitude, numericality: { greater_than:  -90, less_than:  90 }
-  validate :longitude, numericality: { greater_than: -180, less_than: 180 }
+  validate :latitude, numericality: { greater_than:  -90, less_than:  90 }, presence: true
+  validate :longitude, numericality: { greater_than: -180, less_than: 180 }, presence: true
 
   before_validation :populate_data_from_foursquare, if: -> { foursquare_id_changed? }
 
