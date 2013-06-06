@@ -1,5 +1,5 @@
 class V1::ParticipationsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate!
 
   def create
     @round = Round.find(params[:round_id])

@@ -1,9 +1,9 @@
 class V1::ArenasController < ApplicationController
   def index
-    respond_with Arena.all
+    render json: Arena.all
   end
 
   def show
-    respond_with Arena.find(params[:id])
+    render json: Arena.find(params[:id])
   end
 end

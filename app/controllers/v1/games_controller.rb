@@ -1,6 +1,6 @@
 class V1::GamesController < ApplicationController
   def index
-    respond_with Game.all
+    render json: Game.all
   end
 
   def show

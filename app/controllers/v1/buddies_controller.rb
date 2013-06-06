@@ -1,9 +1,9 @@
 class V1::BuddiesController < ApplicationController
-  before_filter :authenticate, only: :create
+  before_filter :authenticate!, only: :create
   before_filter :find_user, only: :create
 
   def index
-    authenticate!
+    authenticate
     request_http_token_authentication and return unless find_user
 
     render json: @user.buddies
@@ -12,11 +12,7 @@ class V1::BuddiesController < ApplicationController
   def create
     authorize! :manage, @user
 
-    params[:buddies].each do |buddy|
-      @user.buddies << User.where(buddy.except('name')).first_or_create do |b|
-        b.name = buddy[:name]
-      end
-    end
+    @user.buddies_hashes = params[:buddies]
 
     render json: @user.buddies
   end

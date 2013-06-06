@@ -1,14 +1,14 @@
 class V1::RoundsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate!
 
   def index
-    respond_with Round.where(user_id: current_user.id)
+    render json: Round.where(user_id: current_user.id)
   end
 
   def show
     @round = Round.find(params[:id])
 
-    respond_with @round
+    render json: @round
   end
 
   def create
@@ -36,7 +36,7 @@ class V1::RoundsController < ApplicationController
     @round = Round.find(params[:id])
     authorize! :destroy, @round
 
-    respond_with @round.destroy
+    render json: @round.destroy
   end
 
   private

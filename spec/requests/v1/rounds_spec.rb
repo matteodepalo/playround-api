@@ -137,7 +137,8 @@ describe 'Rounds Requests' do
         round = create :round
         delete_with_auth v1_round_path(round), user: round.user
 
-        response.status.should eq(204)
+        response.status.should eq(200)
+        JSON.parse(response.body)['round']['id'].should eq(round.id)
       end
     end
 

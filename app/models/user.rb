@@ -28,24 +28,36 @@ class User < ActiveRecord::Base
 
   validate :social_id_must_be_present
 
-  def social_id_must_be_present
-    unless facebook_id.present? || foursquare_id.present?
-      errors.add(:base, 'Either facebook_id or foursquare_id must be present')
+  class << self
+    def authenticate(token)
+      self.joins(:api_keys).where(api_keys: { access_token: token }).first
+    end
+
+    def find_or_create_by_facebook_oauth(info)
+      user = self.where(facebook_id: info['id']).first_or_create do |user|
+        user.email = info['email']
+        user.name = "#{info['first_name']} #{info['last_name']}"
+      end
     end
   end
 
-  def self.authenticate(token)
-    self.joins(:api_keys).where(api_keys: { access_token: token }).first
-  end
-
-  def self.find_or_create_by_facebook_oauth(info)
-    user = self.where(facebook_id: info['id']).first_or_create do |user|
-      user.email = info['email']
-      user.name = "#{info['first_name']} #{info['last_name']}"
+  def buddies_hashes=(buddies_hashes)
+    buddies_hashes.each do |buddy|
+      self.buddies << User.where(buddy.slice('id', 'facebook_id', 'foursquare_id')).first_or_create do |b|
+        b.name = buddy[:name]
+      end
     end
   end
 
   def image
     facebook_id.present? ? "http://graph.facebook.com/#{facebook_id}/picture?type=square" : ''
+  end
+
+  private
+
+  def social_id_must_be_present
+    unless facebook_id.present? || foursquare_id.present?
+      errors.add(:base, 'Either facebook_id or foursquare_id must be present')
+    end
   end
 end

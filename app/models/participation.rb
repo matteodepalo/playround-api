@@ -7,7 +7,6 @@
 #  round_id   :uuid
 #  user_id    :uuid
 #  joined     :boolean          default(FALSE)
-#  user_type  :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #

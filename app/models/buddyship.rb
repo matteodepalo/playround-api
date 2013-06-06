@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: buddyships
+#
+#  id         :uuid             not null, primary key
+#  user_id    :uuid
+#  buddy_id   :uuid
+#  created_at :datetime
+#  updated_at :datetime
+#
+# Indexes
+#
+#  index_buddyships_on_buddy_id  (buddy_id)
+#  index_buddyships_on_user_id   (user_id)
+#
+
 class Buddyship < ActiveRecord::Base
   belongs_to :user
   belongs_to :buddy, class_name: 'User'
