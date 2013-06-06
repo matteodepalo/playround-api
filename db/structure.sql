@@ -64,6 +64,7 @@ CREATE TABLE arenas (
     name character varying(255),
     latitude double precision,
     longitude double precision,
+    foursquare_id character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -217,6 +218,13 @@ CREATE UNIQUE INDEX index_api_keys_on_access_token ON api_keys USING btree (acce
 --
 
 CREATE INDEX index_api_keys_on_user_id ON api_keys USING btree (user_id);
+
+
+--
+-- Name: index_arenas_on_foursquare_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_arenas_on_foursquare_id ON arenas USING btree (foursquare_id);
 
 
 --
