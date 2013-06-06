@@ -5,7 +5,6 @@ class CreateParticipations < ActiveRecord::Migration
       t.uuid :round_id
       t.uuid :user_id
       t.boolean :joined, default: false
-      t.string :user_type
 
       t.timestamps
     end
