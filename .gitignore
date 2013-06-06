@@ -26,3 +26,6 @@ cookbooks
 /vendor/cache
 /.chef/
 /chef/.chef/
+/.env
+/.env.test
+/.env.production

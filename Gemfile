@@ -10,6 +10,9 @@ gem 'active_model_serializers'
 gem 'annotate', git: 'git://github.com/ctran/annotate_models.git'
 gem 'koala'
 gem 'cancan'
+gem 'unicorn'
+gem 'foursquare2'
+gem 'dotenv'
 
 group :development do
   gem 'capistrano'
@@ -20,14 +23,10 @@ end
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'database_cleaner'
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'vcr'
   gem 'webmock'
-end
-
-group :deploy do
-  gem 'unicorn'
 end

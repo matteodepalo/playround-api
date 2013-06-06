@@ -47,6 +47,10 @@ class Round < ActiveRecord::Base
     game.display_name
   end
 
+  def arena_foursquare_id=(foursquare_id)
+    self.arena = Arena.where(foursquare_id: foursquare_id).first_or_create
+  end
+
   def participant_list=(participant_hashes)
     participant_hashes.each do |participant|
       self.participations << Participation.new(user: User.where(participant).first, round: self)

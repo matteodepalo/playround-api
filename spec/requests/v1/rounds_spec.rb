@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Rounds Requests' do
-  valid_attributes = { game_name: 'dota2' }
+  valid_attributes = { game_name: 'dota2', arena_foursquare_id: '5104' }
   invalid_attributes = { game_name: 'lol' }
   let(:user) { create :user }
 
@@ -50,7 +50,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'POST /rounds' do
+  describe 'POST /rounds', :vcr do
     describe 'with authentication' do
       it 'succeeds with valid params' do
         game = Game.build_and_create(name: valid_attributes[:game_name])
@@ -61,6 +61,7 @@ describe 'Rounds Requests' do
         round['id'].should be_present
         round['state'].should eq('waiting_for_players')
         round['game']['display_name'].should eq('Dota 2')
+        round['arena']['foursquare_id'].should eq(valid_attributes[:arena_foursquare_id])
       end
 
       it 'adds participants to the round' do
@@ -94,7 +95,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'PATCH /rounds/1' do
+  describe 'PATCH /rounds/1', :vcr do
     describe 'with authentication and authorization' do
       it 'succeeds with valid params' do
         round = create :round

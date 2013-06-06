@@ -42,6 +42,6 @@ class V1::RoundsController < ApplicationController
   private
 
   def round_params
-    params.require(:round).permit(:game_name, participant_list: [[ :id, :facebook_id, :foursquare_id ]])
+    params.require(:round).permit(:game_name, :arena_foursquare_id, participant_list: [[ :id, :facebook_id, :foursquare_id ]])
   end
 end
