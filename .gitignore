@@ -24,6 +24,5 @@ cookbooks
 *.box
 /vendor/bundle
 /vendor/cache
-/bin
 /.chef/
 /chef/.chef/
