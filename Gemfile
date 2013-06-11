@@ -1,7 +1,7 @@
 ruby '2.0.0'
 source 'http://rubygems.org'
 
-gem 'rails', '4.0.0rc1'
+gem 'rails', '4.0.0rc2'
 gem 'rails-api'
 gem 'pg'
 gem 'state_machine'
