@@ -48,8 +48,8 @@ class Round < ActiveRecord::Base
     game.display_name
   end
 
-  def arena_foursquare_id=(foursquare_id)
-    self.arena = Arena.where(foursquare_id: foursquare_id).first_or_create
+  def arena_properties=(options = {})
+    self.arena = Arena.where(options).first_or_create
   end
 
   def participant_list=(participant_hashes)

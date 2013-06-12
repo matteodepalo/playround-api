@@ -18,6 +18,11 @@
 require 'spec_helper'
 
 describe Arena do
+  it 'has a unique couple of latitude and longitude' do
+    Arena.create(latitude: 50, longitude: 10)
+    Arena.new(latitude: 50, longitude: 10).should_not be_valid
+  end
+
   it 'gets venue information from foursquare_id' do
     foursquare_id = '5104'
     arena = Arena.create(foursquare_id: foursquare_id)
