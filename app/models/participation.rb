@@ -20,9 +20,14 @@ class Participation < ActiveRecord::Base
   belongs_to :user
   belongs_to :round
 
+  validates :team, presence: true
+
   default_scope -> { includes(:user) }
 
   validate :round_and_user_must_be_unique
+  validate :team_name_must_be_among_the_available_ones
+
+  before_validation :auto_assign_team, unless: -> { team.present? }, on: :create
 
   def self.create_or_update(options = {})
     if participation = where(round: options[:round], user: options[:user]).first
@@ -34,6 +39,14 @@ class Participation < ActiveRecord::Base
   end
 
   private
+
+  def auto_assign_team
+    self.team = round.available_teams.first
+  end
+
+  def team_name_must_be_among_the_available_ones
+    errors.add(:team, "must be among:\"#{round.available_teams.join(', ')}\"") if team_changed? && !round.available_teams.include?(team)
+  end
 
   def round_and_user_must_be_unique
     add_error = -> {

@@ -18,6 +18,8 @@
 #
 
 class Round < ActiveRecord::Base
+  attr_accessor :game_name_validity
+
   belongs_to :user
   belongs_to :game
   belongs_to :arena
@@ -29,6 +31,7 @@ class Round < ActiveRecord::Base
   validates :user_id, presence: true
   validates :arena_id, presence: true
   validate :game_cannot_be_changed_after_creation
+  validate :check_game_name_validity
 
   state_machine initial: :waiting_for_players do
     event :start do
@@ -41,7 +44,14 @@ class Round < ActiveRecord::Base
   end
 
   def game_name=(name)
-    self.game = Game.where(name: name.to_s).first
+    name = name.to_s
+
+    begin
+      self.game = Game.where(name: name).first || Game.build_and_create(name: name)
+      @game_name_validity = true
+    rescue Game::InvalidGameNameError
+      @game_name_validity = false
+    end
   end
 
   def game_name
@@ -52,13 +62,25 @@ class Round < ActiveRecord::Base
     self.arena = Arena.where(options).first_or_create
   end
 
-  def participant_list=(participant_hashes)
-    participant_hashes.each do |participant|
-      self.participations << Participation.new(user: User.where(participant).first, round: self)
+  def participation_list=(participation_hashes)
+    participation_hashes.each do |participation|
+      self.participations << Participation.new(team: participation[:team], user: User.where(participation[:user]).first, round: self)
     end
   end
 
+  def available_teams
+    # cannot use participations relation because creating a participation doesn't update the round model association
+    # this is because inverse_of doesn't work for inverse has_many relationships
+    # (in this case it would work for participation.round, but not for round.participations)
+    # as stated in http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+    game.teams - Participation.where(round: self).map(&:team)
+  end
+
   private
+
+  def check_game_name_validity
+    errors.add(:base, "game_name must be among: \"#{Game::VALID_GAME_NAMES.join(', ')}\"") if game_name_validity == false
+  end
 
   def game_cannot_be_changed_after_creation
     errors.add(:game, 'cannot be changed after creation') if persisted? && game_id_changed?

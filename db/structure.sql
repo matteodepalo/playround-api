@@ -102,7 +102,7 @@ CREATE TABLE games (
 
 CREATE TABLE participations (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    team integer,
+    team character varying(255),
     round_id uuid,
     user_id uuid,
     joined boolean DEFAULT false,

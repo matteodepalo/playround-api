@@ -1,7 +1,7 @@
 class CreateParticipations < ActiveRecord::Migration
   def change
     create_table :participations, id: :uuid do |t|
-      t.integer :team
+      t.string :team
       t.uuid :round_id
       t.uuid :user_id
       t.boolean :joined, default: false

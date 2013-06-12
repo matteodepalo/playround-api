@@ -26,5 +26,9 @@ module Games
     def number_of_teams
       2
     end
+
+    def teams
+      ['black', 'white']
+    end
   end
 end

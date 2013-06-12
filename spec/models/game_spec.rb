@@ -47,4 +47,22 @@ describe Game do
     game = Game.build(name: :dota2)
     game.display_name.should eq('Dota 2')
   end
+
+  describe 'Dota 2' do
+    it 'has radiant and dire as teams' do
+      Game.build(name: :dota2).teams.should eq(['radiant', 'dire'])
+    end
+  end
+
+  describe 'Go' do
+    it 'has black and white as teams' do
+      Game.build(name: :go).teams.should eq(['black', 'white'])
+    end
+  end
+
+  describe 'Table football' do
+    it 'has blue and red as teams' do
+      Game.build(name: :table_football).teams.should eq(['blue', 'red'])
+    end
+  end
 end

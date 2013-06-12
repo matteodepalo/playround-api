@@ -41,7 +41,7 @@ describe 'Participations Spec' do
         delete_with_auth v1_round_participations_path(round), {}, user: user
 
         response.status.should eq(200)
-        JSON.parse(response.body)['round']['participant_list'].to_s.should_not include(user.id.to_s)
+        JSON.parse(response.body)['round']['participations'].should eq([])
       end
     end
 
