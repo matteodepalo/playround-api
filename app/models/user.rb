@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def buddies_hashes=(buddies_hashes)
+  def buddy_list=(buddies_hashes)
     buddies_hashes.each do |buddy|
       self.buddies << User.where(buddy.slice('id', 'facebook_id', 'foursquare_id')).first_or_create do |b|
         b.name = buddy[:name]

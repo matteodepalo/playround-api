@@ -11,7 +11,7 @@ class V1::BuddiesController < ApplicationController
 
   def create
     authorize! :manage, @user
-    @user.buddies_hashes = params[:buddies]
+    @user.buddy_list = params[:buddies]
 
     render json: @user.buddies
   end

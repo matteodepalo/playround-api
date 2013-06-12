@@ -22,4 +22,8 @@ describe User do
   it 'is not valid without a social id' do
     build(:user, facebook_id: '', foursquare_id: '').should_not be_valid
   end
+
+  it 'adds buddies via the buddy_list setter' do
+    pending
+  end
 end

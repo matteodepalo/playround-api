@@ -69,7 +69,7 @@ class Round < ActiveRecord::Base
   end
 
   def available_teams
-    # cannot use participations relation because creating a participation doesn't update the round model association
+    # participations relation cannot be used because creating a participation doesn't update the round model association
     # this is because inverse_of doesn't work for inverse has_many relationships
     # (in this case it would work for participation.round, but not for round.participations)
     # as stated in http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
