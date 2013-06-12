@@ -74,4 +74,12 @@ describe Round do
 
     round.participations.map(&:user).should eq([user, unregistered_user])
   end
+
+  it 'can assign an arena from foursquare', :vcr do
+    round = build :round
+    round.arena_foursquare_id = '5104'
+    round.save
+
+    round.arena.foursquare_id.should eq('5104')
+  end
 end
