@@ -18,12 +18,13 @@
 require 'spec_helper'
 
 describe Arena do
-  it 'gets venute information from foursquare_id', :vcr do
+  it 'gets venue information from foursquare_id' do
     foursquare_id = '5104'
     arena = Arena.create(foursquare_id: foursquare_id)
 
     arena.latitude.should eq(40.721294)
     arena.longitude.should eq(-73.983994)
+    arena.name.should eq('Clinton St. Baking Co. & Restaurant')
     arena.foursquare_id.should eq(foursquare_id)
   end
 end

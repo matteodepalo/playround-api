@@ -27,6 +27,7 @@ class Round < ActiveRecord::Base
   validates :state, presence: true
   validates :game_id, presence: true
   validates :user_id, presence: true
+  validates :arena_id, presence: true
   validate :game_cannot_be_changed_after_creation
 
   state_machine initial: :waiting_for_players do

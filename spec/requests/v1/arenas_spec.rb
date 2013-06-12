@@ -3,15 +3,16 @@ require 'spec_helper'
 describe 'Arenas Requests' do
   describe 'GET /arenas/1' do
     it 'returns the requested arena' do
-      arena_factory = create :arena, name: 'Meme Coworking', latitude: 45.54231, longitude: 12.23170
+      arena_factory = create :arena, foursquare_id: '5104'
       get v1_arena_path(arena_factory)
 
       response.status.should eq(200)
       arena = JSON.parse(response.body)['arena']
       arena['id'].should eq(arena_factory.id.to_s)
-      arena['name'].should eq('Meme Coworking')
-      arena['latitude'].should eq(45.54231)
-      arena['longitude'].should eq(12.23170)
+      arena['foursquare_id'].should eq('5104')
+      arena['name'].should eq('Clinton St. Baking Co. & Restaurant')
+      arena['latitude'].should eq(40.721294)
+      arena['longitude'].should eq(-73.983994)
     end
   end
 

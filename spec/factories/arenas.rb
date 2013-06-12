@@ -19,8 +19,9 @@
 
 FactoryGirl.define do
   factory :arena do
-    name 'Meme Coworking'
-    latitude 45.54231
-    longitude 12.23170
+    foursquare_id '5104'
+    name 'Clinton St. Baking Co. & Restaurant'
+    latitude 40.721294
+    longitude -73.983994
   end
 end

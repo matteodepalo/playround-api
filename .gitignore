@@ -29,3 +29,4 @@ cookbooks
 /.env
 /.env.test
 /.env.production
+vcr

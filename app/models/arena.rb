@@ -28,6 +28,7 @@ class Arena < ActiveRecord::Base
 
   def populate_data_from_foursquare
     venue = FOURSQUARE_CLIENT.venue(foursquare_id)
+    self.name = venue.name
     self.latitude = venue.location.lat
     self.longitude = venue.location.lng
   end

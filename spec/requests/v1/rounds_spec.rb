@@ -50,7 +50,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'POST /rounds', :vcr do
+  describe 'POST /rounds' do
     describe 'with authentication' do
       it 'succeeds with valid params' do
         game = Game.build_and_create(name: valid_attributes[:game_name])
@@ -95,7 +95,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'PATCH /rounds/1', :vcr do
+  describe 'PATCH /rounds/1' do
     describe 'with authentication and authorization' do
       it 'succeeds with valid params' do
         round = create :round

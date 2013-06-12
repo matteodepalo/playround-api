@@ -75,11 +75,12 @@ describe Round do
     round.participations.map(&:user).should eq([user, unregistered_user])
   end
 
-  it 'can assign an arena from foursquare', :vcr do
+  it 'can assign an arena from foursquare' do
+    foursquare_id = attributes_for(:arena)[:foursquare_id]
     round = build :round
-    round.arena_foursquare_id = '5104'
+    round.arena_foursquare_id = foursquare_id
     round.save
 
-    round.arena.foursquare_id.should eq('5104')
+    round.arena.foursquare_id.should eq(foursquare_id)
   end
 end

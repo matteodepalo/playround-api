@@ -5,6 +5,8 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'debugger'
 require 'database_cleaner'
+require 'webmock/rspec'
+require 'data/arena_stubs'
 
 Dotenv.load '.env'
 
@@ -62,6 +64,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    FOURSQUARE_CLIENT.stub(:venue).and_return(EXAMPLE_ARENA)
     DatabaseCleaner.start
   end
 

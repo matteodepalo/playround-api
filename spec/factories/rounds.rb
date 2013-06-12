@@ -20,6 +20,9 @@
 FactoryGirl.define do
   factory :round do
     user
-    after(:build) { |r| r.game = Game.where(name: :dota2).first || Game.build_and_create(name: :dota2) }
+    after(:build) do |r|
+      r.game = Game.where(name: :dota2).first || Game.build_and_create(name: :dota2)
+      r.arena_foursquare_id = attributes_for(:arena)[:foursquare_id]
+    end
   end
 end
