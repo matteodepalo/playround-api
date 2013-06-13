@@ -26,4 +26,8 @@ describe User do
   it 'adds buddies via the buddy_list setter' do
     pending
   end
+
+  it 'authenticates with an api_key' do
+    pending
+  end
 end
