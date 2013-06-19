@@ -144,7 +144,6 @@ CREATE TABLE users (
     name character varying(255),
     email character varying(255),
     facebook_id character varying(255),
-    foursquare_id character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -288,13 +287,6 @@ CREATE INDEX index_rounds_on_user_id ON rounds USING btree (user_id);
 --
 
 CREATE INDEX index_users_on_facebook_id ON users USING btree (facebook_id);
-
-
---
--- Name: index_users_on_foursquare_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_users_on_foursquare_id ON users USING btree (foursquare_id);
 
 
 --

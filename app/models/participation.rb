@@ -3,7 +3,7 @@
 # Table name: participations
 #
 #  id         :uuid             not null, primary key
-#  team       :integer
+#  team       :string(255)
 #  round_id   :uuid
 #  user_id    :uuid
 #  joined     :boolean          default(FALSE)

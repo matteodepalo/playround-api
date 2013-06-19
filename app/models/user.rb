@@ -2,18 +2,16 @@
 #
 # Table name: users
 #
-#  id            :uuid             not null, primary key
-#  name          :string(255)
-#  email         :string(255)
-#  facebook_id   :string(255)
-#  foursquare_id :string(255)
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id          :uuid             not null, primary key
+#  name        :string(255)
+#  email       :string(255)
+#  facebook_id :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
 #
 # Indexes
 #
-#  index_users_on_facebook_id    (facebook_id)
-#  index_users_on_foursquare_id  (foursquare_id)
+#  index_users_on_facebook_id  (facebook_id)
 #
 
 class User < ActiveRecord::Base
@@ -25,7 +23,7 @@ class User < ActiveRecord::Base
   has_many :buddies, class_name: 'User', through: :buddyships
 
   validates :name, presence: true
-  validate :social_id_must_be_present
+  validates :facebook_id, presence: true
 
   class << self
     def authenticate(token)
@@ -64,13 +62,5 @@ class User < ActiveRecord::Base
 
   def image
     facebook_id.present? ? "http://graph.facebook.com/#{facebook_id}/picture?type=square" : ''
-  end
-
-  private
-
-  def social_id_must_be_present
-    unless facebook_id.present? || foursquare_id.present?
-      errors.add(:base, 'Either facebook_id or foursquare_id must be present')
-    end
   end
 end

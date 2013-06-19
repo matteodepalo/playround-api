@@ -4,12 +4,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.string :facebook_id
-      t.string :foursquare_id
 
       t.timestamps
     end
 
     add_index :users, :facebook_id
-    add_index :users, :foursquare_id
   end
 end
