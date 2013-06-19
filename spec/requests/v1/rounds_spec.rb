@@ -78,10 +78,12 @@ describe 'Rounds Requests' do
       it 'adds participants to the round', :vcr do
         game = Game.build_and_create(name: valid_attributes[:game_name])
         participant = create :user
+
         valid_attributes.merge!(participation_list: [
           { team: 'dire', user: { id: participant.id } },
           { user: { facebook_id: MATTEO_DEPALO['id'] }}
         ])
+
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
         participations = JSON.parse(response.body)['round']['participations']
@@ -90,7 +92,7 @@ describe 'Rounds Requests' do
         facebook_user_participation = participations.last
         registered_user_participation['user']['id'].should eq(participant.id)
         registered_user_participation['team'].should eq('dire')
-        facebook_user_participation['user']['facebook_id'].should eq('123')
+        facebook_user_participation['user']['facebook_id'].should eq(MATTEO_DEPALO['id'])
         facebook_user_participation['user']['id'].should be_present
         facebook_user_participation['team'].should eq('radiant')
       end

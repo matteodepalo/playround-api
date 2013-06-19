@@ -24,11 +24,27 @@ describe User do
   end
 
   it 'adds buddies via the buddy_list setter' do
-    pending
+    user = create :user
+    buddy = create :user
+
+    user.buddy_list = [
+      { id: buddy.id },
+      { facebook_id: MATTEO_DEPALO['id'] },
+      { facebook_id: EUGENIO_DEPALO['id'] }
+    ]
+
+    users = user.buddies
+    users.count.should eq(3)
+    users.map(&:id).should include(buddy.id)
+    users.select { |u| u.id != buddy.id }.map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
+    users.select { |u| u.id != buddy.id }.map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
   end
 
   it 'authenticates with an api_key' do
-    pending
+    user = create :user
+    api_key = create :api_key, user: user
+
+    User.authenticate(api_key.access_token).should eq(user)
   end
 
   describe '#self.find_or_create_by_hashes' do
@@ -36,12 +52,13 @@ describe User do
       user = create :user
 
       User.find_or_create_by_hashes([
-        { user: { id: user.id } },
-        { user: { facebook_id: MATTEO_DEPALO['id'] } },
-        { user: { facebook_id: EUGENIO_DEPALO['id'] } }
+        { id: user.id },
+        { facebook_id: MATTEO_DEPALO['id'] },
+        { facebook_id: EUGENIO_DEPALO['id'] }
       ])
 
       users = User.all.to_a
+      users.count.should eq(3)
       users.first.id.should eq(user.id)
       users[1..2].map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
       users[1..2].map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
