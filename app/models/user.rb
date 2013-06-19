@@ -31,9 +31,14 @@ class User < ActiveRecord::Base
     end
 
     def find_or_create_by_facebook_oauth(info)
-      user = self.where(facebook_id: info['id']).first_or_create do |user|
-        user.email = info['email']
-        user.name = "#{info['first_name']} #{info['last_name']}"
+      user = self.where(facebook_id: info['id']).first
+      user_info = { name: "#{info['first_name']} #{info['last_name']}", facebook_id: info['id'] }
+      user_info.merge!(email: info['email']) if info['email'].present?
+
+      user = if user
+        user.update(user_info)
+      else
+        User.create(user_info)
       end
     end
 

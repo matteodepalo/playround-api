@@ -34,8 +34,9 @@ describe User do
     users = user.buddies
     users.count.should eq(3)
     users.map(&:id).should include(buddy.id)
-    users.select { |u| u.id != buddy.id }.map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
-    users.select { |u| u.id != buddy.id }.map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
+    facebook_users = users.select { |u| u.id != buddy.id }
+    facebook_users.map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
+    facebook_users.map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
   end
 
   it 'authenticates with an api_key' do
@@ -60,6 +61,20 @@ describe User do
       users.first.id.should eq(user.id)
       users[1..2].map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
       users[1..2].map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
+    end
+  end
+
+  describe '#self.find_or_create_by_facebook_oauth' do
+    it 'updates infos about a facebook user already in the database' do
+      User.find_or_create_by_facebook_oauth(MATTEO_DEPALO.except('email'))
+      user = User.first
+      user.name.should eq('Matteo Depalo')
+      user.email.should be_nil
+
+      User.find_or_create_by_facebook_oauth(MATTEO_DEPALO.merge('first_name' => 'Ciccio'))
+      user = user.reload
+      user.name.should eq('Ciccio Depalo')
+      user.email.should_not be_nil
     end
   end
 end
