@@ -33,21 +33,21 @@ describe 'Buddies Spec' do
     end
   end
 
-  valid_attributes =  [{ facebook_id: '12345', name: 'Facebook User' }, { facebook_id: '678910', name: 'Facebook User 2' }]
+  valid_attributes =  [{ facebook_id: MATTEO_DEPALO['id'] }, { facebook_id: EUGENIO_DEPALO['id'] }]
 
   describe 'POST users/1/buddies' do
     describe 'with authentication and authentication' do
-      it 'adds users to the list of buddies' do
+      it 'adds users to the list of buddies', :vcr do
         user = create :user
         post_with_auth v1_user_buddies_path(user), { buddies: valid_attributes }, user: user
 
         response.status.should eq(200)
         buddies = JSON.parse(response.body)['buddies']
         buddies.count.should eq(2)
-        buddies.first['name'].should eq('Facebook User')
-        buddies.first['facebook_id'].should eq('12345')
-        buddies.last['name'].should eq('Facebook User 2')
-        buddies.last['facebook_id'].should eq('678910')
+        buddies.first['name'].should eq('Matteo Depalo')
+        buddies.first['facebook_id'].should eq(MATTEO_DEPALO['id'])
+        buddies.last['name'].should eq('Eugenio Depalo')
+        buddies.last['facebook_id'].should eq(EUGENIO_DEPALO['id'])
       end
     end
 
@@ -71,17 +71,17 @@ describe 'Buddies Spec' do
   end
 
   describe 'POST users/me/buddies' do
-    it 'adds users to the list of current_user\'s buddies' do
+    it 'adds users to the list of current_user\'s buddies', :vcr do
       user = create :user
       post_with_auth v1_user_buddies_path(user_id: 'me'), { buddies: valid_attributes }, user: user
 
       response.status.should eq(200)
       buddies = JSON.parse(response.body)['buddies']
       buddies.count.should eq(2)
-      buddies.first['name'].should eq('Facebook User')
-      buddies.first['facebook_id'].should eq('12345')
-      buddies.last['name'].should eq('Facebook User 2')
-      buddies.last['facebook_id'].should eq('678910')
+      buddies.first['name'].should eq('Matteo Depalo')
+      buddies.first['facebook_id'].should eq(MATTEO_DEPALO['id'])
+      buddies.last['name'].should eq('Eugenio Depalo')
+      buddies.last['facebook_id'].should eq(EUGENIO_DEPALO['id'])
     end
 
     describe 'without authentication' do

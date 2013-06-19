@@ -30,4 +30,21 @@ describe User do
   it 'authenticates with an api_key' do
     pending
   end
+
+  describe '#self.find_or_create_by_hashes' do
+    it 'creates or finds a list of users from an array of hashes' do
+      user = create :user
+
+      User.find_or_create_by_hashes([
+        { user: { id: user.id } },
+        { user: { facebook_id: MATTEO_DEPALO['id'] } },
+        { user: { facebook_id: EUGENIO_DEPALO['id'] } }
+      ])
+
+      users = User.all.to_a
+      users.first.id.should eq(user.id)
+      users[1..2].map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
+      users[1..2].map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
+    end
+  end
 end

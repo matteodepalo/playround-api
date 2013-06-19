@@ -63,8 +63,11 @@ class Round < ActiveRecord::Base
   end
 
   def participation_list=(participation_hashes)
-    participation_hashes.each do |participation|
-      self.participations << Participation.new(team: participation[:team], user: User.where(participation[:user]).first, round: self)
+    users = User.find_or_create_by_hashes(participation_hashes.map { |h| h[:user] })
+
+    users.each do |u|
+      participation = participation_hashes.select { |p| p[:user][:id] == u.id || p[:user][:facebook_id] == u.facebook_id }.first
+      self.participations << Participation.new(team: participation[:team], user: u, round: self)
     end
   end
 

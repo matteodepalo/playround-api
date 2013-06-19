@@ -73,12 +73,23 @@ describe Round do
 
   it 'can assign participants' do
     user = create :user
-    unregistered_user = create :user, email: '', facebook_id: '123123123'
     round = build :round
-    round.participation_list = [{ user: { id: user.id }}, { user: { facebook_id: unregistered_user.facebook_id }}]
+    facebook_users = [MATTEO_DEPALO, EUGENIO_DEPALO]
+
+    round.participation_list = [
+      { user: { id: user.id } },
+      { user: { facebook_id: MATTEO_DEPALO['id'] } },
+      { team: 'dire', user: { facebook_id: EUGENIO_DEPALO['id'] } }
+    ]
+
     round.save
 
-    round.participations.map(&:user).should eq([user, unregistered_user])
+    users = round.participations.map(&:user)
+    users.count.should eq(3)
+    users.first.name.should eq(user.name)
+    users[1..2].map(&:facebook_id).should eq(facebook_users.map { |u| u['id'] })
+    users[1..2].map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
+    round.participations.map(&:team).should eq(['radiant', 'radiant', 'dire'])
   end
 
   it 'creates a new arena with the arena_properties setter' do

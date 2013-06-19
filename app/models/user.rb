@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
   has_many :buddies, class_name: 'User', through: :buddyships
 
   validates :name, presence: true
-
   validate :social_id_must_be_present
 
   class << self
@@ -39,14 +38,28 @@ class User < ActiveRecord::Base
         user.name = "#{info['first_name']} #{info['last_name']}"
       end
     end
+
+    def find_or_create_by_hashes(user_hashes = [])
+      registered_users = User.where('id IN (?) or facebook_id IN (?)', user_hashes.map { |h| h[:id] }.compact, user_hashes.map { |h| h[:facebook_id] }.compact)
+      unregistered_hashes = user_hashes.select { |h| h[:facebook_id].present? && !registered_users.map(&:facebook_id).include?(h[:facebook_id]) }
+      unregistered_users = []
+
+      facebook_users = FACEBOOK_CLIENT.batch do |client|
+        unregistered_hashes.each do |h|
+          client.get_object(h[:facebook_id])
+        end
+      end
+
+      facebook_users.each do |u|
+        unregistered_users << find_or_create_by_facebook_oauth(u)
+      end
+
+      registered_users + unregistered_users
+    end
   end
 
   def buddy_list=(buddies_hashes)
-    buddies_hashes.each do |buddy|
-      self.buddies << User.where(buddy.slice('id', 'facebook_id', 'foursquare_id')).first_or_create do |b|
-        b.name = buddy[:name]
-      end
-    end
+    self.buddies << User.find_or_create_by_hashes(buddies_hashes)
   end
 
   def image

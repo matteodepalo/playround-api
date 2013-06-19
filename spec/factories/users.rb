@@ -26,7 +26,12 @@ FactoryGirl.define do
       "test#{n}@user.com"
     end
 
-    facebook_id '123'
-    foursquare_id '456'
+    sequence :facebook_id do |n|
+      "12#{n}"
+    end
+
+    sequence :foursquare_id do |n|
+      "45#{n}"
+    end
   end
 end

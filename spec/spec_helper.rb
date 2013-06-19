@@ -7,6 +7,7 @@ require 'debugger'
 require 'database_cleaner'
 require 'webmock/rspec'
 require 'data/arena_stubs'
+require 'data/facebook_stubs'
 
 Dotenv.load '.env'
 
@@ -49,6 +50,13 @@ RSpec.configure do |config|
     VCR.use_cassette(name, options) { example.call }
   end
 
+  config.before(:each, type: :model) do
+    Koala::Facebook::API.any_instance.stub(:get_object).with('me').and_return(MATTEO_DEPALO)
+    Koala::Facebook::API.any_instance.stub(:get_object).with(MATTEO_DEPALO['id']).and_return(MATTEO_DEPALO)
+    Koala::Facebook::API.any_instance.stub(:get_object).with(EUGENIO_DEPALO['id']).and_return(EUGENIO_DEPALO)
+    Koala::Facebook::API.any_instance.stub(:batch).and_return(BATCH_MATTEO_EUGENIO)
+  end
+
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
@@ -64,7 +72,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    FOURSQUARE_CLIENT.stub(:venue).and_return(EXAMPLE_ARENA)
+    FOURSQUARE_CLIENT.stub(:venue).with('5104').and_return(EXAMPLE_ARENA)
     DatabaseCleaner.start
   end
 
