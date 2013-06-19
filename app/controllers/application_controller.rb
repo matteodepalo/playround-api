@@ -1,11 +1,6 @@
 class ApplicationController < ActionController::API
-  include ActionController::MimeResponds
-  include ActionController::ImplicitRender
   include ActionController::HttpAuthentication::Token::ControllerMethods
   include CanCan::ControllerAdditions
-
-  respond_to :json
-  before_filter :set_format
 
   rescue_from CanCan::AccessDenied do |exception|
     head :forbidden
@@ -22,10 +17,4 @@ class ApplicationController < ActionController::API
   end
 
   attr_reader :current_user
-
-  private
-
-  def set_format
-    request.format = 'json'
-  end
 end
