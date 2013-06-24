@@ -10,7 +10,7 @@ describe 'Games Requests' do
       game = JSON.parse(response.body)['game']
       game['id'].should eq(game_factory.id.to_s)
       game['display_name'].should eq('Dota 2')
-      game['number_of_teams'].should eq(2)
+      game['teams'].should eq([{ 'name' => 'radiant', 'display_name' => 'Radiant' }, { 'name' => 'dire', 'display_name' => 'Dire' }])
       game['image_url'].should match(/http:\/\/.*\/assets\/dota2.jpg/)
     end
   end

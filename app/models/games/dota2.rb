@@ -23,12 +23,12 @@ module Games
       'dota2.jpg'
     end
 
-    def number_of_teams
-      2
+    def team_names
+      ['radiant', 'dire']
     end
 
-    def teams
-      ['radiant', 'dire']
+    def team_display_names
+      ['Radiant', 'Dire']
     end
   end
 end

@@ -44,4 +44,10 @@ class Game < ActiveRecord::Base
   def name=(name)
     super(name.to_s)
   end
+
+  def teams
+    team_names.zip(team_display_names).map do |team|
+      { name: team[0], display_name: team[1] }
+    end
+  end
 end

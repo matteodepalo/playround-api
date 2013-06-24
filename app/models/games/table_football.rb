@@ -23,12 +23,12 @@ module Games
       'table_football.jpg'
     end
 
-    def number_of_teams
-      2
+    def team_names
+      ['blue', 'red']
     end
 
-    def teams
-      ['blue', 'red']
+    def team_display_names
+      ['Blue', 'Red']
     end
   end
 end
