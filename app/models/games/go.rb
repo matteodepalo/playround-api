@@ -23,12 +23,11 @@ module Games
       'go.jpg'
     end
 
-    def team_names
-      ['black', 'white']
-    end
-
-    def team_display_names
-      ['Black', 'White']
+    def teams
+      [
+        { name: 'black', display_name: 'Black', number_of_players: 1 },
+        { name: 'white', display_name: 'White', number_of_players: 1 },
+      ]
     end
   end
 end

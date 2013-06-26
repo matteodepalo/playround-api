@@ -16,7 +16,7 @@ describe 'Rounds Requests' do
         round = JSON.parse(response.body)['round']
         round['id'].should eq(round_factory.id.to_s)
         round['state'].should eq('waiting_for_players')
-        round['game']['display_name'].should include('Dota 2')
+        round['game']['display_name'].should eq('Dota 2')
       end
     end
 

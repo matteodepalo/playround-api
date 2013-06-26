@@ -23,12 +23,11 @@ module Games
       'dota2.jpg'
     end
 
-    def team_names
-      ['radiant', 'dire']
-    end
-
-    def team_display_names
-      ['Radiant', 'Dire']
+    def teams
+      [
+        { name: 'radiant', display_name: 'Radiant', number_of_players: 5 },
+        { name: 'dire', display_name: 'Dire', number_of_players: 5 },
+      ]
     end
   end
 end
