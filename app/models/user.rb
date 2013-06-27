@@ -35,11 +35,14 @@ class User < ActiveRecord::Base
       user_info = { name: "#{info['first_name']} #{info['last_name']}", facebook_id: info['id'] }
       user_info.merge!(email: info['email']) if info['email'].present?
 
-      user = if user
+
+      if user
         user.update(user_info)
       else
-        User.create(user_info)
+        user = User.create(user_info)
       end
+
+      user
     end
 
     def find_or_create_by_hashes(user_hashes = [])
