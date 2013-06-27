@@ -66,13 +66,11 @@ describe User do
 
   describe '#self.find_or_create_by_facebook_oauth' do
     it 'updates infos about a facebook user already in the database' do
-      User.find_or_create_by_facebook_oauth(MATTEO_DEPALO.except('email'))
-      user = User.first
+      user = User.find_or_create_by_facebook_oauth(MATTEO_DEPALO.except('email'))
       user.name.should eq('Matteo Depalo')
       user.email.should be_nil
 
-      User.find_or_create_by_facebook_oauth(MATTEO_DEPALO.merge('first_name' => 'Ciccio'))
-      user = user.reload
+      user = User.find_or_create_by_facebook_oauth(MATTEO_DEPALO.merge('first_name' => 'Ciccio'))
       user.name.should eq('Ciccio Depalo')
       user.email.should_not be_nil
     end
