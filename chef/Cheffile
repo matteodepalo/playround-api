@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'nginx'
+cookbook 'runit'
+cookbook 'vim'
+cookbook 'ruby_build', git: 'git://github.com/fnichol/chef-ruby_build.git'
+cookbook 'rbenv', git: 'git://github.com/fnichol/chef-rbenv.git'
+cookbook 'redisio'
+cookbook 'memcached'
+cookbook 'mosh'
+cookbook 'postgresql', git: 'git://github.com/phlipper/chef-postgresql.git'
+cookbook 'magic_shell', git: 'git://github.com/customink-webops/magic_shell.git'

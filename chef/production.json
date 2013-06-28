@@ -1,0 +1,5 @@
+{
+  "environment": "production",
+  "server_name": "api.goplayround.com",
+  "run_list": "role[baseline]"
+}

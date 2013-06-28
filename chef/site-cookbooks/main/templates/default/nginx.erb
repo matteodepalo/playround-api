@@ -1,0 +1,33 @@
+upstream unicorn {
+  server unix:<%= node[:sockets_folder] %>/playround.sock fail_timeout=0;
+}
+
+server {
+  listen 80;
+  <%= "server_name #{node[:server_name]}" if node[:server_name].present? %>;
+  root <%= node[:release_path] %>/public;
+  # set far-future expiration headers on static content
+  expires max;
+
+  server_tokens off;
+
+  # set up the rails servers as a virtual location for use later
+  location @unicorn {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_intercept_errors on;
+    <% if node[:environment] == 'development' %>
+      proxy_redirect http://localhost/ http://localhost:8080/;
+    <% else %>
+      proxy_redirect off;
+    <% end %>
+    proxy_pass http://unicorn;
+    expires off;
+  }
+
+  location / {
+    try_files $uri @unicorn;
+  }
+}
