@@ -7,7 +7,7 @@ when 'development'
 
   listen "/home/vagrant/sockets/playround.sock"
 when 'production'
-  worker_processes 6
+  worker_processes 1
   deploy_to = '/var/www/playround'
   release_path = deploy_to + '/current'
 
