@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/cldwalker/debugger.git
-  revision: fa1c7201e796c06ae9f0f6cd2ea5476461d56307
-  specs:
-    debugger (1.5.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.0)
-
-GIT
   remote: git://github.com/ctran/annotate_models.git
   revision: 8bd159c7a484093fde84beaa9e6398f25ddacf09
   specs:
@@ -70,11 +61,8 @@ GEM
       ohai (>= 0.6.0)
       rest-client (>= 1.0.4, < 1.7.0)
       yajl-ruby (~> 1.1)
-    columnize (0.3.6)
     crack (0.3.2)
     database_cleaner (1.0.1)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.4)
     dotenv (0.7.0)
     erubis (2.7.0)
@@ -218,7 +206,6 @@ DEPENDENCIES
   cancan
   capistrano
   database_cleaner
-  debugger!
   dotenv
   factory_girl_rails
   foursquare2

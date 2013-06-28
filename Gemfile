@@ -17,7 +17,6 @@ gem 'dotenv'
 group :development do
   gem 'capistrano'
   gem 'knife-solo'
-  gem 'debugger', git: 'git://github.com/cldwalker/debugger.git', require: false
 end
 
 group :test, :development do
