@@ -9,6 +9,8 @@ group 'admin' do
   gid 420
 end
 
+package 'libpq-dev'
+
 user node[:user][:name] do
   password node[:user][:password]
   gid 'admin'

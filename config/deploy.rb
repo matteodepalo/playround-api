@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 default_run_options[:pty] = true
 set :ssh_options, { forward_agent: true }
 
