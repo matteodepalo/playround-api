@@ -8,7 +8,7 @@ set :repository,  'git@github.com:eugeniodepalo/playround-api.git'
 set :deploy_to, "/var/www/#{application}"
 
 set :server_ip, '192.241.132.223'
-server server_ip, :app, :web, primary: true
+server server_ip, :app, :web, :db, primary: true
 set :rails_env, 'production'
 set :branch, 'master'
 
