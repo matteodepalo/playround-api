@@ -1,5 +1,5 @@
 default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
+set :ssh_options, { forward_agent: true }
 
 set :application, 'playround'
 set :repository,  'git@github.com:eugeniodepalo/playround-api.git'
@@ -19,6 +19,7 @@ set :keep_releases, 3
 set :user, 'deployer'
 
 set :bundle_without, [:development, :test]
+set :normalize_asset_timestamps, false
 
 set :rake, "#{rake} --trace"
 

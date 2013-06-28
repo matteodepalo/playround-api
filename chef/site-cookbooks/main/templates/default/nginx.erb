@@ -4,7 +4,7 @@ upstream unicorn {
 
 server {
   listen 80;
-  <%= "server_name #{node[:server_name]}" if node[:server_name].present? %>;
+  <%= "server_name #{node[:server_name]}" if node[:server_name] %>;
   root <%= node[:release_path] %>/public;
   # set far-future expiration headers on static content
   expires max;
