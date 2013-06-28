@@ -17,6 +17,16 @@ user node[:user][:name] do
   supports :manage_home => true
 end
 
+template '/etc/ssh/sshd_config' do
+  source 'sshd_config'
+  owner 'root'
+  group 'root'
+end
+
+bash 'reload ssh' do
+  code 'reload ssh'
+end
+
 directory "#{node[:sockets_folder]}" do
   owner node[:user][:name]
   recursive true
