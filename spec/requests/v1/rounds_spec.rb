@@ -53,7 +53,7 @@ describe 'Rounds Requests' do
 
   describe 'POST /rounds' do
     describe 'with authentication' do
-      it 'succeeds with valid params' do
+      it 'succeeds with valid params', :vcr do
         game = Game.build_and_create(name: valid_attributes[:game_name])
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
@@ -116,7 +116,7 @@ describe 'Rounds Requests' do
 
   describe 'PATCH /rounds/1' do
     describe 'with authentication and authorization' do
-      it 'succeeds with valid params' do
+      it 'succeeds with valid params', :vcr do
         round = create :round
         patch_with_auth v1_round_path(id: round.to_param), { round: valid_attributes }, user: round.user
 

@@ -6,6 +6,13 @@ GIT
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
 
+GIT
+  remote: git://github.com/hassox/warden.git
+  revision: 9f55b43c25450164f3ebde70d41bee2185e5c523
+  specs:
+    warden (1.2.1)
+      rack (>= 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -219,4 +226,5 @@ DEPENDENCIES
   state_machine
   unicorn
   vcr
+  warden!
   webmock
