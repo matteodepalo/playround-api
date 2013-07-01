@@ -12,16 +12,8 @@ class V1::BuddiesController < ApplicationController
 
   def create
     authenticate!
+    current_user.buddy_list = params[:buddies]
 
-    @user = if params[:user_id] == 'me'
-      current_user
-    else
-      User.find(params[:user_id])
-    end
-
-    authorize! :manage, @user
-    @user.buddy_list = params[:buddies]
-
-    render json: @user.buddies
+    render json: current_user.buddies
   end
 end
