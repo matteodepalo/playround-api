@@ -7,6 +7,7 @@ require 'database_cleaner'
 require 'webmock/rspec'
 require 'data/arena_stubs'
 require 'data/facebook_stubs'
+require 'debugger'
 
 Dotenv.load '.env'
 

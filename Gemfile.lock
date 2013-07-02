@@ -68,8 +68,15 @@ GEM
       ohai (>= 0.6.0)
       rest-client (>= 1.0.4, < 1.7.0)
       yajl-ruby (~> 1.1)
+    columnize (0.3.6)
     crack (0.3.2)
     database_cleaner (1.0.1)
+    debugger (1.6.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.1)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     dotenv (0.7.0)
     erubis (2.7.0)
@@ -213,6 +220,7 @@ DEPENDENCIES
   cancan
   capistrano
   database_cleaner
+  debugger
   dotenv
   factory_girl_rails
   foursquare2

@@ -18,6 +18,7 @@ gem 'warden', github: 'hassox/warden'
 group :development do
   gem 'capistrano'
   gem 'knife-solo'
+  gem 'debugger'
 end
 
 group :test, :development do
