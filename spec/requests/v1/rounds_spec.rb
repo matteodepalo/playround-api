@@ -38,7 +38,6 @@ describe 'Rounds Requests' do
         get_with_auth v1_rounds_path, user: round.user
 
         response.status.should eq(200)
-        debugger
         JSON.parse(response.body)['rounds'].count.should eq(2)
       end
     end
