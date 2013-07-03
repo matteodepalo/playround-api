@@ -18,11 +18,12 @@ describe 'Arenas Requests' do
 
   describe 'GET /arenas' do
     it 'returns the list of arenas' do
-      arena = create :arena
+      create :arena
+      Arena.create(latitude: 30, longitude: 50)
       get v1_arenas_path
 
       response.status.should eq(200)
-      JSON.parse(response.body)['arenas'].count.should eq(1)
+      JSON.parse(response.body)['arenas'].count.should eq(2)
     end
   end
 end

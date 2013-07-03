@@ -34,10 +34,12 @@ describe 'Rounds Requests' do
     describe 'with authentication' do
       it 'returns the list of rounds owned by the user' do
         round = create :round
+        create :round, user: round.user
         get_with_auth v1_rounds_path, user: round.user
 
         response.status.should eq(200)
-        JSON.parse(response.body)['rounds'].count.should eq(1)
+        debugger
+        JSON.parse(response.body)['rounds'].count.should eq(2)
       end
     end
 
