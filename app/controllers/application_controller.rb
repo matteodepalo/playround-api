@@ -6,15 +6,17 @@ class ApplicationController < ActionController::API
     head :forbidden
   end
 
+  def current_user
+    warden.user
+  end
+
   protected
 
+  def warden
+    env['warden']
+  end
+
   def authenticate!
-    request_http_token_authentication and return unless authenticate
+    warden.authenticate!
   end
-
-  def authenticate
-    @current_user ||= authenticate_with_http_token { |token, options| User.authenticate(token) }
-  end
-
-  attr_reader :current_user
 end

@@ -1,19 +1,17 @@
 GIT
-  remote: git://github.com/cldwalker/debugger.git
-  revision: fa1c7201e796c06ae9f0f6cd2ea5476461d56307
-  specs:
-    debugger (1.5.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.0)
-
-GIT
   remote: git://github.com/ctran/annotate_models.git
   revision: 8bd159c7a484093fde84beaa9e6398f25ddacf09
   specs:
     annotate (2.6.0.beta1)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
+
+GIT
+  remote: git://github.com/hassox/warden.git
+  revision: 9f55b43c25450164f3ebde70d41bee2185e5c523
+  specs:
+    warden (1.2.1)
+      rack (>= 1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -73,8 +71,12 @@ GEM
     columnize (0.3.6)
     crack (0.3.2)
     database_cleaner (1.0.1)
+    debugger (1.6.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.1)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     dotenv (0.7.0)
     erubis (2.7.0)
@@ -218,7 +220,7 @@ DEPENDENCIES
   cancan
   capistrano
   database_cleaner
-  debugger!
+  debugger
   dotenv
   factory_girl_rails
   foursquare2
@@ -232,4 +234,5 @@ DEPENDENCIES
   state_machine
   unicorn
   vcr
+  warden!
   webmock

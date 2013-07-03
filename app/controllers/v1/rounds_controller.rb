@@ -21,17 +21,6 @@ class V1::RoundsController < ApplicationController
     end
   end
 
-  def update
-    @round = Round.find(params[:id])
-    authorize! :update, @round
-
-    if @round.update(round_params)
-      render json: @round
-    else
-      render json: { errors: @round.errors }, status: :unprocessable_entity
-    end
-  end
-
   def destroy
     @round = Round.find(params[:id])
     authorize! :destroy, @round

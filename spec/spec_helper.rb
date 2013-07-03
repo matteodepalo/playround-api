@@ -3,11 +3,11 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
-require 'debugger'
 require 'database_cleaner'
 require 'webmock/rspec'
 require 'data/arena_stubs'
 require 'data/facebook_stubs'
+require 'debugger'
 
 Dotenv.load '.env'
 

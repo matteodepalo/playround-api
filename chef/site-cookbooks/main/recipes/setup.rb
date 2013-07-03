@@ -54,10 +54,6 @@ if node[:environment] == 'development'
     locale 'en_US.UTF8'
   end
 
-  pg_database_extensions 'template2' do
-    extensions ['"uuid-ossp"']
-  end
-
   rbenv_gem 'spring'
 
   magic_shell_environment 'SPRING_TMP_PATH' do

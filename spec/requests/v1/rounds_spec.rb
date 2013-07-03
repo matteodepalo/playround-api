@@ -53,7 +53,7 @@ describe 'Rounds Requests' do
 
   describe 'POST /rounds' do
     describe 'with authentication' do
-      it 'succeeds with valid params' do
+      it 'succeeds with valid params', :vcr do
         game = Game.build_and_create(name: valid_attributes[:game_name])
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
@@ -110,43 +110,6 @@ describe 'Rounds Requests' do
         post v1_rounds_path, { round: valid_attributes }
 
         response.status.should eq(401)
-      end
-    end
-  end
-
-  describe 'PATCH /rounds/1' do
-    describe 'with authentication and authorization' do
-      it 'succeeds with valid params' do
-        round = create :round
-        patch_with_auth v1_round_path(id: round.to_param), { round: valid_attributes }, user: round.user
-
-        response.status.should eq(200)
-      end
-
-      it 'fails and responds with unprocessable entity with invalid params' do
-        round = create :round
-        patch_with_auth v1_round_path(id: round.to_param), { round: invalid_attributes }, user: round.user
-
-        response.status.should eq(422)
-        response.body.should include('errors')
-      end
-    end
-
-    describe 'without authentication' do
-      it 'responds with unauthorized' do
-        round = create :round
-        patch v1_round_path(id: round.to_param), { round: valid_attributes }
-
-        response.status.should eq(401)
-      end
-    end
-
-    describe 'without authorization' do
-      it 'responds with forbidden' do
-        round = create :round
-        patch_with_auth v1_round_path(id: round.to_param), { round: valid_attributes }, user: user
-
-        response.status.should eq(403)
       end
     end
   end
