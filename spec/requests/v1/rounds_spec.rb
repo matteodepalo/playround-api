@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'Rounds Requests' do
-  valid_attributes = { game_name: 'dota2', arena_properties: { foursquare_id: '5104' } }
-  valid_attributes_with_current_location = { game_name: 'dota2', arena_properties: { latitude: 50, longitude: -30 } }
+  valid_attributes = { game_name: 'dota2', arena_attributes: { foursquare_id: '5104' } }
+  valid_attributes_with_current_location = { game_name: 'dota2', arena_attributes: { latitude: 50, longitude: -30 } }
   invalid_attributes = { game_name: 'lol' }
   let(:user) { create :user }
 
@@ -63,7 +63,7 @@ describe 'Rounds Requests' do
         round['id'].should be_present
         round['state'].should eq('waiting_for_players')
         round['game']['display_name'].should eq('Dota 2')
-        round['arena']['foursquare_id'].should eq(valid_attributes[:arena_properties][:foursquare_id])
+        round['arena']['foursquare_id'].should eq(valid_attributes[:arena_attributes][:foursquare_id])
       end
 
       it 'succeds with valid params with custom location' do
@@ -72,8 +72,8 @@ describe 'Rounds Requests' do
 
         response.status.should eq(201)
         round = JSON.parse(response.body)['round']
-        round['arena']['latitude'].should eq(valid_attributes_with_current_location[:arena_properties][:latitude])
-        round['arena']['longitude'].should eq(valid_attributes_with_current_location[:arena_properties][:longitude])
+        round['arena']['latitude'].should eq(valid_attributes_with_current_location[:arena_attributes][:latitude])
+        round['arena']['longitude'].should eq(valid_attributes_with_current_location[:arena_attributes][:longitude])
       end
 
       it 'adds participants to the round', :vcr do

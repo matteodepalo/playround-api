@@ -58,7 +58,7 @@ class Round < ActiveRecord::Base
     game.display_name
   end
 
-  def arena_properties=(options = {})
+  def arena_attributes=(options = {})
     self.arena = Arena.where(options).first_or_create
   end
 

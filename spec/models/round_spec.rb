@@ -92,10 +92,10 @@ describe Round do
     round.participations.map(&:team).should eq(['radiant', 'radiant', 'dire'])
   end
 
-  it 'creates a new arena with the arena_properties setter' do
+  it 'creates a new arena with the arena_attributes setter' do
     foursquare_id = attributes_for(:arena)[:foursquare_id]
     round = build :round
-    round.arena_properties = { foursquare_id: foursquare_id }
+    round.arena_attributes = { foursquare_id: foursquare_id }
     round.save
 
     round.arena.foursquare_id.should eq(foursquare_id)

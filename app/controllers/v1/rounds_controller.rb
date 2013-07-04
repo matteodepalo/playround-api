@@ -33,7 +33,7 @@ class V1::RoundsController < ApplicationController
   def round_params
     params.require(:round).permit(
       :game_name,
-      arena_properties: [:foursquare_id, :latitude, :longitude],
+      arena_attributes: [:foursquare_id, :latitude, :longitude],
       participation_list: [:team, user: [:id, :facebook_id, :foursquare_id]]
     )
   end
