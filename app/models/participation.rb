@@ -22,12 +22,11 @@ class Participation < ActiveRecord::Base
 
   validates :team, presence: true
 
-  default_scope -> { includes(:user) }
-
   validate :round_and_user_must_be_unique
   validate :team_name_must_be_among_the_available_ones
 
   before_validation :auto_assign_team, unless: -> { team.present? }, on: :create
+  after_create :start_round, if: -> { round.participations.count == round.game.number_of_players }
 
   def self.create_or_update(options = {})
     if participation = where(round: options[:round], user: options[:user]).first
@@ -60,5 +59,9 @@ class Participation < ActiveRecord::Base
     else
       add_error.call unless user_round_participations.first.nil?
     end
+  end
+
+  def start_round
+    round.start
   end
 end

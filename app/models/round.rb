@@ -76,7 +76,9 @@ class Round < ActiveRecord::Base
     # this is because inverse_of doesn't work for inverse has_many relationships
     # (in this case it would work for participation.round, but not for round.participations)
     # as stated in http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
-    game.team_names - Participation.where(round: self).map(&:team)
+    game.teams.select do |t|
+      Participation.where(round: self, team: t[:name]).count < t[:number_of_players]
+    end.map { |t| t[:name] }
   end
 
   private

@@ -54,7 +54,7 @@ describe 'Rounds Requests' do
 
   describe 'POST /rounds' do
     describe 'with authentication' do
-      it 'succeeds with valid params', :vcr do
+      it 'succeeds with valid params and arena taken from foursquare', :vcr do
         game = Game.build_and_create(name: valid_attributes[:game_name])
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
@@ -64,6 +64,21 @@ describe 'Rounds Requests' do
         round['state'].should eq('waiting_for_players')
         round['game']['display_name'].should eq('Dota 2')
         round['arena']['foursquare_id'].should eq(valid_attributes[:arena_attributes][:foursquare_id])
+      end
+
+      it 'succeeds with valid params and arena with latitude and longitude' do
+        valid_attributes = { game_name: 'dota2', arena_attributes: { latitude: 50, longitude: 20 } }
+
+        game = Game.build_and_create(name: valid_attributes[:game_name])
+        post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
+
+        response.status.should eq(201)
+        round = JSON.parse(response.body)['round']
+        round['id'].should be_present
+        round['state'].should eq('waiting_for_players')
+        round['game']['display_name'].should eq('Dota 2')
+        round['arena']['latitude'].should eq(valid_attributes[:arena_attributes][:latitude])
+        round['arena']['longitude'].should eq(valid_attributes[:arena_attributes][:longitude])
       end
 
       it 'succeds with valid params with custom location' do

@@ -107,5 +107,19 @@ describe Round do
     create :participation, round: round, team: 'black'
 
     round.available_teams.should eq(['white'])
+
+    round = create :round, game_name: :dota2
+    round.available_teams.should eq(['radiant', 'dire'])
+    create :participation, round: round, team: 'radiant'
+
+    round.available_teams.should eq(['radiant', 'dire'])
+  end
+
+  it 'transitions to ongoing when the it is full of participants' do
+    round = create :round, game_name: :dota2
+    round.game.number_of_players.times { round.users << create(:user) }
+
+    round.reload
+    round.state.should eq('ongoing')
   end
 end
