@@ -58,16 +58,24 @@ class Round < ActiveRecord::Base
     game.display_name
   end
 
-  def arena_attributes=(options = {})
-    self.arena = Arena.where(options).first_or_create
+  def arena=(arena)
+    if arena.is_a?(Hash)
+      super(Arena.where(arena).first_or_create)
+    else
+      super
+    end
   end
 
-  def participation_list=(participation_hashes)
-    users = User.find_or_create_by_hashes(participation_hashes.map { |h| h[:user] })
+  def participations=(participations)
+    if participations.all? { |p| p.is_a?(Hash) }
+      users = User.find_or_create_by_hashes(participations.map { |h| h[:user] })
 
-    users.each do |u|
-      participation = participation_hashes.select { |p| p[:user][:id] == u.id || p[:user][:facebook_id] == u.facebook_id }.first
-      self.participations << Participation.new(team: participation[:team], user: u, round: self)
+      users.each do |u|
+        participation = participations.select { |p| p[:user][:id] == u.id || p[:user][:facebook_id] == u.facebook_id }.first
+        self.participations << Participation.new(team: participation[:team], user: u, round: self)
+      end
+    else
+      super
     end
   end
 

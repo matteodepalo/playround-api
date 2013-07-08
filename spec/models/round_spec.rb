@@ -76,7 +76,7 @@ describe Round do
     round = build :round
     facebook_users = [MATTEO_DEPALO, EUGENIO_DEPALO]
 
-    round.participation_list = [
+    round.participations = [
       { user: { id: user.id } },
       { user: { facebook_id: MATTEO_DEPALO['id'] } },
       { team: 'dire', user: { facebook_id: EUGENIO_DEPALO['id'] } }
@@ -92,10 +92,10 @@ describe Round do
     round.participations.map(&:team).should eq(['radiant', 'radiant', 'dire'])
   end
 
-  it 'creates a new arena with the arena_attributes setter' do
+  it 'creates a new arena with the arena setter' do
     foursquare_id = attributes_for(:arena)[:foursquare_id]
     round = build :round
-    round.arena_attributes = { foursquare_id: foursquare_id }
+    round.arena = { foursquare_id: foursquare_id }
     round.save
 
     round.arena.foursquare_id.should eq(foursquare_id)

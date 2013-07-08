@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'Rounds Requests' do
-  valid_attributes = { game_name: 'dota2', arena_attributes: { foursquare_id: '5104' } }
-  valid_attributes_with_current_location = { game_name: 'dota2', arena_attributes: { latitude: 50, longitude: -30 } }
+  valid_attributes = { game_name: 'dota2', arena: { foursquare_id: '5104' } }
+  valid_attributes_with_current_location = { game_name: 'dota2', arena: { latitude: 50, longitude: -30 } }
   invalid_attributes = { game_name: 'lol' }
   let(:user) { create :user }
 
@@ -63,11 +63,11 @@ describe 'Rounds Requests' do
         round['id'].should be_present
         round['state'].should eq('waiting_for_players')
         round['game']['display_name'].should eq('Dota 2')
-        round['arena']['foursquare_id'].should eq(valid_attributes[:arena_attributes][:foursquare_id])
+        round['arena']['foursquare_id'].should eq(valid_attributes[:arena][:foursquare_id])
       end
 
       it 'succeeds with valid params and arena with latitude and longitude' do
-        valid_attributes = { game_name: 'dota2', arena_attributes: { latitude: 50, longitude: 20 } }
+        valid_attributes = { game_name: 'dota2', arena: { latitude: 50, longitude: 20 } }
 
         game = Game.build_and_create(name: valid_attributes[:game_name])
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
@@ -77,8 +77,8 @@ describe 'Rounds Requests' do
         round['id'].should be_present
         round['state'].should eq('waiting_for_players')
         round['game']['display_name'].should eq('Dota 2')
-        round['arena']['latitude'].should eq(valid_attributes[:arena_attributes][:latitude])
-        round['arena']['longitude'].should eq(valid_attributes[:arena_attributes][:longitude])
+        round['arena']['latitude'].should eq(valid_attributes[:arena][:latitude])
+        round['arena']['longitude'].should eq(valid_attributes[:arena][:longitude])
       end
 
       it 'succeds with valid params with custom location' do
@@ -87,15 +87,15 @@ describe 'Rounds Requests' do
 
         response.status.should eq(201)
         round = JSON.parse(response.body)['round']
-        round['arena']['latitude'].should eq(valid_attributes_with_current_location[:arena_attributes][:latitude])
-        round['arena']['longitude'].should eq(valid_attributes_with_current_location[:arena_attributes][:longitude])
+        round['arena']['latitude'].should eq(valid_attributes_with_current_location[:arena][:latitude])
+        round['arena']['longitude'].should eq(valid_attributes_with_current_location[:arena][:longitude])
       end
 
       it 'adds participants to the round', :vcr do
         game = Game.build_and_create(name: valid_attributes[:game_name])
         participant = create :user
 
-        valid_attributes.merge!(participation_list: [
+        valid_attributes.merge!(participations: [
           { team: 'dire', user: { id: participant.id } },
           { user: { facebook_id: MATTEO_DEPALO['id'] }}
         ])

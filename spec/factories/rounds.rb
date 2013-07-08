@@ -22,7 +22,7 @@ FactoryGirl.define do
     user
     game_name 'dota2'
     after(:build) do |r|
-      r.arena_attributes = { foursquare_id: attributes_for(:arena)[:foursquare_id] }
+      r.arena = { foursquare_id: attributes_for(:arena)[:foursquare_id] }
     end
   end
 end
