@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: teams
+#
+#  id         :uuid             not null, primary key
+#  name       :string(255)
+#  round_id   :uuid
+#  created_at :datetime
+#  updated_at :datetime
+#
+# Indexes
+#
+#  index_teams_on_round_id  (round_id)
+#
+
 class Team < ActiveRecord::Base
   belongs_to :round, inverse_of: :teams
   has_many :participations, inverse_of: :team
