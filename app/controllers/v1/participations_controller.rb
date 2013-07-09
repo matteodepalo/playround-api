@@ -3,14 +3,15 @@ class V1::ParticipationsController < ApplicationController
 
   def create
     @round = Round.find(params[:round_id])
-    Participation.create_or_update(round: @round, user: current_user, joined: true)
+    team = @round.find_or_initialize_team(params[:team])
+    Participation.create_or_update(team: team, user: current_user, joined: true)
 
     render json: @round, status: :created
   end
 
   def destroy
     @round = Round.find(params[:round_id])
-    @round.users.destroy(current_user)
+    @round.participations.where(user: current_user).first.destroy
 
     render json: @round
   end

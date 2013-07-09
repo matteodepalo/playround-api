@@ -18,18 +18,16 @@
 
 class Participation < ActiveRecord::Base
   belongs_to :user
-  belongs_to :round
+  belongs_to :team, inverse_of: :participations
 
   validates :team, presence: true
+  validate :team_and_user_must_be_unique
+  validate :team_must_not_be_full
 
-  validate :round_and_user_must_be_unique
-  validate :team_name_must_be_among_the_available_ones
-
-  before_validation :auto_assign_team, unless: -> { team.present? }, on: :create
   after_create :start_round, if: -> { round.participations.count == round.game.number_of_players }
 
   def self.create_or_update(options = {})
-    if participation = where(round: options[:round], user: options[:user]).first
+    if participation = where(user: options[:user]).first
       participation.update(joined: true)
       participation
     else
@@ -37,31 +35,29 @@ class Participation < ActiveRecord::Base
     end
   end
 
+  def round
+    team.round
+  end
+
   private
 
-  def auto_assign_team
-    self.team = round.available_teams.first
-  end
-
-  def team_name_must_be_among_the_available_ones
-    errors.add(:team, "must be among:\"#{round.available_teams.join(', ')}\"") if team_changed? && !round.available_teams.include?(team)
-  end
-
-  def round_and_user_must_be_unique
-    add_error = -> {
-      errors.add(:base, 'user_id and round_id must be unique')
-    }
-
+  def team_and_user_must_be_unique
     user_round_participations = round.participations.where(user_id: user_id)
 
-    if persisted?
-      add_error.call unless user_round_participations.count == 1
+    condition = if persisted?
+      user_round_participations.count == 1
     else
-      add_error.call unless user_round_participations.first.nil?
+      user_round_participations.first.nil?
     end
+
+    errors.add(:base, 'user and round must be unique') unless condition
   end
 
   def start_round
     round.start
+  end
+
+  def team_must_not_be_full
+    errors.add(:base, 'Team is full') if team.full?
   end
 end

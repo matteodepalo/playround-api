@@ -95,22 +95,34 @@ describe 'Rounds Requests' do
         game = Game.build_and_create(name: valid_attributes[:game_name])
         participant = create :user
 
-        valid_attributes.merge!(participations: [
-          { team: 'dire', user: { id: participant.id } },
-          { user: { facebook_id: MATTEO_DEPALO['id'] }}
+        valid_attributes.merge!(teams: [
+          {
+            name: 'radiant',
+            users: [
+              { id: participant.id }
+            ]
+          },
+          {
+            name: 'dire',
+            users: [
+              { facebook_id: EUGENIO_DEPALO['id'] },
+              { facebook_id: MATTEO_DEPALO['id'] }
+            ]
+          }
         ])
 
         post_with_auth v1_rounds_path, { round: valid_attributes }, user: user
 
-        participations = JSON.parse(response.body)['round']['participations']
-        participations.count.should eq(2)
-        registered_user_participation = participations.first
-        facebook_user_participation = participations.last
-        registered_user_participation['user']['id'].should eq(participant.id)
-        registered_user_participation['team'].should eq('dire')
-        facebook_user_participation['user']['facebook_id'].should eq(MATTEO_DEPALO['id'])
-        facebook_user_participation['user']['id'].should be_present
-        facebook_user_participation['team'].should eq('radiant')
+        teams = JSON.parse(response.body)['round']['teams']
+        teams.count.should eq(2)
+        teams.select { |t| t['participations'].count == 2 }.first['name'].should eq('dire')
+        teams.select { |t| t['participations'].count == 1 }.first['name'].should eq('radiant')
+        participations = teams.map { |t| t['participations'] }.flatten
+        participations.count.should eq(3)
+        registered_user_participation = participations.select { |u| u['user']['id'] == participant.id }.first
+        facebook_user_participations = participations.select { |u| u['user']['id'] != registered_user_participation['id'] }
+        registered_user_participation['user']['id'].should eq(participant.id.to_s)
+        facebook_user_participations.map { |p| p['user']['facebook_id'] }.should include(MATTEO_DEPALO['id'])
       end
 
       it 'fails and responds with unprocessable entity with invalid params' do

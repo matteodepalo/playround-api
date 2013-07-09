@@ -71,25 +71,42 @@ describe Round do
     round.errors.full_messages.should include('Game cannot be changed after creation')
   end
 
+  it 'find or initializes a team with find_or_initialize_team' do
+    round = create :round, game_name: :dota2
+
+    team = round.find_or_initialize_team(round.game.team_names.first)
+    team.name.should eq(round.game.team_names.first)
+    team.save
+    round.find_or_initialize_team(round.game.team_names.first).should eq(team)
+  end
+
   it 'can assign participants' do
     user = create :user
     round = build :round
     facebook_users = [MATTEO_DEPALO, EUGENIO_DEPALO]
 
-    round.participations = [
-      { user: { id: user.id } },
-      { user: { facebook_id: MATTEO_DEPALO['id'] } },
-      { team: 'dire', user: { facebook_id: EUGENIO_DEPALO['id'] } }
+    round.teams = [
+      {
+        name: 'radiant',
+        users: [
+          { id: user.id }
+        ]
+      },
+      {
+        name: 'dire',
+        users: [
+          { facebook_id: EUGENIO_DEPALO['id'] },
+          { facebook_id: MATTEO_DEPALO['id'] }
+        ]
+      }
     ]
 
     round.save
 
     users = round.participations.map(&:user)
     users.count.should eq(3)
-    users.first.name.should eq(user.name)
-    users[1..2].map(&:facebook_id).should eq(facebook_users.map { |u| u['id'] })
-    users[1..2].map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
-    round.participations.map(&:team).should eq(['radiant', 'radiant', 'dire'])
+    round.teams.where(name: 'radiant').first.users.should eq([user])
+    round.teams.where(name: 'dire').first.users.map(&:facebook_id).should eq(facebook_users.map { |u| u['id'] })
   end
 
   it 'creates a new arena with the arena setter' do
@@ -101,23 +118,12 @@ describe Round do
     round.arena.foursquare_id.should eq(foursquare_id)
   end
 
-  it 'has a list of available teams' do
-    round = create :round, game_name: :go
-    round.available_teams.should eq(['black', 'white'])
-    create :participation, round: round, team: 'black'
-
-    round.available_teams.should eq(['white'])
-
-    round = create :round, game_name: :dota2
-    round.available_teams.should eq(['radiant', 'dire'])
-    create :participation, round: round, team: 'radiant'
-
-    round.available_teams.should eq(['radiant', 'dire'])
-  end
-
   it 'transitions to ongoing when the it is full of participants' do
     round = create :round, game_name: :dota2
-    round.game.number_of_players.times { round.users << create(:user) }
+
+    round.game.number_of_players.times do
+      Participation.create(team: round.teams.create(name: round.game.team_names.first), user: create(:user))
+    end
 
     round.reload
     round.state.should eq('ongoing')

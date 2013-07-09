@@ -20,7 +20,7 @@
 
 FactoryGirl.define do
   factory :participation do
-    round
+    team
     user
   end
 end

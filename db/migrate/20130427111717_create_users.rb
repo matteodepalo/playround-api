@@ -8,6 +8,6 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :users, :facebook_id
+    add_index :users, :facebook_id, unique: true
   end
 end
