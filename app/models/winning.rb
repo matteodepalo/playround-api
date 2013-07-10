@@ -1,7 +1,5 @@
 class Winning
   include ActiveModel::Model
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
   include ActiveModel::Validations
 
   validates :round, presence: true
