@@ -7,7 +7,7 @@ class V1::WinningsController < ApplicationController
     winning = Winning.new(round: @round, team_name: params[:winning][:team_name])
 
     if winning.save
-      render json: @round
+      render json: { winning: RoundSerializer.new(@round) }
     else
       render json: { errors: winning.errors }, status: :unprocessable_entity
     end

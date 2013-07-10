@@ -9,7 +9,7 @@ describe 'Starts Requests' do
         post_with_auth v1_round_starts_path(round), {}, user: round.user
 
         response.status.should eq(200)
-        round = JSON.parse(response.body)['round']
+        round = JSON.parse(response.body)['start']['round']
         round['state'].should eq('ongoing')
       end
     end

@@ -12,7 +12,7 @@ describe 'Winnings Requests' do
         post_with_auth v1_round_winnings_path(round), valid_attributes, user: round.user
 
         response.status.should eq(200)
-        round = JSON.parse(response.body)['round']
+        round = JSON.parse(response.body)['winning']['round']
         round['state'].should eq('over')
         round['teams'].select { |t| t['name'] == 'radiant' }.first['winner'].should eq(true)
       end
