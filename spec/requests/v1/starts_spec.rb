@@ -3,13 +3,12 @@ require 'spec_helper'
 describe 'Starts Requests' do
   let(:round) { create :round }
 
-  describe 'POST /rounds' do
+  describe 'POST /rounds/:round_id/starts' do
     describe 'with authentication and authorization' do
-      it 'succeeds', :vcr do
+      it 'succeeds' do
         post_with_auth v1_round_starts_path(round), {}, user: round.user
 
-        response.status.should eq(201)
-        debugger
+        response.status.should eq(200)
         round = JSON.parse(response.body)['round']
         round['state'].should eq('ongoing')
       end

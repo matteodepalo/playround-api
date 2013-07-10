@@ -24,5 +24,16 @@ FactoryGirl.define do
     after(:build) do |r|
       r.arena = { foursquare_id: attributes_for(:arena)[:foursquare_id] }
     end
+
+    factory :full_round do
+      after(:create) do |r|
+        r.game.team_names.each { |name| create :team, round: r, name: name }
+        r.game.teams.each do |team|
+          team[:number_of_players].times do
+            r.teams.where(name: team[:name]).first.participations.create(user: create(:user))
+          end
+        end
+      end
+    end
   end
 end

@@ -29,4 +29,14 @@ describe Team do
     team.round.game.number_of_players.times { Participation.create(team: team, user: create(:user)) }
     team.full?.should be_true
   end
+
+  it 'has a winner field that can be true only once per round' do
+    team = create :team, round: round, name: 'radiant'
+    team.winner.should eq(false)
+    team.win
+    team2 = create :team, round: round, name: 'dire'
+    team2.winner = true
+    team2.should be_invalid
+    team2.errors.full_messages.should include('Winner can be true for one team per round')
+  end
 end

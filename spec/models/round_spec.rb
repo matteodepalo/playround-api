@@ -128,4 +128,12 @@ describe Round do
     round.reload
     round.state.should eq('ongoing')
   end
+
+  it 'can decare a winner via the declare_winner method' do
+    round = create :full_round, game_name: :dota2
+    round.reload
+    round.declare_winner('radiant')
+    round.teams.where(name: 'radiant').first.winner.should eq(true)
+    round.should be_over
+  end
 end

@@ -141,6 +141,7 @@ CREATE TABLE schema_migrations (
 CREATE TABLE teams (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     name character varying(255),
+    winner boolean DEFAULT false,
     round_id uuid,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -313,7 +314,7 @@ CREATE INDEX index_teams_on_round_id ON teams USING btree (round_id);
 -- Name: index_users_on_facebook_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_users_on_facebook_id ON users USING btree (facebook_id);
+CREATE UNIQUE INDEX index_users_on_facebook_id ON users USING btree (facebook_id);
 
 
 --

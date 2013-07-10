@@ -78,6 +78,11 @@ class Round < ActiveRecord::Base
     teams.where(name: team_name).first || teams.build(name: team_name)
   end
 
+  def declare_winner(team_name)
+    teams.where(name: team_name).first.win
+    finish
+  end
+
   private
 
   def check_game_name_validity

@@ -6,6 +6,6 @@ class V1::StartsController < ApplicationController
     authorize! :start, @round
     @round.start
 
-    render json: @round, status: :created
+    render json: @round
   end
 end

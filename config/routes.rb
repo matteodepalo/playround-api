@@ -34,6 +34,7 @@ PlayroundApi::Application.routes.draw do
       end
 
       resources :starts, only: :create
+      resources :winnings, only: :create
     end
 
     resources :games, only: [:index, :show]
