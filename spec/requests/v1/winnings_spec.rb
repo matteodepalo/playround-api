@@ -5,6 +5,8 @@ describe 'Winnings Requests' do
 
   describe 'POST /rounds/:round_id/winnings' do
     valid_attributes = { winning: { team_name: 'radiant' } }
+    invalid_attributes = { winning: { team_name: 'lol' } }
+
     describe 'with authentication and authorization' do
       it 'succeeds with valid attributes' do
         post_with_auth v1_round_winnings_path(round), valid_attributes, user: round.user
@@ -13,6 +15,21 @@ describe 'Winnings Requests' do
         round = JSON.parse(response.body)['round']
         round['state'].should eq('over')
         round['teams'].select { |t| t['name'] == 'radiant' }.first['winner'].should eq(true)
+      end
+
+       it 'fails and responds with unprocessable entity with invalid params' do
+        post_with_auth v1_round_winnings_path(round), invalid_attributes, user: round.user
+
+        response.status.should eq(422)
+        response.body.should include('errors')
+      end
+
+      it 'fails and responds with unprocessable entity when the round is not ongoing' do
+        round = create :round
+        post_with_auth v1_round_winnings_path(round), valid_attributes, user: round.user
+
+        response.status.should eq(422)
+        response.body.should include('errors')
       end
     end
 

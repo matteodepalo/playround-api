@@ -6,7 +6,9 @@ class Ability
 
     can :manage, Round, user_id: user.id
     can :manage, User, id: user.id
-    can :start, Round, user_id: user.id
-    can :declare_winner, Round, user_id: user.id
+
+    can [:start, :declare_winner], Round do |round|
+      can? :manage, round
+    end
   end
 end

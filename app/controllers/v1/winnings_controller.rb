@@ -4,8 +4,12 @@ class V1::WinningsController < ApplicationController
   def create
     @round = Round.find(params[:round_id])
     authorize! :declare_winner, @round
-    @round.declare_winner(params[:winning][:team_name])
+    winning = Winning.new(round: @round, team_name: params[:winning][:team_name])
 
-    render json: @round
+    if winning.save
+      render json: @round
+    else
+      render json: { errors: winning.errors }, status: :unprocessable_entity
+    end
   end
 end
