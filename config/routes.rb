@@ -1,8 +1,9 @@
-# == Route Map (Updated 2013-06-04 15:37)
+# == Route Map (Updated 2013-07-10 08:59)
 #
 #                  Prefix Verb   URI Pattern                                   Controller#Action
 # v1_round_participations DELETE /v1/rounds/:round_id/participations(.:format) v1/participations#destroy
 #                         POST   /v1/rounds/:round_id/participations(.:format) v1/participations#create
+#         v1_round_starts POST   /v1/rounds/:round_id/starts(.:format)         v1/starts#create
 #               v1_rounds GET    /v1/rounds(.:format)                          v1/rounds#index
 #                         POST   /v1/rounds(.:format)                          v1/rounds#create
 #                v1_round GET    /v1/rounds/:id(.:format)                      v1/rounds#show
@@ -17,10 +18,10 @@
 #                         POST   /v1/users/:user_id/buddies(.:format)          v1/buddies#create
 #                 v1_user GET    /v1/users/:id(.:format)                       v1/users#show
 #               v1_tokens POST   /v1/tokens(.:format)                          v1/tokens#create
-#                      v1        /v1/*a(.:format)                              #<Proc:0x007f0f71c15f98@/vagrant/config/routes.rb:26 (lambda)>
+#                      v1        /v1/*a(.:format)                              #<Proc:0x007f1b7b372c18@/vagrant/config/routes.rb:26 (lambda)>
 #                                /v:api/*path(.:format)                        redirect(301)
 #                                /*path(.:format)                              redirect(301)
-#                    root GET    /                                             #<Proc:0x007f0f71c15f98@/vagrant/config/routes.rb:26 (lambda)>
+#                    root GET    /                                             #<Proc:0x007f1b7b372c18@/vagrant/config/routes.rb:26 (lambda)>
 #
 
 not_found = -> (params) { raise ActionController::RoutingError.new("No route matches [#{params['REQUEST_METHOD']}] \"#{params['REQUEST_PATH']}\"") }
@@ -31,6 +32,8 @@ PlayroundApi::Application.routes.draw do
       resources :participations, only: :create do
         collection { delete :destroy }
       end
+
+      resources :starts, only: :create
     end
 
     resources :games, only: [:index, :show]

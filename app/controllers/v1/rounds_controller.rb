@@ -1,5 +1,5 @@
 class V1::RoundsController < ApplicationController
-  before_filter :authenticate!
+  before_action :authenticate!
 
   def index
     render json: Round.where(user_id: current_user.id)
