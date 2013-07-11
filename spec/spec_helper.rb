@@ -44,6 +44,9 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   config.around(:each, :vcr) do |example|
     name = example.metadata[:full_description].split(/\s+/, 2).join('/').underscore.gsub(/[^\w\/]+/, '_')
     options = example.metadata.slice(:record, :match_requests_on).except(:example_group)
@@ -65,6 +68,9 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include Test::Helpers
+
+  config.before(:all) { DeferredGarbageCollection.start }
+  config.after(:all) { DeferredGarbageCollection.reconsider }
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
