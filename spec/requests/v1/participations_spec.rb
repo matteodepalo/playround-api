@@ -15,7 +15,7 @@ describe 'Participations Spec' do
         participations.first['joined'].should eq(true)
       end
 
-      it 'updates the current user preexisting participation setting joined to true', :focus do
+      it 'updates the current user preexisting participation setting joined to true' do
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)
         post_with_auth v1_round_participations_path(round), { team: 'radiant' }, user: user
 
