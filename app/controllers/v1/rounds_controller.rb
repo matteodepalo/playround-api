@@ -34,7 +34,7 @@ class V1::RoundsController < ApplicationController
     params.require(:round).permit(
       :game_name,
       arena: [:foursquare_id, :latitude, :longitude],
-      teams: [:name, users: [:id, :facebook_id]]
+      teams: [:name, participations: [user: [:id, :facebook_id]]]
     )
   end
 end

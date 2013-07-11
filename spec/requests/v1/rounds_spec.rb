@@ -98,15 +98,15 @@ describe 'Rounds Requests' do
         valid_attributes.merge!(teams: [
           {
             name: 'radiant',
-            users: [
-              { id: participant.id }
+            participations: [
+              { user: { id: participant.id } }
             ]
           },
           {
             name: 'dire',
-            users: [
-              { facebook_id: EUGENIO_DEPALO['id'] },
-              { facebook_id: MATTEO_DEPALO['id'] }
+            participations: [
+              { user: { facebook_id: EUGENIO_DEPALO['id'] } },
+              { user: { facebook_id: MATTEO_DEPALO['id'] } }
             ]
           }
         ])

@@ -88,15 +88,15 @@ describe Round do
     round.teams = [
       {
         name: 'radiant',
-        users: [
-          { id: user.id }
+        participations: [
+          { user: { id: user.id } }
         ]
       },
       {
         name: 'dire',
-        users: [
-          { facebook_id: EUGENIO_DEPALO['id'] },
-          { facebook_id: MATTEO_DEPALO['id'] }
+        participations: [
+          { user: { facebook_id: EUGENIO_DEPALO['id'] } },
+          { user: { facebook_id: MATTEO_DEPALO['id'] } }
         ]
       }
     ]

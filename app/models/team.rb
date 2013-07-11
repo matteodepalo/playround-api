@@ -22,9 +22,9 @@ class Team < ActiveRecord::Base
   validate :team_name_must_be_among_game_team_names
   validate :one_winner_team_per_round
 
-  def users=(user_hashes)
-    if user_hashes.all? { |uh| uh.is_a?(Hash) }
-      users = User.find_or_create_by_hashes(user_hashes)
+  def participations=(participation_hashes)
+    if participation_hashes.all? { |ph| ph.is_a?(Hash) }
+      users = User.find_or_create_by_hashes(participation_hashes.map { |p| p[:user] })
 
       users.each do |u|
         participations.build(user: u)

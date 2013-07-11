@@ -70,7 +70,7 @@ class Round < ActiveRecord::Base
   def teams=(team_hashes)
     team_hashes.each do |th|
       team = find_or_initialize_team(th[:name])
-      team.users = th[:users]
+      team.participations = th[:participations]
     end
   end
 
