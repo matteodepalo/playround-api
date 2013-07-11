@@ -23,7 +23,9 @@ class Team < ActiveRecord::Base
   validate :one_winner_team_per_round
 
   def participations=(participation_hashes)
-    if participation_hashes && participation_hashes.all? { |ph| ph.is_a?(Hash) }
+    return unless participation_hashes
+
+    if participation_hashes.all? { |ph| ph.is_a?(Hash) }
       users = User.find_or_create_by_hashes(participation_hashes.map { |p| p[:user] })
 
       users.each do |u|
