@@ -6,11 +6,11 @@ class Winning
   validate :round_must_be_ongoing
   validate :team_name_must_be_among_valid_ones
 
-  attr_accessor :round, :team_name
+  attr_reader :round, :team_name
 
-  def initialize(options = {})
-    self.round = options[:round]
-    self.team_name = options[:team_name]
+  def initialize(round: nil, team_name: nil)
+    @round = round
+    @team_name = team_name
   end
 
   def save
