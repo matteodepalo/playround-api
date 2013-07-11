@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Participations Spec' do
   let(:user) { create :user }
-  let(:round) { create :round, game_name: 'dota2' }
+  let(:round) { create :round, game_name: :dota2 }
 
   describe 'POST /round/1/participations' do
     describe 'with authentication' do
@@ -15,9 +15,9 @@ describe 'Participations Spec' do
         participations.first['joined'].should eq(true)
       end
 
-      it 'updates the current user preexisting participation setting joined to true' do
+      it 'updates the current user preexisting participation setting joined to true', :focus do
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)
-        post_with_auth v1_round_participations_path(round), {}, user: user
+        post_with_auth v1_round_participations_path(round), { team: 'radiant' }, user: user
 
         participations = JSON.parse(response.body)['round']['teams'].map { |t| t['participations'] }.flatten
         participations.to_s.should include(user.id.to_s)

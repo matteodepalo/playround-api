@@ -36,8 +36,12 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def display_name
+    round.game.teams.select { |t| t[:name] == name }.first[:display_name]
+  end
+
   def full?
-    participations.count == round.game.teams.select { |team| team[:name] == name }.first[:number_of_players]
+    participations.count == round.game.teams.select { |t| t[:name] == name }.first[:number_of_players]
   end
 
   def win
