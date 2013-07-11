@@ -3,7 +3,7 @@ class V1::ParticipationsController < ApplicationController
 
   def create
     @round = Round.find(params[:round_id])
-    team = @round.find_or_initialize_team(params[:team])
+    team = @round.find_or_initialize_team(params[:participation][:team])
     Participation.create_or_update(team: team, user: current_user, joined: true)
 
     render json: @round, status: :created

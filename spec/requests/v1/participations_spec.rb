@@ -7,7 +7,7 @@ describe 'Participations Spec' do
   describe 'POST /round/1/participations' do
     describe 'with authentication' do
       it 'adds the current user to the list of participants' do
-        post_with_auth v1_round_participations_path(round), { team: 'radiant' }, user: user
+        post_with_auth v1_round_participations_path(round), { participation: { team: 'radiant' } }, user: user
 
         response.status.should eq(201)
         participations = JSON.parse(response.body)['round']['teams'].map { |t| t['participations'] }.flatten
@@ -17,7 +17,7 @@ describe 'Participations Spec' do
 
       it 'updates the current user preexisting participation setting joined to true' do
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)
-        post_with_auth v1_round_participations_path(round), { team: 'radiant' }, user: user
+        post_with_auth v1_round_participations_path(round), { participation: { team: 'radiant' } }, user: user
 
         participations = JSON.parse(response.body)['round']['teams'].map { |t| t['participations'] }.flatten
         participations.to_s.should include(user.id.to_s)
