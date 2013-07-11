@@ -41,7 +41,8 @@ PlayroundApi::Application.routes.draw do
     resources :arenas, only: [:index, :show]
 
     resources :users, only: :show do
-      resources :buddies, only: [:index, :create]
+      resources :buddies, only: :index
+      resources :buddyships, only: :create
     end
 
     resources :tokens, only: :create

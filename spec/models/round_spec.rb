@@ -68,11 +68,11 @@ describe Round do
     round = create :round, game_name: :table_football
     round.game_name = :go
     round.should be_invalid
-    round.errors.full_messages.should include('Game cannot be changed after creation')
+    round.errors[:game].first.should eq('cannot be changed after creation')
   end
 
   it 'find or initializes a team with find_or_initialize_team' do
-    round = create :round, game_name: :dota2
+    round = create :round
 
     team = round.find_or_initialize_team(round.game.team_names.first)
     team.name.should eq(round.game.team_names.first)
@@ -119,7 +119,7 @@ describe Round do
   end
 
   it 'transitions to ongoing when the it is full of participants' do
-    round = create :round, game_name: :dota2
+    round = create :round
 
     round.game.number_of_players.times do
       Participation.create(team: round.teams.create(name: round.game.team_names.first), user: create(:user))
@@ -130,7 +130,7 @@ describe Round do
   end
 
   it 'can decare a winner via the declare_winner method' do
-    round = create :full_round, game_name: :dota2
+    round = create :full_round
     round.reload
     round.declare_winner('radiant')
     round.teams.where(name: 'radiant').first.winner.should eq(true)

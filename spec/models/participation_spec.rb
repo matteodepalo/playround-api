@@ -34,11 +34,11 @@ describe Participation do
   it 'must have a unique combination of user and round' do
     team = round.teams.create(name: round.game.team_names.first)
     team2 = round.teams.create(name: round.game.team_names.last)
-    Participation.create(team: team, user: user)
+    create :participation, team: team, user: user
     participation = Participation.new(team: team2, user: user)
 
     participation.should be_invalid
-    participation.errors.full_messages.should include('user and round must be unique')
+    participation.errors[:base].first.should eq('user and round must be unique')
   end
 
   describe '#self.create_or_update' do

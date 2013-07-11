@@ -37,6 +37,6 @@ describe Team do
     team2 = create :team, round: round, name: 'dire'
     team2.winner = true
     team2.should be_invalid
-    team2.errors.full_messages.should include('Winner can be true for one team per round')
+    team2.errors[:winner].first.should eq('can be true for one team per round')
   end
 end
