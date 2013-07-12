@@ -1,4 +1,4 @@
 class ParticipationSerializer < ActiveModel::Serializer
-  attributes :joined, :team
+  attributes :joined
   has_one :user
 end

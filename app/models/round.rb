@@ -23,13 +23,14 @@ class Round < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
   belongs_to :arena
-  has_many :participations
+  has_many :teams, inverse_of: :round
+  has_many :participations, through: :teams
   has_many :users, through: :participations
 
   validates :state, presence: true
-  validates :game_id, presence: true
-  validates :user_id, presence: true
-  validates :arena_id, presence: true
+  validates :game, presence: true
+  validates :user, presence: true
+  validates :arena, presence: true
   validate :game_cannot_be_changed_after_creation
   validate :check_game_name_validity
 
@@ -58,25 +59,28 @@ class Round < ActiveRecord::Base
     game.display_name
   end
 
-  def arena_properties=(options = {})
-    self.arena = Arena.where(options).first_or_create
-  end
-
-  def participation_list=(participation_hashes)
-    users = User.find_or_create_by_hashes(participation_hashes.map { |h| h[:user] })
-
-    users.each do |u|
-      participation = participation_hashes.select { |p| p[:user][:id] == u.id || p[:user][:facebook_id] == u.facebook_id }.first
-      self.participations << Participation.new(team: participation[:team], user: u, round: self)
+  def arena=(arena)
+    if arena.is_a?(Hash)
+      super(Arena.where(arena).first_or_create)
+    else
+      super
     end
   end
 
-  def available_teams
-    # participations relation cannot be used because creating a participation doesn't update the round model association
-    # this is because inverse_of doesn't work for inverse has_many relationships
-    # (in this case it would work for participation.round, but not for round.participations)
-    # as stated in http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
-    game.team_names - Participation.where(round: self).map(&:team)
+  def teams=(team_hashes)
+    team_hashes.each do |th|
+      team = find_or_initialize_team(th[:name])
+      team.participations = th[:participations]
+    end
+  end
+
+  def find_or_initialize_team(team_name)
+    teams.where(name: team_name).first || teams.build(name: team_name)
+  end
+
+  def declare_winner(team_name)
+    teams.where(name: team_name).first.win
+    finish
   end
 
   private

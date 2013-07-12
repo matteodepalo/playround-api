@@ -20,7 +20,7 @@ require 'spec_helper'
 describe Arena do
   it 'has a unique couple of latitude and longitude' do
     Arena.create(latitude: 50, longitude: 10)
-    Arena.new(latitude: 50, longitude: 10).should_not be_valid
+    Arena.new(latitude: 50, longitude: 10).should be_invalid
   end
 
   it 'gets venue information from foursquare_id' do

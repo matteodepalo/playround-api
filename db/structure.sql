@@ -102,8 +102,7 @@ CREATE TABLE games (
 
 CREATE TABLE participations (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    team character varying(255),
-    round_id uuid,
+    team_id uuid,
     user_id uuid,
     joined boolean DEFAULT false,
     created_at timestamp without time zone,
@@ -132,6 +131,20 @@ CREATE TABLE rounds (
 
 CREATE TABLE schema_migrations (
     version character varying(255) NOT NULL
+);
+
+
+--
+-- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE teams (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    name character varying(255),
+    winner boolean DEFAULT false,
+    round_id uuid,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -198,6 +211,14 @@ ALTER TABLE ONLY rounds
 
 
 --
+-- Name: teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -248,10 +269,10 @@ CREATE UNIQUE INDEX index_games_on_name ON games USING btree (name);
 
 
 --
--- Name: index_participations_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_participations_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_participations_on_round_id ON participations USING btree (round_id);
+CREATE INDEX index_participations_on_team_id ON participations USING btree (team_id);
 
 
 --
@@ -283,10 +304,17 @@ CREATE INDEX index_rounds_on_user_id ON rounds USING btree (user_id);
 
 
 --
+-- Name: index_teams_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_teams_on_round_id ON teams USING btree (round_id);
+
+
+--
 -- Name: index_users_on_facebook_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_users_on_facebook_id ON users USING btree (facebook_id);
+CREATE UNIQUE INDEX index_users_on_facebook_id ON users USING btree (facebook_id);
 
 
 --
@@ -317,3 +345,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130428151349');
 INSERT INTO schema_migrations (version) VALUES ('20130501164051');
 
 INSERT INTO schema_migrations (version) VALUES ('20130605164302');
+
+INSERT INTO schema_migrations (version) VALUES ('20130708121250');

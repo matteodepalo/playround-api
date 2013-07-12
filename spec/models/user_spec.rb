@@ -18,7 +18,7 @@ require 'spec_helper'
 
 describe User do
   it 'is not valid without a social id' do
-    build(:user, facebook_id: '').should_not be_valid
+    build(:user, facebook_id: '').should be_invalid
   end
 
   it 'adds buddies via the buddy_list setter' do
@@ -58,9 +58,10 @@ describe User do
 
       users = User.all.to_a
       users.count.should eq(3)
-      users.first.id.should eq(user.id)
-      users[1..2].map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
-      users[1..2].map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
+      users.map(&:id).should include(user.id)
+      facebook_users = users.select { |u| u.facebook_id != user.facebook_id }
+      facebook_users.map(&:facebook_id).should eq([MATTEO_DEPALO['id'], EUGENIO_DEPALO['id']])
+      facebook_users.map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
     end
   end
 

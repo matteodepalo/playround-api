@@ -4,6 +4,6 @@ class V1::TokensController < ApplicationController
     info = graph.get_object('me')
     @user = User.find_or_create_by_facebook_oauth(info)
 
-    render json: @user.api_keys.create
+    render json: @user.api_keys.create, status: :created
   end
 end

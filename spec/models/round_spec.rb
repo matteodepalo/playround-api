@@ -47,7 +47,7 @@ describe Round do
   it 'is not valid without a game' do
     round = build :round
     round.game = nil
-    round.should_not be_valid
+    round.should be_invalid
   end
 
   it 'raises error when assigning a wrong game_name' do
@@ -68,7 +68,16 @@ describe Round do
     round = create :round, game_name: :table_football
     round.game_name = :go
     round.should be_invalid
-    round.errors.full_messages.should include('Game cannot be changed after creation')
+    round.errors[:game].first.should eq('cannot be changed after creation')
+  end
+
+  it 'find or initializes a team with find_or_initialize_team' do
+    round = create :round
+
+    team = round.find_or_initialize_team(round.game.team_names.first)
+    team.name.should eq(round.game.team_names.first)
+    team.save
+    round.find_or_initialize_team(round.game.team_names.first).should eq(team)
   end
 
   it 'can assign participants' do
@@ -76,36 +85,55 @@ describe Round do
     round = build :round
     facebook_users = [MATTEO_DEPALO, EUGENIO_DEPALO]
 
-    round.participation_list = [
-      { user: { id: user.id } },
-      { user: { facebook_id: MATTEO_DEPALO['id'] } },
-      { team: 'dire', user: { facebook_id: EUGENIO_DEPALO['id'] } }
+    round.teams = [
+      {
+        name: 'radiant',
+        participations: [
+          { user: { id: user.id } }
+        ]
+      },
+      {
+        name: 'dire',
+        participations: [
+          { user: { facebook_id: EUGENIO_DEPALO['id'] } },
+          { user: { facebook_id: MATTEO_DEPALO['id'] } }
+        ]
+      }
     ]
 
     round.save
 
     users = round.participations.map(&:user)
     users.count.should eq(3)
-    users.first.name.should eq(user.name)
-    users[1..2].map(&:facebook_id).should eq(facebook_users.map { |u| u['id'] })
-    users[1..2].map(&:name).should eq(['Matteo Depalo', 'Eugenio Depalo'])
-    round.participations.map(&:team).should eq(['radiant', 'radiant', 'dire'])
+    round.teams.where(name: 'radiant').first.users.should eq([user])
+    round.teams.where(name: 'dire').first.users.map(&:facebook_id).should eq(facebook_users.map { |u| u['id'] })
   end
 
-  it 'creates a new arena with the arena_properties setter' do
+  it 'creates a new arena with the arena setter' do
     foursquare_id = attributes_for(:arena)[:foursquare_id]
     round = build :round
-    round.arena_properties = { foursquare_id: foursquare_id }
+    round.arena = { foursquare_id: foursquare_id }
     round.save
 
     round.arena.foursquare_id.should eq(foursquare_id)
   end
 
-  it 'has a list of available teams' do
-    round = create :round, game_name: :go
-    round.available_teams.should eq(['black', 'white'])
-    create :participation, round: round, team: 'black'
+  it 'transitions to ongoing when the it is full of participants' do
+    round = create :round
 
-    round.available_teams.should eq(['white'])
+    round.game.number_of_players.times do
+      Participation.create(team: round.teams.create(name: round.game.team_names.first), user: create(:user))
+    end
+
+    round.reload
+    round.state.should eq('ongoing')
+  end
+
+  it 'can decare a winner via the declare_winner method' do
+    round = create :full_round
+    round.reload
+    round.declare_winner('radiant')
+    round.teams.where(name: 'radiant').first.winner.should eq(true)
+    round.should be_over
   end
 end

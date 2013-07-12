@@ -7,7 +7,7 @@ describe 'Tokens Requests' do
 
       post v1_tokens_path, { token: { facebook_access_token: user['access_token'] } }
 
-      response.status.should eq(200)
+      response.status.should eq(201)
       parsed_response = JSON.parse(response.body)
       parsed_response['token']['value'].should_not be_nil
       user = parsed_response['token']['user']

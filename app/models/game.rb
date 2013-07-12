@@ -52,4 +52,8 @@ class Game < ActiveRecord::Base
   def teams
     {}
   end
+
+  def number_of_players
+    teams.map { |t| t[:number_of_players] }.sum
+  end
 end

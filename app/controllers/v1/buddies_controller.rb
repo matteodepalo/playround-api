@@ -9,11 +9,4 @@ class V1::BuddiesController < ApplicationController
 
     render json: @user.buddies
   end
-
-  def create
-    authenticate!
-    current_user.buddy_list = params[:buddies]
-
-    render json: current_user.buddies
-  end
 end
