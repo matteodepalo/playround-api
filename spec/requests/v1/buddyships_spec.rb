@@ -8,7 +8,7 @@ describe 'Buddyships Specs' do
       user = create :user
       post_with_auth v1_user_buddyships_path(user_id: 'me'), { buddyships: valid_attributes }, user: user
 
-      response.status.should eq(200)
+      response.status.should eq(201)
       buddyships = JSON.parse(response.body)['buddyships']
       buddyships.count.should eq(2)
       buddyships.first['user']['name'].should eq(user.name)
