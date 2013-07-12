@@ -28,7 +28,7 @@ describe Participation do
     participation.should be_valid
 
     participation.save
-    Participation.new(team: team, user: user).should_not be_valid
+    Participation.new(team: team, user: user).should be_invalid
   end
 
   it 'must have a unique combination of user and round' do

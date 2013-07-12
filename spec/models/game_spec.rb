@@ -34,7 +34,7 @@ describe Game do
   it 'is invalid if the name is alreay existing' do
     game = Game.build_and_create(name: :dota2)
     game2 = Game.new(name: :dota2)
-    game2.should_not be_valid
+    game2.should be_invalid
   end
 
   it 'raises exception when a wrong name is used' do

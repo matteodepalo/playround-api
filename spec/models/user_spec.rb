@@ -18,7 +18,7 @@ require 'spec_helper'
 
 describe User do
   it 'is not valid without a social id' do
-    build(:user, facebook_id: '').should_not be_valid
+    build(:user, facebook_id: '').should be_invalid
   end
 
   it 'adds buddies via the buddy_list setter' do

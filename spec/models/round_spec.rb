@@ -47,7 +47,7 @@ describe Round do
   it 'is not valid without a game' do
     round = build :round
     round.game = nil
-    round.should_not be_valid
+    round.should be_invalid
   end
 
   it 'raises error when assigning a wrong game_name' do
