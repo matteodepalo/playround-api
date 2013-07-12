@@ -20,7 +20,7 @@ class Team < ActiveRecord::Base
 
   validate :name, uniqueness: { scope: :round_id }
   validate :team_name_must_be_among_game_team_names
-  validate :one_winner_team_per_round
+  validate :one_winning_team_per_round
 
   def participations=(participation_hashes)
     return unless participation_hashes
@@ -54,7 +54,7 @@ class Team < ActiveRecord::Base
     errors.add(:name, "must be among:\"#{round.game.team_names.join(', ')}\"") if !round.game.team_names.include?(name)
   end
 
-  def one_winner_team_per_round
+  def one_winning_team_per_round
     errors.add(:winner, 'can be true for one team per round') if winner == true && round.teams.where(winner: true).count != 0
   end
 end
