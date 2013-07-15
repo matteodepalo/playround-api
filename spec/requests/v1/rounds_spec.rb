@@ -18,6 +18,7 @@ describe 'Rounds Requests' do
         round['state'].should eq('waiting_for_players')
         round['game']['display_name'].should eq('Dota 2')
         round['user']['name'].should eq(round_factory.user.name)
+        round['created_at'].should eq(round_factory.created_at.iso8601(3))
       end
     end
 
