@@ -18,7 +18,7 @@ local: &local
   username: playround
   password: psql
   host: localhost
-  template: template2
+  template: template0
   collation: en_US.UTF8
   ctype: en_US.UTF8
   encoding: utf-8

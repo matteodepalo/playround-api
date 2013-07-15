@@ -13,7 +13,7 @@ describe 'Tokens Requests' do
       user = parsed_response['token']['user']
       user['name'].should be_present
       user['email'].should be_present
-      user['image'].should eq("http://graph.facebook.com/#{user['facebook_id']}/picture?type=square")
+      user['picture_url'].should eq("http://graph.facebook.com/#{user['facebook_id']}/picture?type=square")
       user['facebook_id'].should be_present
       FACEBOOK_TEST_USERS.delete_all
     end

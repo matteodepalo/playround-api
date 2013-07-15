@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
     self.buddies << User.find_or_create_by_hashes(buddies_hashes)
   end
 
-  def image
+  def picture_url
     facebook_id.present? ? "http://graph.facebook.com/#{facebook_id}/picture?type=square" : ''
   end
 end
