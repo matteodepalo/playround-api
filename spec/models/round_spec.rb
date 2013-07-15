@@ -48,12 +48,14 @@ describe Round do
     round = build :round
     round.game = nil
     round.should be_invalid
+    round.errors[:game].first.should eq('can\'t be blank')
   end
 
   it 'raises error when assigning a wrong game_name' do
     round = build :round
     round.game_name = :invalid_game
     round.should be_invalid
+    round.errors[:game_name].first.should eq("must be among: #{Game::VALID_GAME_NAMES.join(', ')}")
     round.game_name = :dota2
     round.should be_valid
   end

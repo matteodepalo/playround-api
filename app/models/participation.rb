@@ -57,6 +57,6 @@ class Participation < ActiveRecord::Base
   end
 
   def team_must_not_be_full
-    errors.add(:base, 'Team is full') if team.full?
+    errors.add(:base, 'team is full') if team.full?
   end
 end

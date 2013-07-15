@@ -86,7 +86,7 @@ class Round < ActiveRecord::Base
   private
 
   def check_game_name_validity
-    errors.add(:base, "game_name must be among: #{Game::VALID_GAME_NAMES.join(', ')}") if game_name_validity == false
+    errors.add(:game_name, "must be among: #{Game::VALID_GAME_NAMES.join(', ')}") if game_name_validity == false
   end
 
   def game_cannot_be_changed_after_creation

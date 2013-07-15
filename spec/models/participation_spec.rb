@@ -28,7 +28,9 @@ describe Participation do
     participation.should be_valid
 
     participation.save
-    Participation.new(team: team, user: user).should be_invalid
+    invalid_participation = Participation.new(team: team, user: create(:user))
+    invalid_participation.should be_invalid
+    invalid_participation.errors[:base].first.should eq('team is full')
   end
 
   it 'must have a unique combination of user and round' do

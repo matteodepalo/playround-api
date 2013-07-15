@@ -19,7 +19,9 @@ describe Team do
   let(:round) { create :round }
 
   it 'is invalid if the name is not among the round game team names' do
-    Team.new(round: round, name: 'test').should be_invalid
+    team = Team.new(round: round, name: 'test')
+    team.should be_invalid
+    team.errors[:name].first.should eq("must be among:\"#{team.round.game.team_names.join(', ')}\"")
     Team.new(round: round, name: round.game.team_names.first).should be_valid
   end
 

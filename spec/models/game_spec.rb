@@ -24,6 +24,7 @@ describe Game do
   it 'is invalid with a game name not taken from the list of valid games' do
     game = Game.new(name: :lol)
     game.should be_invalid
+    game.errors[:name].first.should eq('is not included in the list')
   end
 
   it 'builds the correct game based on the name attribute' do
@@ -35,6 +36,7 @@ describe Game do
     game = Game.build_and_create(name: :dota2)
     game2 = Game.new(name: :dota2)
     game2.should be_invalid
+    game2.errors[:name].first.should eq('has already been taken')
   end
 
   it 'raises exception when a wrong name is used' do

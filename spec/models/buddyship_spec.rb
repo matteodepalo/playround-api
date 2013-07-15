@@ -20,6 +20,8 @@ describe Buddyship do
   it 'has different user_id and buddy_id' do
     user = create :user
 
-    Buddyship.new(user: user, buddy: user).should be_invalid
+    buddyship = Buddyship.new(user: user, buddy: user)
+    buddyship.should be_invalid
+    buddyship.errors[:base].first.should eq('user_id and buddy_id must be different')
   end
 end
