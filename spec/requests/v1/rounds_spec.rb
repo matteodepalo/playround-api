@@ -119,8 +119,12 @@ describe 'Rounds Requests' do
         teams.count.should eq(2)
         teams.select { |t| t['participations'].count == 2 }.first['name'].should eq('dire')
         teams.select { |t| t['participations'].count == 1 }.first['name'].should eq('radiant')
-        teams.select { |t| t['name'] == 'radiant' }.first['display_name'].should eq('Radiant')
-        teams.select { |t| t['name'] == 'dire' }.first['display_name'].should eq('Dire')
+        radiant = teams.select { |t| t['name'] == 'radiant' }.first
+        radiant['display_name'].should eq('Radiant')
+        radiant['number_of_players'].should eq(5)
+        dire = teams.select { |t| t['name'] == 'dire' }.first
+        dire['display_name'].should eq('Dire')
+        dire['number_of_players'].should eq(5)
         participations = teams.map { |t| t['participations'] }.flatten
         participations.count.should eq(3)
         registered_user_participation = participations.select { |u| u['user']['id'] == participant.id }.first
