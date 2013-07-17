@@ -109,6 +109,8 @@ RSpec.configure do |config|
         f.write "#{JSON.pretty_generate(JSON.parse(request_body))} \n\n"
       end
 
+      f.write "Status: #{response.status} \n\n"
+
       if response.body.present?
         f.write "Response body: \n\n"
         f.write "#{JSON.pretty_generate(JSON.parse(response.body))} \n\n"
