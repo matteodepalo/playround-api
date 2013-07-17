@@ -73,7 +73,10 @@ RSpec.configure do |config|
   config.after(:all) { DeferredGarbageCollection.reconsider }
 
   config.before(:suite) do
-    File.delete(File.join(Rails.root, '/docs/index.txt')) if File.exists?(File.join(Rails.root, '/docs/index.txt'))
+    Dir.glob(File.join(Rails.root, '/docs/', '*')).each do |f|
+      File.delete(f)
+    end
+
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -88,7 +91,10 @@ RSpec.configure do |config|
   end
 
   config.after(:each, type: :request) do
-    File.open(File.join(Rails.root, '/docs/index.txt'), 'a') do |f|
+    example.metadata.to_s.match(/(\w+)\sRequests/)
+    file_name = $1.underscore
+
+    File.open(File.join(Rails.root, "/docs/#{file_name}.txt"), 'a') do |f|
       f.write "#{request.method} #{request.path} \n\n"
 
       request_body = request.body.read

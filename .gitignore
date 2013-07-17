@@ -31,3 +31,4 @@ cookbooks
 /.env.production
 vcr
 /docs/index.txt
+/docs/

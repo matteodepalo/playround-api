@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Buddies Spec' do
+describe 'Buddies Requests' do
   describe 'GET users/1/buddies' do
     it 'responds with the list of buddies' do
       user = create :user

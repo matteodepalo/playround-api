@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Buddyships Specs' do
+describe 'Buddyships Requests' do
   valid_attributes =  [{ facebook_id: MATTEO_DEPALO['id'] }, { facebook_id: EUGENIO_DEPALO['id'] }]
 
   describe 'POST users/me/buddyships' do

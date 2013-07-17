@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Participations Spec' do
+describe 'Participations Requests' do
   let(:user) { create :user }
   let(:round) { create :round, game_name: :dota2 }
 

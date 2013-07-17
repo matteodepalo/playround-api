@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Api Configuration' do
+describe 'Api Configuration Requests' do
   it 'redirects to the latest version when a nonexistent version is specified' do
     get '/v10/rounds'
 
