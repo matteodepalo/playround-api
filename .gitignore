@@ -30,3 +30,4 @@ cookbooks
 /.env.test
 /.env.production
 vcr
+/docs/index.txt

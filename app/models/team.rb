@@ -36,6 +36,10 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def number_of_players
+    participations.size
+  end
+
   def display_name
     round.game.teams.select { |t| t[:name] == name }.first[:display_name]
   end
