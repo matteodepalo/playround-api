@@ -64,7 +64,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = 'random'
+  # config.order = 'random'
 
   config.include FactoryGirl::Syntax::Methods
   config.include Test::Helpers
@@ -73,6 +73,7 @@ RSpec.configure do |config|
   config.after(:all) { DeferredGarbageCollection.reconsider }
 
   config.before(:suite) do
+    File.delete(File.join(Rails.root, '/docs/index.txt')) if File.exists?(File.join(Rails.root, '/docs/index.txt'))
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -84,5 +85,28 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  config.after(:each, type: :request) do
+    File.open(File.join(Rails.root, '/docs/index.txt'), 'a') do |f|
+      f.write "#{request.method} #{request.path} \n\n"
+
+      request_body = request.body.read
+
+      if request.headers['Authorization']
+        f.write "Headers: \n\n"
+        f.write "Authorization: #{request.headers['Authorization']} \n\n"
+      end
+
+      if request_body.present?
+        f.write "Request: \n\n"
+        f.write "#{JSON.pretty_generate(JSON.parse(request_body))} \n\n"
+      end
+
+      if response.body.present?
+        f.write "Response body: \n\n"
+        f.write "#{JSON.pretty_generate(JSON.parse(response.body))} \n\n"
+      end
+    end unless request.path == '/unauthenticated' || response.body.match('redirected')
   end
 end
