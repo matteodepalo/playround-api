@@ -37,7 +37,7 @@ class Team < ActiveRecord::Base
   end
 
   def info
-    round.game.teams.select { |t| t[:name] == name }.first
+    @info ||= round.game.teams.select { |t| t[:name] == name }.first
   end
 
   def number_of_players
