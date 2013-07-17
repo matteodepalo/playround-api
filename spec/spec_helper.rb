@@ -91,7 +91,14 @@ RSpec.configure do |config|
   end
 
   config.after(:each, type: :request) do
-    example.metadata.to_s.match(/(\w+)\sRequests/)
+    example_group = example.metadata[:example_group]
+
+    while example_group
+      top_level_example_group = example_group
+      example_group = example_group[:example_group]
+    end
+
+    top_level_example_group[:description_args].first.match(/(\w+)\sRequests/)
     file_name = $1.underscore
 
     File.open(File.join(Rails.root, "/docs/#{file_name}.txt"), 'a') do |f|
@@ -105,7 +112,7 @@ RSpec.configure do |config|
       end
 
       if request_body.present?
-        f.write "Request: \n\n"
+        f.write "Request body: \n\n"
         f.write "#{JSON.pretty_generate(JSON.parse(request_body))} \n\n"
       end
 
@@ -115,6 +122,6 @@ RSpec.configure do |config|
         f.write "Response body: \n\n"
         f.write "#{JSON.pretty_generate(JSON.parse(response.body))} \n\n"
       end
-    end unless request.path == '/unauthenticated' || response.body.match('redirected')
+    end unless response.status == 401 || response.status == 403 || response.status == 301
   end
 end
