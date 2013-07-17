@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Buddies Requests' do
-  describe 'GET users/1/buddies' do
+  describe 'GET /v1/users/:user_id/buddies' do
     it 'responds with the list of buddies' do
       user = create :user
       3.times { user.buddies << create(:user) }
@@ -12,7 +12,7 @@ describe 'Buddies Requests' do
     end
   end
 
-  describe 'GET users/me/buddies' do
+  describe 'GET /v1/users/me/buddies' do
     it 'responds with the list of current_user\'s buddies' do
       user = create :user
       3.times { user.buddies << create(:user) }

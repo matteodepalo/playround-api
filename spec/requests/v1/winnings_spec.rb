@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Winnings Requests' do
   let(:round) { create :full_round }
 
-  describe 'POST /rounds/:round_id/winnings' do
+  describe 'POST /v1/rounds/:round_id/winnings' do
     valid_attributes = { winning: { team_name: 'radiant' } }
     invalid_attributes = { winning: { team_name: 'lol' } }
 

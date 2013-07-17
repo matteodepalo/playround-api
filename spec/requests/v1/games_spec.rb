@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Games Requests' do
-  describe 'GET /games' do
+  describe 'GET /v1/games' do
     it 'returns the list of games' do
       Game::VALID_GAME_NAMES.each do |game_name|
         Game.build_and_create(name: game_name)

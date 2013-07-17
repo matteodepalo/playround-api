@@ -93,16 +93,19 @@ RSpec.configure do |config|
   config.after(:each, type: :request) do
     example_group = example.metadata[:example_group]
 
+    example_groups = []
+
     while example_group
-      top_level_example_group = example_group
+      example_groups << example_group
       example_group = example_group[:example_group]
     end
 
-    top_level_example_group[:description_args].first.match(/(\w+)\sRequests/)
+    action = example_groups[-2][:description_args].first if example_groups[-2]
+    example_groups[-1][:description_args].first.match(/(\w+)\sRequests/)
     file_name = $1.underscore
 
     File.open(File.join(Rails.root, "/docs/#{file_name}.txt"), 'a') do |f|
-      f.write "#{request.method} #{request.path} \n\n"
+      f.write "#{action} \n\n"
 
       request_body = request.body.read
 

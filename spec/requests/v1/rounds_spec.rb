@@ -6,7 +6,7 @@ describe 'Rounds Requests' do
   invalid_attributes = { game_name: 'lol' }
   let(:user) { create :user }
 
-  describe 'GET /rounds/1' do
+  describe 'GET /v1/rounds/:id' do
     describe 'with authentication' do
       it 'returns the requested round' do
         round_factory = create :round
@@ -32,7 +32,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'GET /rounds' do
+  describe 'GET /v1/rounds' do
     describe 'with authentication' do
       it 'returns the list of rounds owned by the user' do
         round = create :round
@@ -54,7 +54,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'POST /rounds' do
+  describe 'POST /v1/rounds' do
     describe 'with authentication' do
       it 'succeeds with valid params and arena taken from foursquare', :vcr do
         game = Game.build_and_create(name: valid_attributes[:game_name])
@@ -138,7 +138,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'DELETE /rounds/1' do
+  describe 'DELETE /v1/rounds/:id' do
     describe 'with authentication and authorization' do
       it 'succeeds with valid params' do
         round = create :round

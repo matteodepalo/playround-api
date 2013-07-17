@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Tokens Requests' do
-  describe 'POST /tokens' do
+  describe 'POST /v1/tokens' do
     it 'creates a new user with a Facebook access token', :vcr do
       user = FACEBOOK_TEST_USERS.create(true, 'email')
 
