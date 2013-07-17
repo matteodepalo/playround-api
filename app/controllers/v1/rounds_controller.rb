@@ -2,7 +2,7 @@ class V1::RoundsController < ApplicationController
   before_action :authenticate!
 
   def index
-    render json: Round.where(user_id: current_user.id)
+    render json: Round.where(user_id: current_user.id).order('created_at DESC')
   end
 
   def show
