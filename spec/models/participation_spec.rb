@@ -43,6 +43,17 @@ describe Participation do
     participation.errors[:base].first.should eq('user and round must be unique')
   end
 
+  it 'must not have a over round' do
+    team = round.teams.create(name: round.game.team_names.first)
+    round.start
+    round.finish
+    round.reload
+
+    participation = Participation.new(team: team, user: user)
+    participation.should be_invalid
+    participation.errors[:round].first.should eq('must not be over')
+  end
+
   describe '#self.create_or_update' do
     it 'creates a participation' do
       team = round.teams.create(name: round.game.team_names.first)
