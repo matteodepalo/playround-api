@@ -3,7 +3,6 @@ class CreateParticipations < ActiveRecord::Migration
     create_table :participations, id: :uuid do |t|
       t.uuid :team_id
       t.uuid :user_id
-      t.boolean :joined, default: false
 
       t.timestamps
     end

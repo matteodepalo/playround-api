@@ -26,15 +26,6 @@ class Participation < ActiveRecord::Base
 
   after_create :start_round, if: -> { round.participations.count == round.game.number_of_players }
 
-  def self.create_or_update(options = {})
-    if participation = where(user: options[:user]).first
-      participation.update(joined: true)
-      participation
-    else
-      create(options)
-    end
-  end
-
   def round
     team.round
   end
