@@ -11,7 +11,7 @@
 #
 # Indexes
 #
-#  index_users_on_facebook_id  (facebook_id)
+#  index_users_on_facebook_id  (facebook_id) UNIQUE
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

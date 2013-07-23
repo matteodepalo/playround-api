@@ -4,6 +4,7 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string(255)
+#  winner     :boolean          default(FALSE)
 #  round_id   :uuid
 #  created_at :datetime
 #  updated_at :datetime

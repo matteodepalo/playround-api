@@ -104,7 +104,6 @@ CREATE TABLE participations (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     team_id uuid,
     user_id uuid,
-    joined boolean DEFAULT false,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );

@@ -5,7 +5,6 @@
 #  id         :uuid             not null, primary key
 #  team_id    :uuid
 #  user_id    :uuid
-#  joined     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
 #
