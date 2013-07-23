@@ -5,6 +5,7 @@ describe 'Rounds Requests' do
   valid_attributes_with_current_location = { game_name: 'dota2', arena: { latitude: 50, longitude: -30 } }
   invalid_attributes = { game_name: 'lol' }
   let(:user) { create :user }
+  let(:round) { create :round }
 
   describe 'GET /v1/rounds/:id' do
     describe 'with authentication' do
@@ -24,7 +25,6 @@ describe 'Rounds Requests' do
 
     describe 'without authentication' do
       it 'responds with unauthorized' do
-        round = create :round
         get v1_round_path(round)
 
         response.status.should eq(401)
@@ -35,7 +35,6 @@ describe 'Rounds Requests' do
   describe 'GET /v1/rounds' do
     describe 'with authentication' do
       it 'returns the list of rounds owned by the user' do
-        round = create :round
         create :round, user: round.user
         get_with_auth v1_rounds_path, user: round.user
 
@@ -46,7 +45,6 @@ describe 'Rounds Requests' do
 
     describe 'without authentication' do
       it 'responds with unauthorized' do
-        round = create :round
         get v1_rounds_path
 
         response.status.should eq(401)
@@ -141,7 +139,6 @@ describe 'Rounds Requests' do
   describe 'DELETE /v1/rounds/:id' do
     describe 'with authentication and authorization' do
       it 'succeeds with valid params' do
-        round = create :round
         delete_with_auth v1_round_path(round), user: round.user
 
         response.status.should eq(200)
@@ -151,7 +148,6 @@ describe 'Rounds Requests' do
 
     describe 'without authentication' do
       it 'responds with unauthorized' do
-        round = create :round
         delete v1_round_path(round)
 
         response.status.should eq(401)
@@ -160,7 +156,6 @@ describe 'Rounds Requests' do
 
     describe 'without authorization' do
       it 'responds with forbidden' do
-        round = create :round
         delete_with_auth v1_round_path(round), user: user
 
         response.status.should eq(403)

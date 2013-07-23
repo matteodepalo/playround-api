@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe 'Buddies Requests' do
+  let(:user) { create :user }
+
   describe 'GET /v1/users/:user_id/buddies' do
     it 'responds with the list of buddies' do
-      user = create :user
       3.times { user.buddies << create(:user) }
       get v1_user_buddies_path(user)
 
@@ -14,7 +15,6 @@ describe 'Buddies Requests' do
 
   describe 'GET /v1/users/me/buddies' do
     it 'responds with the list of current_user\'s buddies' do
-      user = create :user
       3.times { user.buddies << create(:user) }
       get_with_auth v1_user_buddies_path(user_id: 'me'), user: user
 
@@ -24,7 +24,6 @@ describe 'Buddies Requests' do
 
     describe 'without authentication' do
       it 'responds with unauthorized' do
-        user = create :user
         3.times { user.buddies << create(:user) }
         get v1_user_buddies_path(user_id: 'me')
 

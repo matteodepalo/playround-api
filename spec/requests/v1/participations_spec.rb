@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe 'Participations Requests' do
   let(:user) { create :user }
+  let(:round) { create :round, game_name: :dota2, user: user }
 
   describe 'POST /v1/round/:round_id/participations' do
     describe 'with authentication and authorization' do
       it 'adds the participation to the round' do
-        round = create :round, game_name: :dota2, user: user
         post_with_auth v1_round_participations_path(round), { participation: { team: 'radiant', user: { id: user.id } } }, user: user
 
         response.status.should eq(201)
@@ -16,7 +16,6 @@ describe 'Participations Requests' do
       end
 
       it 'adds multiple participations to the round' do
-        round = create :round, game_name: :dota2, user: user
         user2 = create :user
 
         valid_attributes = {
@@ -43,7 +42,6 @@ describe 'Participations Requests' do
 
     describe 'without authentication' do
       it 'responds with unauthorized' do
-        round = create :round, game_name: :dota2, user: user
         post v1_round_participations_path(round)
 
         response.status.should eq(401)
@@ -52,7 +50,6 @@ describe 'Participations Requests' do
 
     describe 'without authorization' do
       it 'responds with forbidden' do
-        round = create :round, game_name: :dota2, user: user
         post_with_auth v1_round_participations_path(round), { participation: { team: 'radiant', user: { id: user.id } } }, user: create(:user)
 
         response.status.should eq(403)
@@ -61,7 +58,6 @@ describe 'Participations Requests' do
 
     describe 'with invalid params' do
       it 'responds with bad request' do
-        round = create :round, game_name: :dota2, user: user
         post_with_auth v1_round_participations_path(round), { wrong_parameter: { team: 'radiant', user: { id: user.id } } }, user: user
 
         response.status.should eq(400)
@@ -72,7 +68,6 @@ describe 'Participations Requests' do
   describe 'DELETE /v1/round/:round_id/participations' do
     describe 'with authentication' do
       it 'removes the participation from the round' do
-        round = create :round, game_name: :dota2, user: user
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)
         delete_with_auth v1_round_participations_path(round), { participation: { user: { id: user.id } } }, user: user
 
@@ -83,7 +78,6 @@ describe 'Participations Requests' do
 
     describe 'without authentication' do
       it 'responds with unauthorized' do
-        round = create :round, game_name: :dota2, user: user
         delete v1_round_participations_path(round)
 
         response.status.should eq(401)
@@ -92,7 +86,6 @@ describe 'Participations Requests' do
 
     describe 'without authorizaiton' do
       it 'responds with forbidden' do
-        round = create :round, game_name: :dota2, user: user
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)
         delete_with_auth v1_round_participations_path(round), { participation: { user: { id: user.id } } }, user: create(:user)
 
