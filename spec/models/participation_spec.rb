@@ -43,33 +43,13 @@ describe Participation do
     participation.errors[:base].first.should eq('user and round must be unique')
   end
 
-  it 'must not have a over round' do
+  it 'must have a round waiting for players' do
     team = round.teams.create(name: round.game.team_names.first)
     round.start
-    round.finish
     round.reload
 
     participation = Participation.new(team: team, user: user)
     participation.should be_invalid
-    participation.errors[:round].first.should eq('must not be over')
-  end
-
-  describe '#self.create_or_update' do
-    it 'creates a participation' do
-      team = round.teams.create(name: round.game.team_names.first)
-      participation = Participation.create_or_update(team: team, user: user)
-
-      round.participations.should include(participation)
-    end
-
-    it 'updates a participation if it already exists' do
-      team = round.teams.create(name: round.game.team_names.first)
-      participation = create :participation, team: team, user: user
-      updated_participation = Participation.create_or_update(team: team, user: user, joined: true)
-
-      participation.joined.should eq(false)
-      participation.id.should eq(updated_participation.id)
-      updated_participation.joined.should eq(true)
-    end
+    participation.errors[:round].first.should eq('must be waiting for players')
   end
 end

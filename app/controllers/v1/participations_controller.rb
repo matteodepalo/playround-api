@@ -3,15 +3,38 @@ class V1::ParticipationsController < ApplicationController
 
   def create
     @round = Round.find(params[:round_id])
-    team = @round.find_or_initialize_team(params[:participation][:team])
-    Participation.create_or_update(team: team, user: current_user, joined: true)
 
-    render json: @round, status: :created
+    if params[:participation]
+      team = @round.find_or_initialize_team(params[:participation][:team])
+      participation = Participation.new(team: team, user_id: params[:participation][:user][:id])
+      authorize! :create, participation
+
+      if participation.save
+        render json: { participation: RoundSerializer.new(@round) }, status: :created
+      else
+        render json: { errors: participation.errors }, status: :unprocessable_entity
+      end
+    elsif params[:participations]
+      params[:participations].each do |p|
+        team = @round.find_or_initialize_team(p[:team])
+        participation = Participation.new(team: team, user_id: p[:user][:id])
+        authorize! :create, participation
+
+        participation.save
+      end
+
+      render json: { participations: RoundSerializer.new(@round) }, status: :created
+      # ignoring errors for now waiting for batch requests
+    else
+      head :bad_request
+    end
   end
 
   def destroy
     @round = Round.find(params[:round_id])
-    @round.participations.where(user: current_user).first.destroy
+    participation = @round.participations.where(user_id: params[:participation][:user][:id]).first
+    authorize! :destroy, participation
+    participation.destroy
 
     render json: @round
   end

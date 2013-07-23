@@ -22,7 +22,7 @@ class Participation < ActiveRecord::Base
   validates :team, presence: true
   validate :team_and_user_must_be_unique
   validate :team_must_not_be_full
-  validate :round_must_not_be_over
+  validate :round_must_be_waiting_for_players
 
   after_create :start_round, if: -> { round.participations.count == round.game.number_of_players }
 
@@ -52,7 +52,7 @@ class Participation < ActiveRecord::Base
     errors.add(:base, 'team is full') if team.full?
   end
 
-  def round_must_not_be_over
-    errors.add(:round, 'must not be over') if round.over?
+  def round_must_be_waiting_for_players
+    errors.add(:round, 'must be waiting for players') unless round.waiting_for_players?
   end
 end

@@ -10,5 +10,9 @@ class Ability
     can [:start, :declare_winner], Round do |round|
       can? :manage, round
     end
+
+    can :manage, Participation do |participation|
+      participation.user_id == user.id || can?(:manage, participation.round)
+    end
   end
 end
