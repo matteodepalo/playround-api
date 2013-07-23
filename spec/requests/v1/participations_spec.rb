@@ -69,7 +69,7 @@ describe 'Participations Requests' do
     describe 'with authentication' do
       it 'removes the participation from the round' do
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)
-        delete_with_auth v1_round_participations_path(round), { participation: { user: { id: user.id } } }, user: user
+        delete_with_auth v1_round_participation_path(round, user), {}, user: user
 
         response.status.should eq(200)
         JSON.parse(response.body)['round']['teams'].map { |t| t['participations'] }.flatten.should eq([])
@@ -78,7 +78,7 @@ describe 'Participations Requests' do
 
     describe 'without authentication' do
       it 'responds with unauthorized' do
-        delete v1_round_participations_path(round)
+        delete v1_round_participation_path(round, user)
 
         response.status.should eq(401)
       end
@@ -87,7 +87,7 @@ describe 'Participations Requests' do
     describe 'without authorizaiton' do
       it 'responds with forbidden' do
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)
-        delete_with_auth v1_round_participations_path(round), { participation: { user: { id: user.id } } }, user: create(:user)
+        delete_with_auth v1_round_participation_path(round, user), {}, user: create(:user)
 
         response.status.should eq(403)
       end

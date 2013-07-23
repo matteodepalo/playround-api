@@ -30,10 +30,7 @@ not_found = -> (params) { raise ActionController::RoutingError.new("No route mat
 PlayroundApi::Application.routes.draw do
   namespace :v1 do
     resources :rounds, except: [:new, :edit] do
-      resources :participations, only: :create do
-        collection { delete :destroy }
-      end
-
+      resources :participations, only: [:create, :destroy]
       resources :starts, only: :create
       resources :winnings, only: :create
     end

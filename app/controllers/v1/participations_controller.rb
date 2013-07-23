@@ -32,7 +32,8 @@ class V1::ParticipationsController < ApplicationController
 
   def destroy
     @round = Round.find(params[:round_id])
-    participation = @round.participations.where(user_id: params[:participation][:user][:id]).first
+    user_id = params[:id]
+    participation = @round.participations.where(user_id: user_id).first
     authorize! :destroy, participation
     participation.destroy
 
