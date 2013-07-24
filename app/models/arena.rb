@@ -4,8 +4,7 @@
 #
 #  id            :uuid             not null, primary key
 #  name          :string(255)
-#  latitude      :float
-#  longitude     :float
+#  latlon        :spatial({:srid=>
 #  foursquare_id :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
@@ -16,25 +15,33 @@
 #
 
 class Arena < ActiveRecord::Base
+  set_rgeo_factory_for_column(:lonlat, RGeo::Geographic.spherical_factory(srid: 4326))
+
   has_many :rounds
 
   validate :foursquare_id, uniqueness: true
-  validate :latitude, numericality: { greater_than:  -90, less_than:  90 }, presence: true
-  validate :longitude, numericality: { greater_than: -180, less_than: 180 }, presence: true
-  validate :uniqueness_of_latitude_and_longitude
+  validate :lonlat, presence: true
+  validate :uniqueness_of_lonlat
 
   before_validation :populate_data_from_foursquare, if: -> { foursquare_id && foursquare_id_changed? }
+
+  def latitude
+    lonlat.latitude
+  end
+
+  def longitude
+    lonlat.longitude
+  end
 
   private
 
   def populate_data_from_foursquare
     venue = FOURSQUARE_CLIENT.venue(foursquare_id)
     self.name = venue.name
-    self.latitude = venue.location.lat
-    self.longitude = venue.location.lng
+    self.lonlat = "POINT(#{venue.location.lng} #{venue.location.lat})"
   end
 
-  def uniqueness_of_latitude_and_longitude
-    errors.add(:base, 'latitude and longitude must be unique') if Arena.exists?(latitude: latitude, longitude: longitude)
+  def uniqueness_of_lonlat
+    errors.add(:base, 'latitude and longitude must be unique') if Arena.exists?(lonlat: lonlat)
   end
 end

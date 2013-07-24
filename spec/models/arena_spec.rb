@@ -4,8 +4,7 @@
 #
 #  id            :uuid             not null, primary key
 #  name          :string(255)
-#  latitude      :float
-#  longitude     :float
+#  latlon        :spatial({:srid=>
 #  foursquare_id :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
@@ -19,8 +18,8 @@ require 'spec_helper'
 
 describe Arena do
   it 'has a unique couple of latitude and longitude' do
-    Arena.create(latitude: 50, longitude: 10)
-    arena = Arena.new(latitude: 50, longitude: 10)
+    Arena.create(lonlat: 'POINT(50 10)')
+    arena = Arena.new(lonlat: 'POINT(50 10)')
     arena.should be_invalid
     arena.errors[:base].first.should eq('latitude and longitude must be unique')
   end

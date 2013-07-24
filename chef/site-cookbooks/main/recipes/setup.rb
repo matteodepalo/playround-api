@@ -42,16 +42,40 @@ directory "#{node[:deploy_to]}/shared" do
 end
 
 if node[:environment] == 'development'
+  apt_repository 'ppa_sharpie_for-science' do
+    uri 'http://ppa.launchpad.net/sharpie/for-science/ubuntu'
+    distribution node['lsb']['codename']
+    components ["main"]
+    keyserver 'keyserver.ubuntu.com'
+    key 'DAF764E2'
+    deb_src true
+  end
+
+  apt_repository 'ppa_sharpie_postgis-stable' do
+    uri 'http://ppa.launchpad.net/sharpie/postgis-stable/ubuntu'
+    distribution node['lsb']['codename']
+    components ['main']
+    keyserver 'keyserver.ubuntu.com'
+    key 'DAF764E2'
+    deb_src true
+  end
+
+  apt_repository 'ppa_ubuntugis_ubuntugis-unstable' do
+    uri 'http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu'
+    distribution node['lsb']['codename']
+    components ['main']
+    keyserver 'keyserver.ubuntu.com'
+    key '314DF160'
+    deb_src true
+    cache_rebuild true
+  end
+
+  package 'python-software-properties'
+  package 'postgresql-9.2-postgis'
+
   pg_user 'playround' do
     privileges :superuser => true, :createdb => true, :login => true
     password 'psql'
-  end
-
-  pg_database 'template2' do
-    owner 'playround'
-    encoding 'utf8'
-    template 'template0'
-    locale 'en_US.UTF8'
   end
 
   rbenv_gem 'spring'

@@ -4,8 +4,7 @@
 #
 #  id            :uuid             not null, primary key
 #  name          :string(255)
-#  latitude      :float
-#  longitude     :float
+#  latlon        :spatial({:srid=>
 #  foursquare_id :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
@@ -21,7 +20,6 @@ FactoryGirl.define do
   factory :arena do
     foursquare_id '5104'
     name 'Clinton St. Baking Co. & Restaurant'
-    latitude 40.721294
-    longitude -73.983994
+    lonlat 'POINT(-73.983994 40.721294'
   end
 end

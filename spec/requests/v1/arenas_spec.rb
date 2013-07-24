@@ -19,7 +19,7 @@ describe 'Arenas Requests' do
   describe 'GET /v1/arenas' do
     it 'returns the list of arenas' do
       create :arena
-      Arena.create(latitude: 30, longitude: 50)
+      Arena.create(lonlat: 'POINT(50 10)')
       get v1_arenas_path
 
       response.status.should eq(200)

@@ -14,6 +14,7 @@ gem 'unicorn'
 gem 'foursquare2'
 gem 'dotenv'
 gem 'warden', github: 'hassox/warden'
+gem 'activerecord-postgis-adapter'
 
 group :development do
   gem 'capistrano'

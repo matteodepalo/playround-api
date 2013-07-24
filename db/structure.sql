@@ -8,34 +8,6 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
--- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
-
-
---
--- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
-
-
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -62,8 +34,7 @@ CREATE TABLE api_keys (
 CREATE TABLE arenas (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     name character varying(255),
-    latitude double precision,
-    longitude double precision,
+    latlon postgis.geography(Point,4326),
     foursquare_id character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -327,7 +298,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO public,postgis;
 
 INSERT INTO schema_migrations (version) VALUES ('20130417161719');
 
