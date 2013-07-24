@@ -32,7 +32,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'GET /v1/rounds' do
+  describe 'GET /v1/rounds?latitude=:lat&longitude=:lon' do
     describe 'with authentication' do
       it 'returns the list of rounds nearby' do
         arena = create :arena
