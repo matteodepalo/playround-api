@@ -33,4 +33,12 @@ describe Arena do
     arena.name.should eq('Clinton St. Baking Co. & Restaurant')
     arena.foursquare_id.should eq(foursquare_id)
   end
+
+  it 'finds arenas in a radius of 50km' do
+    arena = Arena.create(lonlat: 'POINT(50 10)')
+    arena2 = Arena.create(lonlat: 'POINT(50.1 10)')
+    arena3 = Arena.create(lonlat: 'POINT(-30 -70)')
+
+    Arena.near(10, 50).should eq([arena, arena2])
+  end
 end

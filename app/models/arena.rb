@@ -21,17 +21,18 @@ class Arena < ActiveRecord::Base
 
   validate :foursquare_id, uniqueness: true
   validate :lonlat, presence: true
+  validate :latitude, numericality: { greater_than:  -90, less_than:  90 }, presence: true
+  validate :longitude, numericality: { greater_than: -180, less_than: 180 }, presence: true
   validate :uniqueness_of_lonlat
 
   before_validation :populate_data_from_foursquare, if: -> { foursquare_id && foursquare_id_changed? }
 
-  def latitude
-    lonlat.latitude
-  end
+  scope :near, -> (latitude, longitude) {
+    where("ST_DWithin(lonlat, ST_MakePoint(?, ?), 50000)", longitude, latitude)
+  }
 
-  def longitude
-    lonlat.longitude
-  end
+  delegate :latitude, to: :lonlat
+  delegate :longitude, to: :lonlat
 
   private
 

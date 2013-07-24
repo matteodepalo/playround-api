@@ -78,7 +78,7 @@ RSpec.configure do |config|
     end
 
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation, { except: %w[spatial_ref_sys] })
   end
 
   config.before(:each) do
