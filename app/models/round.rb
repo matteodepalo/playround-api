@@ -44,7 +44,7 @@ class Round < ActiveRecord::Base
     end
   end
 
-  scope :near, -> (latitude, longitude) { joins(:arena).merge(Arena.near(latitude, longitude)) }
+  scope :near, -> (longitude, latitude) { joins(:arena).merge(Arena.near(longitude, latitude)) }
 
   def game_name=(name)
     name = name.to_s

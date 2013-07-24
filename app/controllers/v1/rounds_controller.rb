@@ -2,7 +2,7 @@ class V1::RoundsController < ApplicationController
   before_action :authenticate!, except: :index
 
   def index
-    render json: Round.near(params[:latitude], params[:longitude]).order('created_at DESC')
+    render json: Round.near(params[:longitude], params[:latitude]).order('created_at DESC')
   end
 
   def show

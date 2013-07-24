@@ -38,7 +38,7 @@ describe 'Rounds Requests' do
         arena = create :arena
         create_list :round, 2, arena: arena
 
-        get v1_rounds_path(latitude: arena.latitude, longitude: arena.longitude)
+        get v1_rounds_path(longitude: arena.longitude, latitude: arena.latitude)
 
         response.status.should eq(200)
         JSON.parse(response.body)['rounds'].count.should eq(2)

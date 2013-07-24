@@ -27,7 +27,7 @@ class Arena < ActiveRecord::Base
 
   before_validation :populate_data_from_foursquare, if: -> { foursquare_id && foursquare_id_changed? }
 
-  scope :near, -> (latitude, longitude) {
+  scope :near, -> (longitude, latitude) {
     where("ST_DWithin(lonlat, ST_MakePoint(?, ?), 50000)", longitude, latitude)
   }
 

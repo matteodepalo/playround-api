@@ -39,6 +39,6 @@ describe Arena do
     arena2 = Arena.create(lonlat: 'POINT(50.1 10)')
     arena3 = Arena.create(lonlat: 'POINT(-30 -70)')
 
-    Arena.near(10, 50).should eq([arena, arena2])
+    Arena.near(50, 10).should eq([arena, arena2])
   end
 end
