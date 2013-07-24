@@ -34,20 +34,14 @@ describe 'Rounds Requests' do
 
   describe 'GET /v1/rounds' do
     describe 'with authentication' do
-      it 'returns the list of rounds owned by the user' do
-        create :round, user: round.user
-        get_with_auth v1_rounds_path, user: round.user
+      it 'returns the list of rounds nearby' do
+        arena = create :arena
+        create_list :round, 2, arena: arena
+
+        get v1_rounds_path(latitude: arena.latitude, longitude: arena.longitude)
 
         response.status.should eq(200)
         JSON.parse(response.body)['rounds'].count.should eq(2)
-      end
-    end
-
-    describe 'without authentication' do
-      it 'responds with unauthorized' do
-        get v1_rounds_path
-
-        response.status.should eq(401)
       end
     end
   end
