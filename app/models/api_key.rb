@@ -19,7 +19,7 @@ class ApiKey < ActiveRecord::Base
 
   validates :access_token, uniqueness: { allow_nil: true }, presence: true
 
-  before_create :generate_access_token
+  before_validation :generate_access_token, on: :create
 
   private
 

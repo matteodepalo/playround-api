@@ -16,7 +16,7 @@
 
 require 'spec_helper'
 
-describe Arena, :focus do
+describe Arena do
   it 'has a unique couple of latitude and longitude' do
     Arena.create(lonlat: 'POINT(50 10)')
     arena = Arena.new(lonlat: 'POINT(50 10)')
