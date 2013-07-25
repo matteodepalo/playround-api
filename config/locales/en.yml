@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      arena:
+        lonlat: "Latitude and longitude pair"

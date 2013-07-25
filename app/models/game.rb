@@ -19,7 +19,7 @@ class Game < ActiveRecord::Base
 
   has_many :rounds
 
-  validates :name, inclusion: { in: VALID_GAME_NAMES }, uniqueness: true, presence: true
+  validates :name, inclusion: { in: VALID_GAME_NAMES }, uniqueness: { allow_nil: true }, presence: true
 
   class << self
     def build(options)

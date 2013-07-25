@@ -19,11 +19,10 @@ class Arena < ActiveRecord::Base
 
   has_many :rounds
 
-  validate :foursquare_id, uniqueness: true
-  validate :lonlat, presence: true
-  validate :latitude, numericality: { greater_than:  -90, less_than:  90 }, presence: true
-  validate :longitude, numericality: { greater_than: -180, less_than: 180 }, presence: true
-  validate :uniqueness_of_lonlat
+  validates :foursquare_id, uniqueness: { allow_nil: true }
+  validates :lonlat, uniqueness: true
+  validates :latitude, numericality: { greater_than:  -90, less_than:  90, allow_nil: true }, presence: true
+  validates :longitude, numericality: { greater_than: -180, less_than: 180, allow_nil: true }, presence: true
 
   before_validation :populate_data_from_foursquare, if: -> { foursquare_id && foursquare_id_changed? }
 
@@ -31,8 +30,8 @@ class Arena < ActiveRecord::Base
     where("ST_DWithin(lonlat, ST_MakePoint(?, ?), 50000)", longitude, latitude)
   }
 
-  delegate :latitude, to: :lonlat
-  delegate :longitude, to: :lonlat
+  delegate :latitude, to: :lonlat, allow_nil: true
+  delegate :longitude, to: :lonlat, allow_nil: true
 
   private
 
@@ -40,9 +39,5 @@ class Arena < ActiveRecord::Base
     venue = FOURSQUARE_CLIENT.venue(foursquare_id)
     self.name = venue.name
     self.lonlat = "POINT(#{venue.location.lng} #{venue.location.lat})"
-  end
-
-  def uniqueness_of_lonlat
-    errors.add(:base, 'latitude and longitude must be unique') if Arena.exists?(lonlat: lonlat)
   end
 end

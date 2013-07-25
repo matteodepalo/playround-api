@@ -19,7 +19,7 @@ class Team < ActiveRecord::Base
   has_many :participations, inverse_of: :team
   has_many :users, through: :participations
 
-  validate :name, uniqueness: { scope: :round_id }
+  validate :name, uniqueness: { scope: :round_id, allow_nil: true }, presence: true
   validate :team_name_must_be_among_game_team_names
   validate :one_winning_team_per_round
 

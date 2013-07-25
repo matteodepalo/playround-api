@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   has_many :buddies, class_name: 'User', through: :buddyships
 
   validates :name, presence: true
-  validates :facebook_id, presence: true, uniqueness: true
+  validates :facebook_id, presence: true, uniqueness: { allow_nil: true }
 
   class << self
     def authenticate(token)

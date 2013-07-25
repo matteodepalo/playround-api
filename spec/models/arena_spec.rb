@@ -16,12 +16,12 @@
 
 require 'spec_helper'
 
-describe Arena do
+describe Arena, :focus do
   it 'has a unique couple of latitude and longitude' do
     Arena.create(lonlat: 'POINT(50 10)')
     arena = Arena.new(lonlat: 'POINT(50 10)')
     arena.should be_invalid
-    arena.errors[:base].first.should eq('latitude and longitude must be unique')
+    arena.errors[:lonlat].first.should eq('has already been taken')
   end
 
   it 'gets venue information from foursquare_id' do

@@ -8,6 +8,6 @@ class CreateArenas < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :arenas, :foursquare_id
+    add_index :arenas, :foursquare_id, unique: true
   end
 end
