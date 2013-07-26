@@ -18,10 +18,10 @@ require 'spec_helper'
 
 describe Arena do
   it 'has a unique couple of latitude and longitude' do
-    Arena.create(lonlat: 'POINT(50 10)')
-    arena = Arena.new(lonlat: 'POINT(50 10)')
+    Arena.create(location_geographic: 'POINT(50 10)')
+    arena = Arena.new(location_geographic: 'POINT(50 10)')
     arena.should be_invalid
-    arena.errors[:lonlat].first.should eq('has already been taken')
+    arena.errors[:location].first.should eq('has already been taken')
   end
 
   it 'gets venue information from foursquare_id' do
@@ -35,9 +35,9 @@ describe Arena do
   end
 
   it 'finds arenas in a radius of 50km' do
-    arena = Arena.create(lonlat: 'POINT(50 10)')
-    arena2 = Arena.create(lonlat: 'POINT(50.1 10)')
-    arena3 = Arena.create(lonlat: 'POINT(-30 -70)')
+    arena = Arena.create(location_geographic: 'POINT(50 10)')
+    arena2 = Arena.create(location_geographic: 'POINT(50.1 10)')
+    arena3 = Arena.create(location_geographic: 'POINT(-30 -70)')
 
     Arena.near(50, 10).should eq([arena, arena2])
   end

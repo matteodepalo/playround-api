@@ -30,15 +30,16 @@ ActiveRecord::Schema.define(version: 20130708121250) do
   add_index "api_keys", ["user_id"], :name => "index_api_keys_on_user_id"
 
   create_table "arenas", id: false, force: true do |t|
-    t.uuid     "id",                                                                     null: false
+    t.uuid     "id",                                                  null: false
     t.string   "name"
-    t.spatial  "lonlat",        limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.string   "foursquare_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.spatial  "location",      limit: {:srid=>3785, :type=>"point"}
   end
 
-  add_index "arenas", ["foursquare_id"], :name => "index_arenas_on_foursquare_id"
+  add_index "arenas", ["foursquare_id"], :name => "index_arenas_on_foursquare_id", :unique => true
+  add_index "arenas", ["location"], :name => "index_arenas_on_location", :spatial => true
 
   create_table "buddyships", id: false, force: true do |t|
     t.uuid     "id",         null: false

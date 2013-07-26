@@ -65,7 +65,7 @@ class Round < ActiveRecord::Base
     if arena.is_a?(Hash)
       longitude = arena.delete(:longitude)
       latitude = arena.delete(:latitude)
-      arena.merge!(lonlat: "POINT(#{longitude} #{latitude})") if longitude && latitude
+      arena.merge!(location: Arena::FACTORY.point(longitude, latitude).projection) if longitude && latitude
 
       super(Arena.where(arena).first_or_create)
     else

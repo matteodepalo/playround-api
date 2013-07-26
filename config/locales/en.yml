@@ -24,4 +24,4 @@ en:
   activerecord:
     attributes:
       arena:
-        lonlat: "Latitude and longitude pair"
+        location: "Latitude and longitude pair"

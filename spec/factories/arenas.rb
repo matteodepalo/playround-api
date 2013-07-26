@@ -20,6 +20,6 @@ FactoryGirl.define do
   factory :arena do
     foursquare_id '5104'
     name 'Clinton St. Baking Co. & Restaurant'
-    lonlat 'POINT(-73.983994 40.721294'
+    location_geographic 'POINT(-73.983994 40.721294)'
   end
 end

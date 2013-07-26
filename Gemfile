@@ -20,6 +20,8 @@ group :development do
   gem 'capistrano'
   gem 'knife-solo'
   gem 'debugger'
+  gem 'rgeo-shapefile'
+  gem 'dbf'
 end
 
 group :test, :development do
