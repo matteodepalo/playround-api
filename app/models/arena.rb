@@ -4,14 +4,15 @@
 #
 #  id            :uuid             not null, primary key
 #  name          :string(255)
-#  latlon        :spatial({:srid=>
 #  foursquare_id :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
+#  location      :spatial({:srid=>
 #
 # Indexes
 #
-#  index_arenas_on_foursquare_id  (foursquare_id)
+#  index_arenas_on_foursquare_id  (foursquare_id) UNIQUE
+#  index_arenas_on_location       (location)
 #
 
 class Arena < ActiveRecord::Base
@@ -27,6 +28,7 @@ class Arena < ActiveRecord::Base
   validates :longitude, numericality: { greater_than: -180, less_than: 180, allow_nil: true }, presence: true
 
   before_validation :populate_data_from_foursquare, if: -> { foursquare_id && foursquare_id_changed? }
+  before_validation :populate_data_from_geocoder, if: -> { location && location_changed? && !foursquare_id }
 
   scope :near, -> (longitude, latitude) {
     ewkb = EWKB.generate(FACTORY.point(longitude, latitude).projection)
@@ -37,8 +39,10 @@ class Arena < ActiveRecord::Base
     FACTORY.unproject(location)
   end
 
-  def location_geographic=(wkt_point)
-    self.location = FACTORY.project(FACTORY.parse_wkt(wkt_point))
+  def location_geographic=(lonlat = [])
+    longitude = lonlat.first
+    latitude = lonlat.last
+    self.location = FACTORY.project(FACTORY.point(longitude, latitude))
   end
 
   def latitude
@@ -54,6 +58,10 @@ class Arena < ActiveRecord::Base
   def populate_data_from_foursquare
     venue = FOURSQUARE_CLIENT.venue(foursquare_id)
     self.name = venue.name
-    self.location_geographic = "POINT(#{venue.location.lng} #{venue.location.lat})"
+    self.location_geographic = [venue.location.lng, venue.location.lat]
+  end
+
+  def populate_data_from_geocoder
+    self.name = Geocoder.search([latitude, longitude]).try(:first).try(:city)
   end
 end

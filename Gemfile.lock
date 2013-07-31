@@ -98,6 +98,7 @@ GEM
       faraday (~> 0.8)
       faraday_middleware (>= 0.8)
       hashie (>= 1.0, < 3.0.0)
+    geocoder (1.1.8)
     hashie (2.0.5)
     highline (1.6.18)
     hike (1.2.3)
@@ -234,11 +235,11 @@ DEPENDENCIES
   cancan
   capistrano
   database_cleaner
-  dbf
   debugger
   dotenv
   factory_girl_rails
   foursquare2
+  geocoder
   knife-solo
   koala
   oj

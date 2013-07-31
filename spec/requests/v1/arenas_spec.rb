@@ -17,9 +17,9 @@ describe 'Arenas Requests' do
   end
 
   describe 'GET /v1/arenas' do
-    it 'returns the list of arenas' do
+    it 'returns the list of arenas', :vcr do
       create :arena
-      Arena.create(location_geographic: 'POINT(50 10)')
+      Arena.create(location_geographic: [50, 10])
       get v1_arenas_path
 
       response.status.should eq(200)

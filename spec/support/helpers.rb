@@ -10,4 +10,8 @@ module Test::Helpers
       })
     end
   end
+
+  def stub_geocoder
+    Geocoder.stub(:search).and_return(EXAMPLE_GEOCODER_RESULT)
+  end
 end
