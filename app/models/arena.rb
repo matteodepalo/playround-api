@@ -27,7 +27,7 @@ class Arena < ActiveRecord::Base
   validates :latitude, numericality: { greater_than:  -90, less_than:  90, allow_nil: true }, presence: true
   validates :longitude, numericality: { greater_than: -180, less_than: 180, allow_nil: true }, presence: true
 
-  before_validation :populate_data_from_external_service, if: -> { name.blank? }
+  before_validation :populate_data_from_external_service, if: -> { name.blank? }, on: :create
 
   scope :near, -> (longitude, latitude) {
     ewkb = EWKB.generate(FACTORY.point(longitude, latitude).projection)
