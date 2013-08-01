@@ -27,8 +27,7 @@ class Arena < ActiveRecord::Base
   validates :latitude, numericality: { greater_than:  -90, less_than:  90, allow_nil: true }, presence: true
   validates :longitude, numericality: { greater_than: -180, less_than: 180, allow_nil: true }, presence: true
 
-  before_validation :populate_data_from_foursquare, if: -> { foursquare_id && foursquare_id_changed? }
-  before_validation :populate_data_from_geocoder, if: -> { location && location_changed? && !foursquare_id }
+  before_validation :populate_data_from_external_service, if: -> { name.blank? }
 
   scope :near, -> (longitude, latitude) {
     ewkb = EWKB.generate(FACTORY.point(longitude, latitude).projection)
@@ -55,13 +54,13 @@ class Arena < ActiveRecord::Base
 
   private
 
-  def populate_data_from_foursquare
-    venue = FOURSQUARE_CLIENT.venue(foursquare_id)
-    self.name = venue.name
-    self.location_geographic = [venue.location.lng, venue.location.lat]
-  end
-
-  def populate_data_from_geocoder
-    self.name = Geocoder.search([latitude, longitude]).try(:first).try(:city)
+  def populate_data_from_external_service
+    if foursquare_id
+      venue = FOURSQUARE_CLIENT.venue(foursquare_id)
+      self.name = venue.name
+      self.location_geographic = [venue.location.lng, venue.location.lat]
+    elsif location
+      self.name = Geocoder.search([latitude, longitude]).try(:first).try(:city)
+    end
   end
 end
