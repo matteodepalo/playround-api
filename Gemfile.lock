@@ -150,7 +150,6 @@ GEM
       mixlib-shellout
       systemu
       yajl-ruby
-    oj (2.0.11)
     pg (0.15.0)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -242,7 +241,6 @@ DEPENDENCIES
   geocoder
   knife-solo
   koala
-  oj
   pg
   rails
   rails-api
