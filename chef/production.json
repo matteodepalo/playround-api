@@ -1,5 +1,10 @@
 {
   "environment": "production",
   "server_name": "api.goplayround.com",
-  "run_list": "role[baseline]"
+  "run_list": [
+    "role[baseline]",
+    "role[db]",
+    "role[cache]",
+    "role[web_server]"
+  ]
 }

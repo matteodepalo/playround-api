@@ -15,7 +15,7 @@
 # gem 'pg'
 #
 
-local: &local
+default: &default
   username: playround
   password: psql
   host: localhost
@@ -25,10 +25,10 @@ local: &local
   encoding: utf-8
   adapter: postgis
   pool: 5
+  schema_search_path: public,postgis
 
 development:
-  <<: *local
-  schema_search_path: public,postgis
+  <<: *default
   database: playround-api_development
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -53,17 +53,11 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *local
-  schema_search_path: public,postgis
+  <<: *default
   database: playround-api_test
 
 production:
-  schema_search_path: public,postgis
-  adapter: postgis
-  encoding: utf-8
+  <<: *default
   database: <%= ENV['DATABASE'] %>
-  pool: 5
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
-  port: <%= ENV['DATABASE_PORT'] %>

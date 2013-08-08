@@ -1,0 +1,23 @@
+{
+  "name": "web_server",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The web server role for Playround-api",
+  "default_attributes": {
+    "user": {
+      "name": "deployer",
+      "password": "$1$QwF9exd/$TP8xD/JRaBjxNf0aRwr6G/"
+    },
+    "deploy_to": "/var/www/playround",
+    "sockets_folder": "/var/www/playround/tmp/sockets",
+    "release_path": "/var/www/playround/current",
+    "ruby-version": "2.0.0-p247"
+  },
+  "run_list": [
+    "recipe[ruby_build]",
+    "recipe[rbenv]",
+    "recipe[runit]",
+    "recipe[nginx]",
+    "recipe[main]"
+  ]
+}

@@ -73,9 +73,9 @@ if node[:environment] == 'development'
   package 'python-software-properties'
   package 'postgresql-9.2-postgis'
 
-  pg_user 'playround' do
+  pg_user node[:db_user][:name] do
     privileges :superuser => true, :createdb => true, :login => true
-    password 'psql'
+    password node[:db_user][:password]
   end
 
   rbenv_gem 'spring'

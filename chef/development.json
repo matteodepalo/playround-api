@@ -4,13 +4,16 @@
     "name": "vagrant",
     "password": "vagrant"
   },
+  "db_user": {
+    "password": "psql"
+  },
   "deploy_to": "/vagrant",
   "release_path": "/vagrant",
   "sockets_folder": "/home/vagrant/sockets",
   "run_list": [
-    "recipe[postgresql::server]",
-    "recipe[postgresql::contrib]",
-    "recipe[postgresql::server_dev]",
-    "role[baseline]"
+    "role[baseline]",
+    "role[db]",
+    "role[cache]",
+    "role[web_server]"
   ]
 }

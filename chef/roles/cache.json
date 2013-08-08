@@ -1,0 +1,16 @@
+{
+  "name": "cache",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The cache role for Playround-api",
+  "default_attributes": {
+    "redisio":{
+      "version": "2.6.12"
+    }
+  },
+  "run_list": [
+    "recipe[redisio::install]",
+    "recipe[redisio::enable]",
+    "recipe[memcached]"
+  ]
+}

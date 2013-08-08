@@ -1,0 +1,17 @@
+{
+  "name": "db",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The db role for Playround-api",
+  "default_attributes": {
+    "db_user": {
+      "name": "playround",
+      "password": "$1$a0h8NSBc$wI6TLjfY7UwplA2t43bG8/"
+    }
+  },
+  "run_list": [
+    "recipe[postgresql::server]",
+    "recipe[postgresql::contrib]",
+    "recipe[postgresql::server_dev]"
+  ]
+}
