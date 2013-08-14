@@ -13,6 +13,12 @@ GIT
     warden (1.2.1)
       rack (>= 1.0)
 
+PATH
+  remote: ./rspec_api_blueprint
+  specs:
+    rspec_api_blueprint (0.0.1)
+      rspec
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -184,6 +190,10 @@ GEM
     rgeo-shapefile (0.2.3)
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
+    rspec (2.13.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
     rspec-core (2.13.1)
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -246,6 +256,7 @@ DEPENDENCIES
   rails-api
   rgeo-shapefile
   rspec-rails
+  rspec_api_blueprint!
   state_machine
   unicorn
   vcr
