@@ -13,8 +13,9 @@ GIT
     warden (1.2.1)
       rack (>= 1.0)
 
-PATH
-  remote: ./rspec_api_blueprint
+GIT
+  remote: git://github.com/playround/rspec_api_blueprint.git
+  revision: 22937d433e7409c6d66d0a1da0a4c77be2eaa712
   specs:
     rspec_api_blueprint (0.0.1)
       rspec
