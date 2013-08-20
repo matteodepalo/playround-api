@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Arenas Requests' do
-  describe 'GET /v1/arenas/:id' do
+  describe 'GET /v1/arenas/{id}' do
     it 'returns the requested arena' do
       arena_factory = create :arena, foursquare_id: '5104'
       get v1_arena_path(arena_factory)

@@ -4,7 +4,7 @@ describe 'Participations Requests' do
   let(:user) { create :user }
   let(:round) { create :round, game_name: :dota2, user: user }
 
-  describe 'POST /v1/round/:round_id/participations' do
+  describe 'POST /v1/round/{round_id}/participations' do
     describe 'with authentication and authorization' do
       it 'adds the participation to the round' do
         post_with_auth v1_round_participations_path(round), { participation: { team: 'radiant', user: { id: user.id } } }, user: user
@@ -65,7 +65,7 @@ describe 'Participations Requests' do
     end
   end
 
-  describe 'DELETE /v1/round/:round_id/participations' do
+  describe 'DELETE /v1/round/{round_id}/participations' do
     describe 'with authentication' do
       it 'removes the participation from the round' do
         Participation.create(team: round.teams.create(name: round.game.team_names.first), user: user)

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Starts Requests' do
   let(:round) { create :round }
 
-  describe 'POST /v1/rounds/:round_id/starts' do
+  describe 'POST /v1/rounds/{round_id}/starts' do
     describe 'with authentication and authorization' do
       it 'succeeds' do
         post_with_auth v1_round_starts_path(round), {}, user: round.user

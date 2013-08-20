@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Users Requests' do
-  describe 'GET /v1/users/:id' do
+  describe 'GET /v1/users/{id}' do
     it 'returns the requested user' do
       user_factory = create :user, name: 'Test User', email: 'test@user.com'
       get v1_user_path(user_factory)

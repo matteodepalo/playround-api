@@ -7,7 +7,7 @@ describe 'Rounds Requests' do
   let(:user) { create :user }
   let(:round) { create :round }
 
-  describe 'GET /v1/rounds/:id' do
+  describe 'GET /v1/rounds/{id}' do
     describe 'with authentication' do
       it 'returns the requested round' do
         round_factory = create :round
@@ -32,7 +32,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'GET /v1/rounds?latitude=:lat&longitude=:lon' do
+  describe 'GET /v1/rounds{?latitude,longitude}' do
     describe 'with authentication' do
       it 'returns the list of rounds nearby' do
         arena = create :arena
@@ -131,7 +131,7 @@ describe 'Rounds Requests' do
     end
   end
 
-  describe 'DELETE /v1/rounds/:id' do
+  describe 'DELETE /v1/rounds/{id}' do
     describe 'with authentication and authorization' do
       it 'succeeds with valid params' do
         delete_with_auth v1_round_path(round), user: round.user

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Buddies Requests' do
   let(:user) { create :user }
 
-  describe 'GET /v1/users/:user_id/buddies' do
+  describe 'GET /v1/users/{user_id}/buddies' do
     it 'responds with the list of buddies' do
       3.times { user.buddies << create(:user) }
       get v1_user_buddies_path(user)
