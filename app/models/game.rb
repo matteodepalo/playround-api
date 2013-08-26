@@ -14,7 +14,7 @@
 #
 
 class Game < ActiveRecord::Base
-  VALID_GAME_NAMES = [:dota2, :table_football, :go]
+  VALID_GAME_NAMES = [:dota2, :table_football, :go, :risk]
   class InvalidGameNameError < StandardError; end
 
   has_many :rounds

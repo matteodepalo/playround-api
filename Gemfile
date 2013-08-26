@@ -21,7 +21,7 @@ group :development do
   gem 'knife-solo'
   gem 'debugger'
   gem 'rgeo-shapefile'
-  gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint'
+  gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
 end
 
 group :test, :development do

@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/playround/rspec_api_blueprint.git
-  revision: 0d6233d42dfd85ba0b6ad4f06b19d8535c334dc7
+  revision: fc4da9e370e50859d82f31566750a5a72cc51d10
   specs:
     rspec_api_blueprint (0.0.1)
       rspec-rails

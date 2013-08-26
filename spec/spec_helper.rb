@@ -74,10 +74,6 @@ RSpec.configure do |config|
   config.after(:all) { DeferredGarbageCollection.reconsider }
 
   config.before(:suite) do
-    Dir.glob(File.join(Rails.root, '/docs/', '*')).each do |f|
-      File.delete(f)
-    end
-
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation, { except: %w[spatial_ref_sys] })
   end
