@@ -30,5 +30,10 @@ module PlayroundApi
     config.assets.enabled = false
 
     config.active_record.schema_format = :ruby
+
+    console do
+      require 'pry'
+      config.console = Pry
+    end
   end
 end

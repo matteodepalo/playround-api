@@ -19,12 +19,13 @@ group :development do
   gem 'annotate', github: 'ctran/annotate_models'
   gem 'capistrano'
   gem 'knife-solo'
-  gem 'debugger'
   gem 'rgeo-shapefile'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
 end
 
 group :test, :development do
+  gem 'pry'
+  gem 'pry-doc'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 end
